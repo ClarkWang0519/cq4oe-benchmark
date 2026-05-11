@@ -1,0 +1,17 @@
+# CQ4OE benchmark Python dependencies.
+# Tested on Python 3.10.
+
+# RDF / OWL parsing
+rdflib>=7.0,<8.0
+owlready2>=0.46          # bundles a Java-backed HermiT reasoner (needs `java` on PATH)
+
+# Lexical similarity
+python-Levenshtein>=0.23
+textdistance>=4.6
+
+# Embedding similarity (served via Ollama; pull `embeddinggemma` once)
+sentence-transformers>=2.7
+langchain-ollama>=0.2
+
+# Spreadsheet output
+openpyxl>=3.1
