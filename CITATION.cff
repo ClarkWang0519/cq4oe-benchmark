@@ -1,0 +1,72 @@
+cff-version: 1.2.0
+title: "CQ4OE: A benchmark for assessing LLM-assisted ontology generation from competency questions"
+message: "If you use CQ4OE in your research, please cite both the software and the paper."
+type: software
+authors:
+  - given-names: Jiayi
+    family-names: Li
+    email: li.jiayi@upm.es
+    affiliation: "Ontology Engineering Group, Universidad Politécnica de Madrid"
+    orcid: "https://orcid.org/0009-0001-9475-8159"
+  - given-names: Ziyuan
+    family-names: Wang
+    email: ziyuan.wang@upm.es
+    affiliation: "Ontology Engineering Group, Universidad Politécnica de Madrid"
+    orcid: "https://orcid.org/0009-0000-6228-4713"
+  - given-names: Daniel
+    family-names: Garijo
+    email: daniel.garijo@upm.es
+    affiliation: "Ontology Engineering Group, Universidad Politécnica de Madrid"
+    orcid: "https://orcid.org/0000-0003-0454-7145"
+  - given-names: María
+    family-names: Poveda-Villalón
+    email: m.poveda@upm.es
+    affiliation: "Ontology Engineering Group, Universidad Politécnica de Madrid"
+    orcid: "https://orcid.org/0000-0003-3587-0367"
+repository-code: "https://github.com/oeg-upm/cq4oe-benchmark"
+url: "https://github.com/oeg-upm/cq4oe-benchmark"
+identifiers:
+  - type: doi
+    value: "10.5281/zenodo.20080309"
+    description: "Zenodo archive of the CQ4OE benchmark"
+  - type: doi
+    value: "10.57967/hf/8712"
+    description: "HuggingFace dataset record"
+abstract: >
+  CQ4OE is a benchmark for the systematic and reproducible evaluation of
+  LLM-based ontology generation from competency questions. For each of six
+  source ontologies, CQ4OE provides a CQ-driven gold OWL ontology with
+  explicit provenance linking each competency question to the classes,
+  properties, and axioms required to answer it. From this resource we derive
+  two complementary evaluation tasks. CQ2Term supports term-level evaluation
+  of CQ-specific class and property prediction over 99 CQs. CQ2Onto supports
+  full-ontology evaluation over 118 CQs, including hierarchy, property
+  modeling, and axiom-level structure.
+keywords:
+  - ontology generation
+  - large language models
+  - benchmark evaluation
+  - competency questions
+  - knowledge graph
+  - semantic web
+  - ontology engineering
+license: Apache-2.0
+preferred-citation:
+  type: software
+  title: "CQ4OE: A benchmark for assessing LLM-assisted ontology generation from competency questions"
+  authors:
+    - given-names: Jiayi
+      family-names: Li
+      orcid: "https://orcid.org/0009-0001-9475-8159"
+    - given-names: Ziyuan
+      family-names: Wang
+      orcid: "https://orcid.org/0009-0000-6228-4713"
+    - given-names: Daniel
+      family-names: Garijo
+      orcid: "https://orcid.org/0000-0003-0454-7145"
+    - given-names: María
+      family-names: Poveda-Villalón
+      orcid: "https://orcid.org/0000-0003-3587-0367"
+  year: 2026
+  doi: "10.5281/zenodo.20080309"
+  url: "https://doi.org/10.5281/zenodo.20080309"
