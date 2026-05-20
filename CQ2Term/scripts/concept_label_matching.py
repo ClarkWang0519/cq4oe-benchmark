@@ -1898,18 +1898,8 @@ def main():
     print("\n===== FINAL RESULTS =====")
     print(json.dumps(result, ensure_ascii=False, indent=2))
 
-    if args_dict.get("save_file_path"):
-
-        config_keys = {"class_counts", "matching_rule", "thresholds"}
-        result_for_save = {
-            "config": {k: v for k, v in result.items() if k in config_keys},
-            "results": _dict_to_list_of_objects(
-                {k: v for k, v in result.items() if k not in config_keys}
-            ),
-        }
-        with open(args_dict["save_file_path"], "w", encoding="utf-8") as f:
-            json.dump(result_for_save, f, ensure_ascii=False, indent=4)
-        print(f"\nMetric result saved to: {args_dict['save_file_path']}")
+    # MOD: JSON save moved further down (after best_class_map is built),
+    # so the file can include aggregated_overall and cli_args.
 
     if args_dict.get("save_pairings_path"):
         pairings_output = {}
@@ -1983,6 +1973,55 @@ def main():
             save_json(best_class_map, args_dict["save_best_class_map"])
             print(f"\nBest class mapping gold->pred saved to: "
                   f"{args_dict['save_best_class_map']}")
+
+        # MOD: build aggregated_overall block from best_class_map (one-to-one
+        # alignment after top-3 averaging).
+        if best_class_map is not None:
+            _gold_total = len(ground_class)
+            _pred_total = len(gen_class)
+            _tp = len(best_class_map)
+            _fp = max(0, _pred_total - _tp)
+            _fn = max(0, _gold_total - _tp)
+            _p  = _tp / (_tp + _fp) if (_tp + _fp) > 0 else 0.0
+            _r  = _tp / (_tp + _fn) if (_tp + _fn) > 0 else 0.0
+            _f1 = (2 * _p * _r / (_p + _r)) if (_p + _r) > 0 else 0.0
+            _scores = [v.get("score", 0.0) for v in best_class_map.values()]
+            _mean_score = sum(_scores) / len(_scores) if _scores else 0.0
+            _n_hard = sum(1 for v in best_class_map.values()
+                          if v.get("matching_way") == "hard_match")
+            result["aggregated_overall"] = {
+                "tp": _tp, "fp": _fp, "fn": _fn,
+                "precision": _p, "recall": _r, "f1": _f1,
+                "mean_agg_score": _mean_score,
+                "n_pairs": len(best_class_map),
+                "n_hard_matches": _n_hard,
+                "n_top3_avg": len(best_class_map) - _n_hard,
+                "gold_total": _gold_total,
+                "pred_total": _pred_total,
+                "top_n": top_n,
+                "final_threshold": final_threshold,
+            }
+
+        # MOD: JSON save moved here from earlier in main; adds cli_args.
+        if args_dict.get("save_file_path"):
+            config_keys = {"class_counts", "matching_rule", "thresholds"}
+            config_for_save = {k: v for k, v in result.items()
+                               if k in config_keys}
+            config_for_save["cli_args"] = {
+                k: (str(v) if hasattr(v, "__fspath__") else v)
+                for k, v in args_dict.items()
+            }
+            result_for_save = {
+                "config": config_for_save,
+                "results": _dict_to_list_of_objects(
+                    {k: v for k, v in result.items() if k not in config_keys}
+                ),
+            }
+            with open(args_dict["save_file_path"], "w",
+                      encoding="utf-8") as f:
+                json.dump(result_for_save, f, ensure_ascii=False, indent=4)
+            print(f"\nMetric result saved to: "
+                  f"{args_dict['save_file_path']}")
 
     if args_dict.get("save_best_matching_csv"):
         save_best_matching_csv(
