@@ -1678,6 +1678,7 @@ def main():
 
     if args.save_result:
         config = result.get("config", {})
+        config["cli_args"] = vars(args)  
         results_list = []
         for section_name, section_data in result.items():
             if section_name == "config":
