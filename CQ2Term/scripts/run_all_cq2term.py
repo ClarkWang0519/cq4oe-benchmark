@@ -1,10 +1,30 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+"""
+run_all_cq2term.py
 
+Walks 01_predictions/<model>/, runs eval_cq_terms.py for each (model, dataset)
+pair, and refreshes the leaderboard at the end of a successful run.
+
+Standard call:
+    cd CQ2Term
+    python -u scripts/run_all_cq2term.py
+
+Run on a subset of models:
+    python -u scripts/run_all_cq2term.py --models my_model
+
+Run on a subset of datasets:
+    python -u scripts/run_all_cq2term.py --datasets wine,awo
+
+Skip the leaderboard refresh:
+    python -u scripts/run_all_cq2term.py --no_leaderboard
+"""
+import argparse
 import subprocess
+import sys
 from pathlib import Path
 
-PYTHON = "YOUR PATH"
+PYTHON = "/Users/ljymacbook/opt/anaconda3/envs/tempautocl/bin/python"
 
 PRED_ROOT = Path("01_predictions")
 GOLD_ROOT = Path("00_gold_standard")
@@ -12,6 +32,9 @@ EVAL_ROOT = Path("03_evaluation_results")
 SUMMARY_ROOT = Path("04_summary")
 
 DATASETS = ["wine", "vgo", "swo", "awo", "odrl", "water"]
+
+# leaderboard/ sits at the repo root, one level above CQ2Term/.
+LEADERBOARD_DIR = Path("../leaderboard")
 
 
 def run(cmd):
@@ -59,16 +82,79 @@ def find_pred_cq_terms(model_dir, dataset):
     return None
 
 
+def parse_args():
+    p = argparse.ArgumentParser()
+    p.add_argument("--models", default=None,
+                   help="Comma-separated subset of model folder names. "
+                        "Default: all model folders under 01_predictions/")
+    p.add_argument("--datasets", default=None,
+                   help="Comma-separated subset of datasets. "
+                        f"Default: {','.join(DATASETS)}")
+    p.add_argument("--no_leaderboard", action="store_true",
+                   help="Skip the leaderboard refresh at the end")
+    args = p.parse_args()
+
+    if args.models:
+        args.models_list = [m.strip() for m in args.models.split(",") if m.strip()]
+    else:
+        args.models_list = None  # filled in main() from filesystem
+
+    if args.datasets:
+        args.datasets_list = [d.strip() for d in args.datasets.split(",") if d.strip()]
+        unknown = set(args.datasets_list) - set(DATASETS)
+        if unknown:
+            sys.exit(f"Unknown dataset(s): {sorted(unknown)}. "
+                     f"Pick from: {DATASETS}")
+    else:
+        args.datasets_list = DATASETS
+
+    return args
+
+
+def refresh_leaderboard():
+    """Call build_leaderboard.py from the leaderboard directory."""
+    script = LEADERBOARD_DIR / "build_leaderboard.py"
+    if not script.exists():
+        print(f"WARN: {script} not found, leaderboard not refreshed.")
+        return
+    cmd = [
+        PYTHON, str(script),
+        "--cq2term_root", "03_evaluation_results",
+        "--cq2onto_root", "../CQ2Onto/03_evaluation_results",
+        "--html_data",    str(LEADERBOARD_DIR / "leaderboard_data.js"),
+        "--markdown_out", str(LEADERBOARD_DIR / "leaderboard.md"),
+    ]
+    print("\n" + "=" * 100)
+    print("Refreshing leaderboard")
+    print(" ".join(str(x) for x in cmd))
+    print("=" * 100)
+    try:
+        subprocess.run([str(x) for x in cmd], check=True)
+    except subprocess.CalledProcessError as e:
+        print(f"WARN: leaderboard refresh failed with exit {e.returncode}, "
+              f"but evaluation results were saved.")
+
+
 def main():
-    model_dirs = sorted([
+    args = parse_args()
+
+    all_model_dirs = sorted([
         p for p in PRED_ROOT.iterdir()
         if p.is_dir() and not p.name.startswith(".")
     ])
 
+    if args.models_list:
+        unknown = set(args.models_list) - {d.name for d in all_model_dirs}
+        if unknown:
+            sys.exit(f"Unknown model(s) under {PRED_ROOT}: {sorted(unknown)}")
+        model_dirs = [d for d in all_model_dirs if d.name in args.models_list]
+    else:
+        model_dirs = all_model_dirs
+
     for model_dir in model_dirs:
         model = model_dir.name
 
-        for dataset in DATASETS:
+        for dataset in args.datasets_list:
             gold_cq_terms = find_gold_cq_terms(dataset)
             pred_cq_terms = find_pred_cq_terms(model_dir, dataset)
 
@@ -92,25 +178,28 @@ def main():
 
             run([
                 PYTHON, "scripts/eval_cq_terms.py",
-    "--gold_cq_to_terms", gold_cq_terms,
-    "--pred_cq_to_terms", pred_cq_terms,
-    "--methods", "hard_match,jaro_winkler,levenshtein,semantic,sequence_match",
-    "--hard_threshold", "1.0",
-    "--lexical_threshold", "0.8",
-    "--semantic_threshold", "0.6",
-    "--top_n", "3",
-    "--final_threshold", "0.6",
-    "--save_class_alignment_csv", out_dir / "cqterm_class_trace.csv",
-    "--save_property_alignment_csv", out_dir / "cqterm_prop_trace.csv",
-    "--save_class_best_matching_csv", out_dir / "cqterm_class_best_matching.csv",
-    "--save_property_best_matching_csv", out_dir / "cqterm_prop_best_matching.csv",
-    "--save_cq_coverage_csv", out_dir / "cq_coverage.csv",
-    "--save_term_coverage_csv", out_dir / "term_coverage.csv",
-    "--save_result_json", out_dir / "eval_cq_terms_result.json",
-    "--save_report_md", report_path,
+                "--gold_cq_to_terms", gold_cq_terms,
+                "--pred_cq_to_terms", pred_cq_terms,
+                "--methods", "hard_match,jaro_winkler,levenshtein,semantic,sequence_match",
+                "--hard_threshold", "1.0",
+                "--lexical_threshold", "0.75",
+                "--semantic_threshold", "0.65",
+                "--top_n", "3",
+                "--final_threshold", "0.6",
+                "--save_class_alignment_csv", out_dir / "cqterm_class_trace.csv",
+                "--save_property_alignment_csv", out_dir / "cqterm_prop_trace.csv",
+                "--save_class_best_matching_csv", out_dir / "cqterm_class_best_matching.csv",
+                "--save_property_best_matching_csv", out_dir / "cqterm_prop_best_matching.csv",
+                "--save_cq_coverage_csv", out_dir / "cq_coverage.csv",
+                "--save_term_coverage_csv", out_dir / "term_coverage.csv",
+                "--save_result_json", out_dir / "eval_cq_terms_result.json",
+                "--save_report_md", report_path,
             ])
 
             print(f"DONE: CQ2TERM / {model} / {dataset}")
+
+    if not args.no_leaderboard:
+        refresh_leaderboard()
 
 
 if __name__ == "__main__":
