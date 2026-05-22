@@ -18,6 +18,9 @@ The gold standards for both tasks and entire annotation process are also publish
 - [ODRL](https://www.w3.org/ns/odrl/2/): Open Digital Rights Language Ontology
 - [Water](https://saref.etsi.org/saref4watr/v1.1.1/#clause-4-2-7): SAREF4WATR Ontolgy
 
+## Leaderboard
+Check the current [leaderboard from running the benchmark with three families of models, under three generation baselines (all cqs at the same time, cq by cq and an agentic approach)](https://oeg-upm.github.io/cq4oe-benchmark/leaderboard/)
+
 ## Using CQ4OE
 If you want to use CQ4OE with your generated ontologies from your own baselines, please see the [usage instructions](usage_instructions.md).
 
