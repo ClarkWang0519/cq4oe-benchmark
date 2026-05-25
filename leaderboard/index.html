@@ -261,6 +261,9 @@
   .lb-table-wrap[data-accent="axiom"]      th.headline, .lb-table-wrap[data-accent="axiom"]      td.headline { background:#fbeede; }
   .lb-table-wrap[data-accent="hierarchy"]  th.headline, .lb-table-wrap[data-accent="hierarchy"]  td.headline { background:#fce4ec; }
   .lb-desc { color:#64748b; font-size:13px; font-style:italic; margin: 4px 0 14px; }
+  .lb-desc .lb-catalog-links { display:block; margin-top:6px; font-style:normal; font-size:12.5px; color:#94a3b8; }
+  .lb-desc .lb-catalog-link { color:#2563eb; text-decoration:none; font-weight:600; }
+  .lb-desc .lb-catalog-link:hover { text-decoration:underline; }
   .lb-config { font-size:12px; color:#94a3b8; padding: 8px 14px 0; }
   .lb-footer-link {
     display: inline-block; margin-top: 16px;
@@ -539,6 +542,31 @@
       : `<span title="${raw}">${name}</span>`;
   }
 
+  // OntoCatalogue links
+  const CATALOG_BASE = "https://oeg-upm.github.io/cq4oe-benchmark/OntoCatalogue/html";
+  const TASK_CATALOG = { cq2term: CATALOG_BASE + "/CQ2Term.html", cq2onto: CATALOG_BASE + "/CQ2Onto.html" };
+  const TARGET_CATALOG = {
+    term:      CATALOG_BASE + "/ClassProperty.html",
+    prop:      CATALOG_BASE + "/PropertyCharacteristics.html",
+    triple:    CATALOG_BASE + "/Triple.html",
+    axiom:     CATALOG_BASE + "/Axiom.html",
+    hierarchy: CATALOG_BASE + "/HierarchyClosure.html",
+  };
+
+  // Generation-strategy (mode) display names + definitions (raw data untouched).
+  const MODE_INFO = {
+    normal:  { label: "Zero-shot",   def: "Zero-shot: the full CQ set is fed to the model in a single pass." },
+    cqbycq:  { label: "Iterative",   def: "Iterative: CQs are fed to the model sequentially, one at a time." },
+    agent:   { label: "Multi-agent", def: "Multi-agent: the initial ontology is refined with RDFLib, HermiT and OOPS! for up to three iterations with backtracking." },
+    mymodel: { label: "mymodel",     def: "Your submission." },
+  };
+  function modeCellHTML(raw) {
+    const m = MODE_INFO[raw];
+    const label = m ? m.label : (raw || "—");
+    const def = m ? m.def : (raw || "");
+    return `<span title="${def} (raw: ${raw})">${label}</span>`;
+  }
+
   // ── Data access ──
   function scopeOf(run) {
     if (state.benchmark === "cq2term") return run.term_recovery;
@@ -680,7 +708,15 @@
     const datasets = LEADERBOARD_DATA[state.benchmark].datasets;
     [["overall","Overall"]].concat(datasets.map(d => [d, d.toUpperCase()])).forEach(([k,lbl]) =>
       navBtn(dnav, lbl, state.domain===k, () => { if (state.domain===k) return; state.domain = k; render(); }, { extra: "domain" }));
-    document.getElementById("lb-desc").textContent = TASKS[state.benchmark][state.task].desc;
+    const def = TASKS[state.benchmark][state.task];
+    const bmLabel = state.benchmark === "cq2term" ? "CQ2Term" : "CQ2Onto";
+    const taskUrl = TASK_CATALOG[state.benchmark], targetUrl = TARGET_CATALOG[def.accent];
+    let descHTML = def.desc;
+    const links = [];
+    if (taskUrl) links.push(`<a class="lb-catalog-link" href="${taskUrl}" target="_blank" rel="noopener">${bmLabel} task ↗</a>`);
+    if (targetUrl) links.push(`<a class="lb-catalog-link" href="${targetUrl}" target="_blank" rel="noopener">${def.label} metrics ↗</a>`);
+    if (links.length) descHTML += `<span class="lb-catalog-links">Catalogue: ${links.join(" · ")}</span>`;
+    document.getElementById("lb-desc").innerHTML = descHTML;
     const full = document.getElementById("lb-full-link");
     full.href = `leaderboard.html#${state.benchmark}/${state.task}`;
   }
@@ -737,7 +773,7 @@
       // body
       let body = "<tbody>";
       sorted.forEach((run, i) => {
-        const modeCell = showMode ? `<td class="lb-mono">${run.mode || "—"}</td>` : "";
+        const modeCell = showMode ? `<td class="lb-mono">${modeCellHTML(run.mode)}</td>` : "";
         body += `<tr><td class="lb-rank">${i+1}</td>${modeCell}<td class="lb-mono">${modelCellHTML(run.model)}</td>`;
         cols.forEach(c => {
           const hl = c.headline ? " headline" : "";
