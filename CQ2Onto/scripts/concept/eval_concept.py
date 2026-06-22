@@ -22,7 +22,8 @@ import textdistance
 import nltk
 from nltk.corpus import wordnet as wn
 
-
+# --- Global default thresholds for each matching family ---------------------
+# A pair only counts as a match if its similarity score is >= the threshold.
 
 SEMANTIC_THRESHOLD = 0.6
 LEXICAL_THRESHOLD = 0.8
@@ -43,6 +44,9 @@ def ensure_nltk_resource():
 
 
 def get_class_name(uri, graph=None):
+    # Return a human-readable name for a class URI.
+    # Preference order: English rdfs:label > untagged label > any label >
+    # the local part of the URI (after '#' or last '/').
 
     if graph is not None:
         labels = list(graph.objects(uri, RDFS.label))
@@ -58,6 +62,8 @@ def get_class_name(uri, graph=None):
         for l in labels:
             if isinstance(l, Literal):
                 return str(l).strip()
+                
+   # No usable label: fall back to the local name parsed from the URI.
 
     uri_str = str(uri)
     if "#" in uri_str:
@@ -556,6 +562,11 @@ def make_pred_entry(pred_term):
 
 
 def match_one_to_one_greedy(gold_records, pred_records, sim_func, threshold):
+    # Greedy one-to-one matcher.
+    # 1) Score each (gold, pred) pair that clears the threshold.
+    # 2) Sort all candidate pairs by score, highest first.
+    # 3) Walk down the list, accepting a pair only if neither side is used yet.
+    # This guarantees that each gold and each pred is matched at most once.
 
     candidates = []
 
