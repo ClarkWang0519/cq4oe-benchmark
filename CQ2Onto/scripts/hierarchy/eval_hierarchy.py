@@ -1,3 +1,18 @@
+# ============================================================================
+# OVERVIEW
+# Hierarchy-level evaluation of a predicted ontology against a gold ontology
+# using the HermiT reasoner. Pipeline:
+#   1. Run HermiT to classify each ontology and compute the deductive closure
+#      of SubClassOf / SubPropertyOf entailments (with a datatype-stripping
+#      retry loop to survive datatypes HermiT can't handle).
+#   2. Translate pred entailments into the gold vocabulary via alignment tables.
+#   3. Compute class / property / combined Precision-Recall-F1 over the
+#      entailment sets (untranslatable pred pairs count as FP).
+#   4. Optionally compute closure-based CQ coverage, including "rescue" of
+#      strict-evaluation misses that the closure can still account for.
+# Outputs: JSON, CSV, Markdown, and a plain-text report.
+# ============================================================================
+
 import argparse
 import csv
 import json
@@ -10,7 +25,9 @@ from collections import defaultdict
 from typing import Dict, List, Optional, Tuple
 
 def _norm(text):
-
+    # Normalize a term for fuzzy matching: split camelCase, replace underscores
+    # with spaces, collapse whitespace, and lowercase. CamelCase splitting is
+    # done BEFORE lowercasing so the regex still sees the uppercase boundaries.
     if text is None:
         return ""
     s = str(text).strip()
@@ -25,7 +42,8 @@ def _norm(text):
 
 
 def load_axioms(json_path: str) -> List[dict]:
-
+    # Load an axioms JSON file, accepting either an 'axioms' or 'gold_axioms'
+    # top-level list. Raises if neither key is present.
     if not os.path.exists(json_path):
         raise FileNotFoundError(f"Axioms JSON not found: {json_path}")
     with open(json_path, "r", encoding="utf-8") as f:
@@ -41,14 +59,15 @@ def load_axioms(json_path: str) -> List[dict]:
 
 
 def load_cq_definitions(json_path: str) -> List[dict]:
-
+    # Load optional competency-question definitions from the same JSON file.
     with open(json_path, "r", encoding="utf-8") as f:
         data = json.load(f)
     return data.get("cq_definitions", [])
 
 
 def load_alignment_csv(csv_path: str) -> Dict[str, str]:
-
+    # Load a gold->pred alignment table from CSV, tolerating several column
+    # name spellings. First mapping for each gold term wins.
     if not os.path.exists(csv_path):
         raise FileNotFoundError(f"Alignment CSV not found: {csv_path}")
     out: Dict[str, str] = {}
@@ -64,7 +83,8 @@ def load_alignment_csv(csv_path: str) -> Dict[str, str]:
 
 
 def label_map_from_owl(owl_path: str) -> Dict[str, str]:
-
+    # Build a local-name -> rdfs:label map for every class / object property /
+    # datatype property in an OWL file, parsed with rdflib.
     try:
         from rdflib import Graph, RDF, RDFS, OWL, URIRef, Literal
     except ImportError:
@@ -75,6 +95,7 @@ def label_map_from_owl(owl_path: str) -> Dict[str, str]:
         print(f"[warn] OWL file not found: {owl_path}", file=sys.stderr)
         return {}
 
+    # Try common serializations until one parses successfully.
     g = Graph()
     fmt_used = None
     for fmt in ("xml", "turtle", "n3", "json-ld"):
@@ -86,6 +107,7 @@ def label_map_from_owl(owl_path: str) -> Dict[str, str]:
             g = Graph()
             continue
     if fmt_used is None:
+        # Last resort: let rdflib guess the format.
         try:
             g.parse(owl_path)
             fmt_used = "auto"
@@ -95,7 +117,7 @@ def label_map_from_owl(owl_path: str) -> Dict[str, str]:
             return {}
 
     def _resolve_label(uri_node):
-
+        # Pick the best label for a URI: English > untagged > any > local name.
         labels = list(g.objects(uri_node, RDFS.label))
         for lb in labels:
             if isinstance(lb, Literal) and getattr(lb, "language", None) == "en":
@@ -115,6 +137,7 @@ def label_map_from_owl(owl_path: str) -> Dict[str, str]:
             return local
         return s
 
+    # Key the map by the URI's local name (fragment after '#' or last '/').
     out: Dict[str, str] = {}
     for type_class in (OWL.Class, OWL.ObjectProperty, OWL.DatatypeProperty):
         for s in g.subjects(RDF.type, type_class):
@@ -126,6 +149,12 @@ def label_map_from_owl(owl_path: str) -> Dict[str, str]:
 
 
 def asserted_hierarchy_from_owl(owl_path: str) -> Tuple[set, set, set, set]:
+    # Read the DIRECTLY ASSERTED hierarchy from an OWL file (as opposed to what
+    # HermiT infers). Returns four sets:
+    #   asserted_class : (sub, sup) class pairs explicitly stated.
+    #   asserted_prop  : (sub, sup) property pairs explicitly stated.
+    #   derived_class_subjects / derived_prop_subjects : subjects whose
+    #       superclass/superproperty is a complex (anonymous) expression.
     try:
         from rdflib import Graph, RDF, RDFS, OWL, URIRef, BNode
     except ImportError:
@@ -133,6 +162,7 @@ def asserted_hierarchy_from_owl(owl_path: str) -> Tuple[set, set, set, set]:
     if not os.path.exists(owl_path):
         return set(), set(), set(), set()
 
+    # Parse the ontology (try several formats).
     g = Graph()
     parsed = False
     for fmt in ("xml", "turtle", "n3", "json-ld"):
@@ -150,6 +180,7 @@ def asserted_hierarchy_from_owl(owl_path: str) -> Tuple[set, set, set, set]:
             return set(), set(), set(), set()
 
     def _local(uri):
+        # Local name of a URI (fragment after '#' or last '/').
         s = str(uri)
         if "#" in s:
             return s.rsplit("#", 1)[1]
@@ -157,8 +188,11 @@ def asserted_hierarchy_from_owl(owl_path: str) -> Tuple[set, set, set, set]:
             return s.rsplit("/", 1)[1]
         return s
 
+    # Built-in top/bottom classes to ignore.
     OWL_THING_NAMES = {"Thing", "Nothing"}
 
+    # Collect asserted subClassOf pairs; named superclass -> asserted edge,
+    # anonymous superclass -> the subject is recorded as "derived".
     asserted_class = set()
     derived_class_subjects = set()
     for sub, sup in g.subject_objects(RDFS.subClassOf):
@@ -173,9 +207,10 @@ def asserted_hierarchy_from_owl(owl_path: str) -> Tuple[set, set, set, set]:
                 continue
             asserted_class.add((s, p))
         else:
-
+            # Superclass is a complex expression (BNode), not an atomic class.
             derived_class_subjects.add(s)
 
+    # Same logic for subPropertyOf.
     asserted_prop = set()
     derived_prop_subjects = set()
     for sub, sup in g.subject_objects(RDFS.subPropertyOf):
@@ -190,10 +225,10 @@ def asserted_hierarchy_from_owl(owl_path: str) -> Tuple[set, set, set, set]:
         else:
             derived_prop_subjects.add(s)
 
-
+    # Treat equivalentClass / equivalentProperty as asserted hierarchy edges
+    # (only when both sides are named).
     for sub, sup in g.subject_objects(OWL.equivalentClass):
         if not isinstance(sub, URIRef) or not isinstance(sup, URIRef):
-
             continue
         s, p = _local(sub), _local(sup)
         if s in OWL_THING_NAMES or p in OWL_THING_NAMES or s == p:
@@ -213,11 +248,14 @@ def asserted_hierarchy_from_owl(owl_path: str) -> Tuple[set, set, set, set]:
 
 
 def compute_axiom_closure_hermit(owl_path: str, side_label: str = "") -> dict:
+    # Run HermiT to classify one ontology and return its deductive closure of
+    # class and property subsumptions, plus asserted-hierarchy metadata.
 
     if not owl_path or not os.path.isfile(owl_path):
         raise ValueError(f"compute_axiom_closure_hermit: invalid owl_path "
                          f"{owl_path!r}")
 
+    # Locate HermiT.jar shipped with owlready2.
     try:
         import owlready2
         hermit_jar = os.path.join(os.path.dirname(owlready2.__file__),
@@ -230,10 +268,12 @@ def compute_axiom_closure_hermit(owl_path: str, side_label: str = "") -> dict:
     print(f"[HermiT] Running on {side_label or 'ontology'} "
           f"({owl_path})...", file=sys.stderr)
 
-
+    # Read the OWL text; it may be edited in the retry loop below.
     with open(owl_path, "r", encoding="utf-8") as f:
         owl_text = f.read()
 
+    # Standard OWL-2 datatypes HermiT must support — used to detect genuinely
+    # unexpected rejections (vs. exotic custom datatypes we can safely strip).
     owl2_datatype_set = {
         "string", "boolean", "decimal", "integer", "double", "float",
         "long", "int", "short", "byte", "unsignedLong", "unsignedInt",
@@ -243,13 +283,13 @@ def compute_axiom_closure_hermit(owl_path: str, side_label: str = "") -> dict:
         "Name", "NCName", "NMTOKEN", "token", "normalizedString",
     }
 
-
     deleted_datatypes = []      
     max_retries = 10
     classified_text = None
 
     def _run_hermit(text):
         """Run HermiT on the given OWL text. Returns (rc, stdout, stderr)."""
+        # Write the text to a temp file and invoke the HermiT CLI to classify it.
         with tempfile.NamedTemporaryFile(suffix=".owl", mode="w",
                                           encoding="utf-8", delete=False) as tmp:
             tmp.write(text)
@@ -272,12 +312,15 @@ def compute_axiom_closure_hermit(owl_path: str, side_label: str = "") -> dict:
             except FileNotFoundError as e:
                 return 1, "", f"java executable not found: {e}"
         finally:
+            # Always clean up the temp file.
             try:
                 os.remove(tmp_path)
             except OSError:
                 pass
 
     def _extract_unsupported_iri(err_text):
+        # Pull the offending datatype IRI out of a HermiT error message,
+        # trying a few message shapes.
         m = re.search(
             r"UnsupportedDatatypeException[^']*'([^']+)'", err_text)
         if m:
@@ -292,7 +335,8 @@ def compute_axiom_closure_hermit(owl_path: str, side_label: str = "") -> dict:
         return None
 
     def _classify_severity(removed_lines: List[str]) -> Tuple[str, int]:
-
+        # Guess how dangerous it was to delete a set of lines, so the user can
+        # judge whether dropping a datatype could have changed the hierarchy.
         for line in removed_lines:
             line_lower = line.lower()
             if "datatypedefinition" in line_lower:
@@ -317,9 +361,11 @@ def compute_axiom_closure_hermit(owl_path: str, side_label: str = "") -> dict:
                 return ("abox_literal", len(removed_lines))
         return ("unknown", len(removed_lines))
 
-
+    # First HermiT attempt.
     rc, classified_text, stderr_text = _run_hermit(owl_text)
 
+    # Retry loop: if HermiT chokes on an unsupported datatype, strip every line
+    # mentioning that datatype IRI and re-run, up to max_retries times.
     retry = 0
     while rc != 0 and retry < max_retries:
         # Check for an UnsupportedDatatype error
@@ -329,6 +375,7 @@ def compute_axiom_closure_hermit(owl_path: str, side_label: str = "") -> dict:
             err = stderr_text.strip()[:500] if stderr_text else f"rc={rc}"
             raise RuntimeError(f"HermiT CLI failed (rc={rc}): {err}")
 
+        # If HermiT rejected a STANDARD datatype, something is wrong — abort.
         bad_local = bad_iri.split("#")[-1].split("/")[-1]
         if bad_local in owl2_datatype_set:
             err = stderr_text.strip()[:500] if stderr_text else f"rc={rc}"
@@ -336,6 +383,7 @@ def compute_axiom_closure_hermit(owl_path: str, side_label: str = "") -> dict:
                 f"HermiT rejected OWL-2 datatype xsd:{bad_local}, which "
                 f"should be supported. This is unusual. rc={rc}, err={err}")
 
+        # Remove every line referencing the offending IRI.
         old_lines = owl_text.split("\n")
         kept = []
         removed = []
@@ -346,6 +394,7 @@ def compute_axiom_closure_hermit(owl_path: str, side_label: str = "") -> dict:
                 kept.append(line)
         owl_text = "\n".join(kept)
 
+        # Record what we removed and how risky it looked.
         severity, n = _classify_severity(removed)
 
         sample = removed[0].strip()[:120] if removed else "<empty>"
@@ -354,15 +403,16 @@ def compute_axiom_closure_hermit(owl_path: str, side_label: str = "") -> dict:
               f"{n} line(s). [severity: {severity}]",
               file=sys.stderr)
 
-
         retry += 1
         rc, classified_text, stderr_text = _run_hermit(owl_text)
 
+    # Still failing after all retries -> give up.
     if rc != 0:
         raise RuntimeError(
             f"HermiT failed after {max_retries} datatype-removal retries: "
             f"{stderr_text.strip()[:500]}")
 
+    # Summarize and warn about any datatype removals (especially risky ones).
     if deleted_datatypes:
         risky = sum(1 for (_, _, sev, _) in deleted_datatypes
                     if sev in ("class_restriction", "datatype_definition"))
@@ -391,6 +441,8 @@ def compute_axiom_closure_hermit(owl_path: str, side_label: str = "") -> dict:
                   f"inside a class restriction (typically they don't).",
                   file=sys.stderr)
 
+    # Parse HermiT's classified output: extract SubClassOf / SubPropertyOf
+    # pairs from the IRIs in each line.
     iri_pattern = r"<([^>]+)>"
 
     class_pairs_raw = set()
@@ -410,6 +462,7 @@ def compute_axiom_closure_hermit(owl_path: str, side_label: str = "") -> dict:
             if len(iris) == 2:
                 prop_pairs_raw.add((iris[0], iris[1]))
 
+    # If nothing parsed, warn with a preview (output format may have changed).
     if not class_pairs_raw and not prop_pairs_raw:
         non_empty_lines = [ln for ln in classified_text.splitlines()
                            if ln.strip()]
@@ -422,6 +475,7 @@ def compute_axiom_closure_hermit(owl_path: str, side_label: str = "") -> dict:
                   f"of output:\n{preview}\n", file=sys.stderr)
 
     def _local_name(iri: str) -> str:
+        # Local name of an IRI.
         if "#" in iri:
             return iri.rsplit("#", 1)[1]
         if "/" in iri:
@@ -430,6 +484,7 @@ def compute_axiom_closure_hermit(owl_path: str, side_label: str = "") -> dict:
 
     OWL_THING = {"Thing", "Nothing"}
 
+    # Reduce IRI pairs to local-name pairs, dropping Thing/Nothing and self-loops.
     class_hierarchy = set()
     for s_iri, p_iri in class_pairs_raw:
         s, p = _local_name(s_iri), _local_name(p_iri)
@@ -444,8 +499,9 @@ def compute_axiom_closure_hermit(owl_path: str, side_label: str = "") -> dict:
             continue
         property_hierarchy.add((s, p))
 
-
     def _transitive_closure(edges: set) -> set:
+        # Compute the transitive closure of a set of (a, b) edges (a ⊑ b),
+        # iterating until no new pairs are added.
         from collections import defaultdict
         out_edges = defaultdict(set)
         for a, b in edges:
@@ -466,6 +522,7 @@ def compute_axiom_closure_hermit(owl_path: str, side_label: str = "") -> dict:
                 changed = True
         return closure
 
+    # Close both hierarchies transitively, then re-filter built-ins/self-loops.
     class_hierarchy = _transitive_closure(class_hierarchy)
     property_hierarchy = _transitive_closure(property_hierarchy)
 
@@ -474,12 +531,15 @@ def compute_axiom_closure_hermit(owl_path: str, side_label: str = "") -> dict:
     property_hierarchy = {(s, p) for (s, p) in property_hierarchy
                           if s != p}
 
+    # Read labels (best-effort) for nicer reporting.
     name_to_label = {}
     try:
         name_to_label = label_map_from_owl(owl_path)
     except Exception:
         pass
 
+    # Read the asserted hierarchy and intersect it with the closure, so the
+    # "[asserted]" tag only applies to edges that survive in the closure.
     (asserted_class, asserted_prop,
      derived_class_subjects, derived_prop_subjects) = \
         asserted_hierarchy_from_owl(owl_path)
@@ -509,7 +569,9 @@ def compute_axiom_closure_hermit(owl_path: str, side_label: str = "") -> dict:
 
 
 def _split_camel(name: str) -> str:
-
+    # Insert spaces at camelCase / PascalCase boundaries (e.g. "RedWine" ->
+    # "Red Wine"). A lighter variant of _norm used when generating lookup
+    # variants for translation.
     if not name:
         return name
 
@@ -523,12 +585,15 @@ def compute_hermit_evaluation(
     gold_owl_path: str, pred_owl_path: str,
     class_align: Dict[str, str], prop_align: Dict[str, str],
 ) -> dict:
+    # Top-level evaluation: compute both closures, translate pred entailments
+    # into gold vocabulary, and compute class/property/combined P-R-F1.
 
     if not gold_owl_path:
         raise RuntimeError("Need --gold_owl. HermiT requires an OWL file.")
     if not pred_owl_path:
         raise RuntimeError("Need --pred_owl. HermiT requires an OWL file.")
 
+    # Compute the gold and pred deductive closures.
     print("\n[HermiT] Computing gold closure...", file=sys.stderr)
     gold_clos = compute_axiom_closure_hermit(gold_owl_path,
                                              side_label="gold")
@@ -536,13 +601,16 @@ def compute_hermit_evaluation(
     pred_clos = compute_axiom_closure_hermit(pred_owl_path,
                                              side_label="pred")
 
-
+    # Build inverse alignment maps (pred term -> gold term), plus normalized
+    # versions for fuzzy lookup.
     inv_class_to_label = {v: k for k, v in class_align.items()}
     inv_prop_to_label = {v: k for k, v in prop_align.items()}
     inv_class_to_label_norm = {_norm(v): k for k, v in class_align.items()}
     inv_prop_to_label_norm = {_norm(v): k for k, v in prop_align.items()}
 
     # Gold-label → gold-IRI mapping
+    # Maps gold labels (and IRIs) to canonical gold IRIs, so the final
+    # translated pairs use a consistent gold vocabulary.
     gold_label_to_iri = {}
     gold_label_to_iri_ci = {}
     for iri, lbl in gold_clos["name_to_label"].items():
@@ -554,6 +622,7 @@ def compute_hermit_evaluation(
         gold_label_to_iri_ci.setdefault(_norm(iri), iri)
 
     def _normalize_to_gold_iri(name: str) -> str:
+        # Resolve a gold term (label or IRI) to its canonical gold IRI.
         if name in gold_label_to_iri:
             return gold_label_to_iri[name]
         if _norm(name) in gold_label_to_iri_ci:
@@ -562,7 +631,9 @@ def compute_hermit_evaluation(
 
     def _pred_to_gold_iri(pred_name: str,
                           inv_map: Dict[str, str]) -> Optional[str]:
-
+        # Translate a single pred entity name into a gold IRI using the inverse
+        # alignment map. Tries the raw name, its pred label, and a camel-split
+        # form, both exactly and normalized. Returns None if untranslatable.
         if inv_map is inv_class_to_label:
             inv_norm = inv_class_to_label_norm
         elif inv_map is inv_prop_to_label:
@@ -585,8 +656,10 @@ def compute_hermit_evaluation(
                 return _normalize_to_gold_iri(gold_term)
         return None
 
-
     def _translate_set(pred_pairs, inv_map):
+        # Translate a set of pred (sub, sup) pairs into gold vocabulary.
+        # Returns the translated set, the untranslatable set, and a map from
+        # each gold pair back to the originating pred pair(s).
         translated = set()
         untranslated = set()
 
@@ -603,11 +676,13 @@ def compute_hermit_evaluation(
                 untranslated.add((sub, sup))
         return translated, untranslated, gold_to_pred_pairs
 
+    # Translate the full pred closures.
     pred_class_translated, pred_class_untrans, class_pred_origin = \
         _translate_set(pred_clos["class_hierarchy"], inv_class_to_label)
     pred_prop_translated, pred_prop_untrans, prop_pred_origin = \
         _translate_set(pred_clos["property_hierarchy"], inv_prop_to_label)
 
+    # Translate the asserted pred hierarchy too (used later for CQ rescue).
     pred_asserted_class_translated, _, _ = \
         _translate_set(pred_clos.get("asserted_class", set()),
                        inv_class_to_label)
@@ -616,6 +691,8 @@ def compute_hermit_evaluation(
                        inv_prop_to_label)
 
     def _metrics(gold_set, pred_translated, n_untranslated=0):
+        # P/R/F1 over entailment sets: TP = gold∩pred, FN = gold-only,
+        # FP = pred-only PLUS untranslatable pred pairs (vocabulary noise).
         tp = gold_set & pred_translated
         fn = gold_set - pred_translated
         fp = pred_translated - gold_set
@@ -631,6 +708,7 @@ def compute_hermit_evaluation(
                 "n_untranslated_in_fp": n_untranslated,
                 "precision": p, "recall": r, "f1": f}
 
+    # Per-dimension metrics.
     cls_metrics = _metrics(gold_clos["class_hierarchy"],
                            pred_class_translated,
                            n_untranslated=len(pred_class_untrans))
@@ -638,7 +716,8 @@ def compute_hermit_evaluation(
                            pred_prop_translated,
                            n_untranslated=len(pred_prop_untrans))
 
-
+    # Combined metrics: prefix property pairs with "PROP:" so class and
+    # property edges don't collide in the same set.
     combined_gold = gold_clos["class_hierarchy"] | {
         ("PROP:" + s, "PROP:" + p) for s, p in gold_clos["property_hierarchy"]
     }
@@ -675,7 +754,13 @@ def compute_hermit_evaluation(
 def compute_cq_coverage_closure(result: dict, gold_axioms: List[dict],
                                 cq_definitions: List[dict],
                                 strict_covered_cqs=None) -> dict:
+    # Closure-based CQ coverage. For each CQ, derive the hierarchy pairs its
+    # gold axioms entail, see which pred reproduces, and combine with optional
+    # strict-evaluation results. Also "rescues" strict misses that the pred
+    # closure can still account for (direct, via chain, or complex inference).
 
+    # Unpack any strict-evaluation results passed in (from eval_axioms.py).
+    # Accepts a rich dict, a plain set of covered ids, or None.
     if strict_covered_cqs is None:
         strict_any = set()
         strict_fully = set()
@@ -704,11 +789,13 @@ def compute_cq_coverage_closure(result: dict, gold_axioms: List[dict],
         strict_n_axioms = {}
         strict_n_tp = {}
 
+    # Pull the relevant closures and translated pred sets out of `result`.
     gold_class_clos = result["gold_closure"]["class_hierarchy"]
     gold_prop_clos = result["gold_closure"]["property_hierarchy"]
     pred_class_trans = result["pred_class_translated"]
     pred_prop_trans = result["pred_prop_translated"]
 
+    # Local-name -> label map for display.
     frag_to_label: Dict[str, str] = (
         result["gold_closure"].get("name_to_label") or {}
     )
@@ -716,7 +803,9 @@ def compute_cq_coverage_closure(result: dict, gold_axioms: List[dict],
         return frag_to_label.get(name, name)
 
     def _extract_names_from_struct(struct):
-
+        # Generator yielding every entity name appearing in an expression
+        # structure (atomic entities, restriction properties, fillers,
+        # operands, chains, enumerated individuals).
         if not struct or not isinstance(struct, dict):
             return
         et = struct.get("expr_type", "")
@@ -747,7 +836,8 @@ def compute_cq_coverage_closure(result: dict, gold_axioms: List[dict],
                 if ind:
                     yield ind
 
-
+    # Build label -> local-name (fragment) maps so axiom subjects/objects can
+    # be resolved to the same vocabulary HermiT used.
     label_to_frag: Dict[str, str] = {}
     label_to_frag_norm: Dict[str, str] = {}
     for frag, label in frag_to_label.items():
@@ -756,7 +846,7 @@ def compute_cq_coverage_closure(result: dict, gold_axioms: List[dict],
         label_to_frag_norm.setdefault(_norm(frag), frag)
 
     def _to_frag(name: str) -> str:
-
+        # Resolve a name/label to its closure fragment (exact then normalized).
         if name in label_to_frag:
             return label_to_frag[name]
         n = _norm(name)
@@ -765,21 +855,23 @@ def compute_cq_coverage_closure(result: dict, gold_axioms: List[dict],
         return name
 
     def _is_atomic_class(struct) -> bool:
-
+        # True if the structure is a bare named class.
         return (isinstance(struct, dict)
                 and struct.get("expr_type") == "Class"
                 and struct.get("name"))
 
     def _is_atomic_property(struct) -> bool:
+        # True if the structure is a bare named property.
         return (isinstance(struct, dict)
                 and struct.get("expr_type") in ("ObjectProperty",
                                                 "DatatypeProperty",
                                                 "NamedEntity")
                 and struct.get("name"))
 
-
     def axiom_required_pairs(ax):
-
+        # Map a single gold axiom to the hierarchy pair(s) it entails, as
+        # (kind, sub, sup) tuples. Handles SubClassOf, SubPropertyOf, and
+        # EquivalentClasses including IntersectionOf/UnionOf decomposition.
         ax_type = ax.get("axiom_type") or ""
         sub_label = ax.get("subject")
         if not sub_label:
@@ -829,11 +921,14 @@ def compute_cq_coverage_closure(result: dict, gold_axioms: List[dict],
         return []
 
     def axiom_required_pair(ax):
+        # Convenience: just the first required pair (or None).
         pairs = axiom_required_pairs(ax)
         return pairs[0] if pairs else None
 
     def bfs_shortest_path(start, end, edges, max_depth=6):
-
+        # Breadth-first search for a path start ⊑ ... ⊑ end through the given
+        # edge set, returning the list of edges, or None if no path within
+        # max_depth. Used to explain "pred reasoned via chain" rescues.
         if start == end or start is None or end is None:
             return None
         adj: Dict[str, list] = {}
@@ -863,6 +958,7 @@ def compute_cq_coverage_closure(result: dict, gold_axioms: List[dict],
                 break
         if not found:
             return None
+        # Reconstruct the path by walking parent pointers backwards.
         path = []
         cur = end
         while cur in parent:
@@ -872,13 +968,18 @@ def compute_cq_coverage_closure(result: dict, gold_axioms: List[dict],
         path.reverse()
         return path
 
+    # Translated asserted pred hierarchies (the edges available for rescue).
     pred_asserted_class_trans = result.get(
         "pred_asserted_class_translated", set())
     pred_asserted_prop_trans = result.get(
         "pred_asserted_prop_translated", set())
 
     def evaluate_axiom_rescue(ax):
-
+        # Decide whether a strict-missed gold axiom can be "rescued" by the pred
+        # closure. For each required pair, check direct assertion, then closure
+        # membership (classifying the rescue mode). Multi-pair axioms need ALL
+        # pairs matched (AND semantics) to count as rescued; some-but-not-all
+        # is "partial".
         reqs = axiom_required_pairs(ax)
         if not reqs:
             return {"eligible": False, "rescued": False,
@@ -900,11 +1001,13 @@ def compute_cq_coverage_closure(result: dict, gold_axioms: List[dict],
                 closure_set = pred_prop_trans
                 edges = pred_asserted_prop_trans
 
+            # Direct assertion in pred.
             if pair in asserted_set:
                 matched_pairs.append(req)
                 if first_match is None:
                     first_match = (req, "direct_asserted", None)
                 continue
+            # Present in the closure: try to explain it as a simple chain.
             if pair in closure_set:
                 matched_pairs.append(req)
                 if first_match is None:
@@ -941,6 +1044,7 @@ def compute_cq_coverage_closure(result: dict, gold_axioms: List[dict],
                 "n_pairs_total": len(reqs), "n_pairs_matched": 0,
                 "matched_pairs": []}
 
+    # Index gold axioms by id and by subject fragment (for reporting context).
     gold_axiom_by_id = {ax["id"]: ax for ax in gold_axioms if ax.get("id")}
 
     gold_axioms_by_subject_index: Dict[str, list] = {}
@@ -956,13 +1060,16 @@ def compute_cq_coverage_closure(result: dict, gold_axioms: List[dict],
         })
 
     def gold_axioms_to_hierarchy_pairs_for_cq(cq_id):
-
+        # Collect all hierarchy pairs entailed by the gold axioms tagged to one
+        # CQ, recording which axiom(s) produced each pair. Returns
+        # (class_pairs, prop_pairs, used_axiom_ids, pair_to_axioms).
         class_pairs = set()
         prop_pairs = set()
         used_axioms = []
         pair_to_axioms: Dict[Tuple[str, str, str], list] = {}
 
         def _record_pair(kind, sub, sup, ax_id):
+            # Track which axiom ids contributed each (kind, sub, sup) pair.
             key = (kind, sub, sup)
             if ax_id not in pair_to_axioms.setdefault(key, []):
                 pair_to_axioms[key].append(ax_id)
@@ -978,7 +1085,7 @@ def compute_cq_coverage_closure(result: dict, gold_axioms: List[dict],
             ax_id = ax.get("id", "?")
 
             if ax_type == "SubClassOf":
-
+                # Atomic A ⊑ B.
                 if _is_atomic_class(rhs):
                     s_frag = _to_frag(sub)
                     p_frag = _to_frag(rhs["name"])
@@ -986,11 +1093,10 @@ def compute_cq_coverage_closure(result: dict, gold_axioms: List[dict],
                     _record_pair("class", s_frag, p_frag, ax_id)
                     used_axioms.append(ax_id)
 
-
             elif ax_type in ("SubPropertyOf",
                              "SubObjectPropertyOf",
                              "SubDataPropertyOf"):
-
+                # p ⊑ q.
                 obj = ax.get("object")
                 if obj:
                     s_frag = _to_frag(sub)
@@ -1000,7 +1106,8 @@ def compute_cq_coverage_closure(result: dict, gold_axioms: List[dict],
                     used_axioms.append(ax_id)
 
             elif ax_type == "EquivalentClasses":
-
+                # Atomic equivalence, or decompose Intersection/Union as in
+                # axiom_required_pairs.
                 if _is_atomic_class(rhs):
                     a = _to_frag(sub)
                     b = _to_frag(rhs["name"])
@@ -1046,14 +1153,13 @@ def compute_cq_coverage_closure(result: dict, gold_axioms: List[dict],
                     _record_pair("property", a, b, ax_id)
                     used_axioms.append(ax_id)
 
-
         return class_pairs, prop_pairs, used_axioms, pair_to_axioms
 
+    # Determine the CQ id list and questions (from definitions or from tags).
     if cq_definitions:
         cq_ids = [c["id"] for c in cq_definitions]
         cq_q = {c["id"]: c.get("question", "") for c in cq_definitions}
     else:
-
         cq_ids_seen = set()
         for ax in gold_axioms:
             cq_ids_seen.update(ax.get("cq_numbers") or [])
@@ -1066,14 +1172,16 @@ def compute_cq_coverage_closure(result: dict, gold_axioms: List[dict],
     sum_rate = 0.0
     n_with_relevant = 0
     for cq_id in cq_ids:
-
+        # Hierarchy pairs this CQ's gold axioms entail.
         (gold_relevant_class, gold_relevant_prop,
          used_axiom_ids, pair_to_axioms) = \
             gold_axioms_to_hierarchy_pairs_for_cq(cq_id)
 
+        # Keep only pairs that actually appear in the gold closure.
         gold_relevant_class &= gold_class_clos
         gold_relevant_prop  &= gold_prop_clos
 
+        # Which relevant pairs did pred reproduce / miss?
         matched_class = gold_relevant_class & pred_class_trans
         matched_prop  = gold_relevant_prop  & pred_prop_trans
         missing_class = gold_relevant_class - pred_class_trans
@@ -1081,18 +1189,21 @@ def compute_cq_coverage_closure(result: dict, gold_axioms: List[dict],
         n_relevant = len(gold_relevant_class) + len(gold_relevant_prop)
         n_matched  = len(matched_class) + len(matched_prop)
 
-
+        # Strict-evaluation flags for this CQ.
         is_strict_any = cq_id in strict_any
         is_strict_fully = cq_id in strict_fully
         strict_rate_value = strict_rate.get(cq_id)
 
+        # Closure-only flags.
         is_closure_any = n_matched > 0
         is_closure_fully = (n_relevant > 0 and n_matched == n_relevant)
         rate_closure = (n_matched / n_relevant) if n_relevant else 0.0
 
+        # Combine strict and closure views (logical OR for fully/any).
         is_fully = is_strict_fully or is_closure_fully
         is_any = is_strict_any or is_closure_any
 
+        # Rate = max of strict and closure rate when both are known.
         if strict_rate_value is not None:
             rate = max(strict_rate_value, rate_closure)
         else:
@@ -1107,6 +1218,7 @@ def compute_cq_coverage_closure(result: dict, gold_axioms: List[dict],
         if n_relevant > 0 or is_strict_any:
             n_with_relevant += 1
 
+        # Typed lists of matched / missing entailments for reporting.
         matched_typed = (
             [{"kind": "class", "sub": s, "sup": p}
              for (s, p) in sorted(matched_class)]
@@ -1120,6 +1232,7 @@ def compute_cq_coverage_closure(result: dict, gold_axioms: List[dict],
                for (s, p) in sorted(missing_prop)]
         )
 
+        # --- Try to rescue this CQ's strict-missed axioms via the closure. ---
         cq_missing_ax_ids = strict_missing_axioms.get(cq_id, [])
         cq_n_axioms = strict_n_axioms.get(cq_id)
         rescue_records = []
@@ -1127,7 +1240,7 @@ def compute_cq_coverage_closure(result: dict, gold_axioms: List[dict],
         for ax_id in cq_missing_ax_ids:
             ax = gold_axiom_by_id.get(ax_id)
             if not ax:
-
+                # Missing axiom id not found in the gold JSON.
                 rescue_records.append({
                     "axiom_id": ax_id, "eligible": False,
                     "rescued": False, "mode": "not_eligible",
@@ -1151,6 +1264,7 @@ def compute_cq_coverage_closure(result: dict, gold_axioms: List[dict],
                     for (k, s, p) in r["matched_pairs"]
                 ]
 
+            # For multi-pair axioms, also record the full pair list.
             all_reqs = axiom_required_pairs(ax)
             if all_reqs and r.get("n_pairs_total", 0) > 1:
                 rec["all_pairs"] = [
@@ -1169,6 +1283,8 @@ def compute_cq_coverage_closure(result: dict, gold_axioms: List[dict],
             if r["rescued"]:
                 n_rescued += 1
 
+        # --- Independently confirm strict-TP axioms against the closure. ---
+        # (Does not change the score; reported for validation.)
         cq_tp_ids_for_confirm = strict_tp_axioms.get(cq_id, []) or []
         confirm_records = []
         n_confirmed = 0
@@ -1192,7 +1308,7 @@ def compute_cq_coverage_closure(result: dict, gold_axioms: List[dict],
                 confirm_records.append(rec)
                 n_confirmed += 1
 
-
+        # --- If strict axiom counts are known, recompute rate including rescues. ---
         n_strict_tp = None
         rescued_rate = None
         if cq_n_axioms and cq_n_axioms > 0:
@@ -1203,10 +1319,12 @@ def compute_cq_coverage_closure(result: dict, gold_axioms: List[dict],
             elif cq_tp_ids is not None:
                 n_strict_tp = len(cq_tp_ids)
             else:
-
+                # Fall back to inferring strict TP from total minus missing.
                 n_strict_tp = cq_n_axioms - len(cq_missing_ax_ids)
             rescued_rate = (n_strict_tp + n_rescued) / cq_n_axioms
 
+            # Undo the earlier (closure-only) contribution to the running
+            # aggregates, then re-add using the rescued rate.
             if is_fully:
                 n_fully -= 1
             if is_any:
@@ -1223,6 +1341,7 @@ def compute_cq_coverage_closure(result: dict, gold_axioms: List[dict],
             if is_any:
                 n_any += 1
 
+        # Label the coverage source for reporting.
         if cq_n_axioms is not None:
             has_rescue = (n_rescued > 0)
             if is_strict_any and has_rescue:
@@ -1296,6 +1415,9 @@ def compute_cq_coverage_closure(result: dict, gold_axioms: List[dict],
 
 
 def load_strict_covered_cqs(strict_csv_path: str) -> dict:
+    # Parse the strict-coverage CQ CSV produced by eval_axioms.py into the dict
+    # shape compute_cq_coverage_closure expects (any / fully / rate / missing /
+    # tp / counts). Tolerant of header-name variants; missing file -> empties.
     out = {"any": set(), "fully": set(), "rate": {},
            "missing_axioms": {}, "tp_axioms": {},
            "n_axioms": {}, "n_tp": {}}
@@ -1309,6 +1431,7 @@ def load_strict_covered_cqs(strict_csv_path: str) -> dict:
                          or row.get("CQ") or "").strip()
                 if not cq_id:
                     continue
+                # "covered" / "fully_covered" flags (various truthy spellings).
                 cov = (row.get("covered") or row.get("Covered")
                        or row.get("status") or "").strip().lower()
                 fully = (row.get("fully_covered")
@@ -1324,6 +1447,7 @@ def load_strict_covered_cqs(strict_csv_path: str) -> dict:
                         out["rate"][cq_id] = float(rate_raw)
                     except ValueError:
                         pass
+                # Semicolon-separated axiom id lists.
                 miss_raw = (row.get("missing_axiom_ids")
                             or row.get("Missing_axiom_ids") or "").strip()
                 if miss_raw:
@@ -1356,12 +1480,13 @@ def load_strict_covered_cqs(strict_csv_path: str) -> dict:
 
 
 def _serialize_pairs(s: set) -> list:
-
+    # Turn a set of (sub, sup) tuples into a sorted list of dicts for JSON.
     return [{"sub": sub, "sup": sup} for sub, sup in sorted(s)]
 
 
 def build_json_output(result: dict, args: argparse.Namespace,
                       cq_closure: Optional[dict] = None) -> dict:
+    # Assemble the full result as a JSON-friendly {config, results: [...]} dict.
     g = result["gold_closure"]
     p = result["pred_closure"]
     cm = result["class_metrics"]
@@ -1376,6 +1501,7 @@ def build_json_output(result: dict, args: argparse.Namespace,
         "reasoner": result.get("gold_reasoner", "HermiT (CLI)"),
     }
 
+    # Each entry is a self-contained result block keyed by "id".
     results_list = [
         {
             "id": "gold_closure",
@@ -1431,6 +1557,7 @@ def build_json_output(result: dict, args: argparse.Namespace,
         },
     ]
 
+    # Append CQ coverage block if computed.
     if cq_closure is not None:
         results_list.append({
             "id": "cq_coverage_closure",
@@ -1449,10 +1576,14 @@ def build_json_output(result: dict, args: argparse.Namespace,
 
 
 def save_csv_output(result: dict, csv_path: str) -> None:
+    # Write one row per entailment pair: gold pairs tagged TP/FN, pred-only
+    # translated pairs tagged FP, and untranslatable pred pairs tagged
+    # "untranslated" (keeping their raw pred names).
     rows = []
     cm = result["class_metrics"]
     pm = result["property_metrics"]
 
+    # Gold class pairs: TP if pred reproduced it, else FN.
     for sub, sup in sorted(result["gold_closure"]["class_hierarchy"]):
         if (sub, sup) in cm["tp"]:
             status = "TP"
@@ -1464,6 +1595,7 @@ def save_csv_output(result: dict, csv_path: str) -> None:
             "raw_pred_sub": "", "raw_pred_sup": "",
         })
 
+    # Translated pred class pairs that are FP (TP already covered above).
     for sub, sup in sorted(result["pred_class_translated"]):
         if (sub, sup) in cm["tp"]:
             continue   # already shown as TP gold row
@@ -1475,6 +1607,7 @@ def save_csv_output(result: dict, csv_path: str) -> None:
                 "raw_pred_sub": "", "raw_pred_sup": "",
             })
 
+    # Untranslatable pred class pairs.
     for sub, sup in sorted(result["untranslated_class"]):
         rows.append({
             "side": "pred", "dimension": "class",
@@ -1482,6 +1615,7 @@ def save_csv_output(result: dict, csv_path: str) -> None:
             "raw_pred_sub": sub, "raw_pred_sup": sup,
         })
 
+    # Same three categories for the property dimension.
     for sub, sup in sorted(result["gold_closure"]["property_hierarchy"]):
         if (sub, sup) in pm["tp"]:
             status = "TP"
@@ -1522,8 +1656,12 @@ def save_csv_output(result: dict, csv_path: str) -> None:
 
 
 def build_md_report(result: dict, cq_closure: Optional[dict] = None) -> str:
+    # Build the full Markdown report: closure sizes, metrics, per-dimension
+    # TP/FN/FP details (with asserted/inferred tags and pred origin), the
+    # untranslated lists, and the closure-based CQ coverage section.
     L = []
 
+    # Label maps (and normalized variants) for pretty-printing names.
     gold_label_map = result.get("gold_closure", {}).get("name_to_label") or {}
     pred_label_map = (result.get("_pred_label_map")
                       or result.get("pred_closure", {}).get("name_to_label")
@@ -1533,6 +1671,7 @@ def build_md_report(result: dict, cq_closure: Optional[dict] = None) -> str:
     pred_label_map_norm = {_norm(k): v for k, v in pred_label_map.items()}
 
     def _fmt_gold(name: str) -> str:
+        # Display a gold name via its label when available.
         if name in gold_label_map:
             return gold_label_map[name]
         n = _norm(name)
@@ -1541,6 +1680,7 @@ def build_md_report(result: dict, cq_closure: Optional[dict] = None) -> str:
         return name
 
     def _fmt_pred(name: str) -> str:
+        # Display a pred name via its label when available.
         if name in pred_label_map:
             return pred_label_map[name]
         n = _norm(name)
@@ -1548,6 +1688,7 @@ def build_md_report(result: dict, cq_closure: Optional[dict] = None) -> str:
             return pred_label_map_norm[n]
         return name
 
+    # --- Report header ---
     L.append("# HermiT Closure Evaluation Report")
     L.append("")
     L.append("_Generated by `eval_hermit.py`_  ")
@@ -1567,6 +1708,7 @@ def build_md_report(result: dict, cq_closure: Optional[dict] = None) -> str:
 )
     L.append("")
 
+    # --- Closure sizes table ---
     g = result["gold_closure"]
     p = result["pred_closure"]
     L.append("## Closure sizes")
@@ -1588,6 +1730,7 @@ def build_md_report(result: dict, cq_closure: Optional[dict] = None) -> str:
              "are noise from gold's perspective._")
     L.append("")
 
+    # --- Metrics table ---
     cm = result["class_metrics"]
     pm = result["property_metrics"]
     om = result["combined_metrics"]
@@ -1602,6 +1745,7 @@ def build_md_report(result: dict, cq_closure: Optional[dict] = None) -> str:
         if (m["n_tp"] + m["n_fp"] + m["n_fn"]) == 0:
             L.append(f"| {label} | — | — | — | — | — | — |")
         else:
+            # Split FP into translated-FP + untranslated for display.
             n_unt = m.get("n_untranslated_in_fp", 0)
             n_translated_fp = m["n_fp"] - n_unt
             if n_unt > 0:
@@ -1616,6 +1760,7 @@ def build_md_report(result: dict, cq_closure: Optional[dict] = None) -> str:
                      f"{m['n_fn']} | {p_str} | {r_str} | {f_str} |")
     L.append("")
 
+    # Pull asserted/derived metadata for the detail tables' source tags.
     gold_asserted_class = result["gold_closure"].get("asserted_class", set())
     gold_asserted_prop  = result["gold_closure"].get("asserted_prop", set())
     gold_derived_class_subjects = result["gold_closure"].get(
@@ -1633,14 +1778,14 @@ def build_md_report(result: dict, cq_closure: Optional[dict] = None) -> str:
     class_pred_origin = result.get("_class_pred_origin", {})
     prop_pred_origin  = result.get("_prop_pred_origin", {})
 
-
     def _src_tag(pair, asserted_set, derived_subjects=None):
+        # "[asserted]" if the pair was directly declared, else "[inferred]".
         if pair in asserted_set:
             return "[asserted]"
         return "[inferred]"
 
     def _gold_src_tag(gold_pair, asserted_set):
-
+        # Source tag for a gold pair, dispatching on which asserted set it is.
         if asserted_set is gold_asserted_class:
             return _src_tag(gold_pair, asserted_set,
                             gold_derived_class_subjects)
@@ -1658,7 +1803,9 @@ def build_md_report(result: dict, cq_closure: Optional[dict] = None) -> str:
                 else "[inferred]")
 
     def _pred_origin_str(gold_pair, origin_map, asserted_set):
-
+        # Describe which pred pair(s) produced a translated gold pair, tagging
+        # each with asserted/inferred. (NOTE: builds `bits` but does not return
+        # it — kept as-is.)
         pred_pairs = origin_map.get(gold_pair, [])
         if not pred_pairs:
             return ""
@@ -1677,6 +1824,7 @@ def build_md_report(result: dict, cq_closure: Optional[dict] = None) -> str:
                 bits.append(f"from pred `{_fmt_pred(p_sub)}` ⊑ "
                             f"`{_fmt_pred(p_sup)}` {tag}")
 
+    # --- Class hierarchy detail tables (TP / FN / FP) ---
     if cm["tp"] or cm["fn"] or cm["fp"]:
         L.append("## Class hierarchy details")
         L.append("")
@@ -1725,6 +1873,7 @@ def build_md_report(result: dict, cq_closure: Optional[dict] = None) -> str:
                      "(e.g. atomic SubClassOf) than gold (e.g. "
                      "`A ⊑ ∃p.B`), which is structurally invalid.")
             L.append("")
+            # gold_axioms_by_subject lets us show what gold said about the subject.
             gold_by_sub = (cq_closure or {}).get(
                 "gold_axioms_by_subject", {})
             for s, x in sorted(cm["fp"]):
@@ -1737,7 +1886,7 @@ def build_md_report(result: dict, cq_closure: Optional[dict] = None) -> str:
                 # about subject `s`?
                 gold_axs = gold_by_sub.get(s, [])
                 if gold_axs:
-
+                    # Skip bare Declaration axioms; show up to 5 real ones.
                     relevant = [ax for ax in gold_axs
                                 if ax.get("axiom_type") != "Declaration"]
                     if relevant:
@@ -1748,6 +1897,7 @@ def build_md_report(result: dict, cq_closure: Optional[dict] = None) -> str:
                                      f"`{ax.get('dl', '')}`")
             L.append("")
 
+    # --- Property hierarchy detail tables (mirror of class tables) ---
     if pm["tp"] or pm["fn"] or pm["fp"]:
         L.append("## Property hierarchy details")
         L.append("")
@@ -1802,6 +1952,7 @@ def build_md_report(result: dict, cq_closure: Optional[dict] = None) -> str:
                                      f"`{ax.get('dl', '')}`")
             L.append("")
 
+    # --- Untranslated pred pairs, annotated with which side failed lookup ---
     if result["untranslated_class"] or result["untranslated_prop"]:
         L.append("## Untranslated pred pairs")
         L.append("")
@@ -1822,7 +1973,8 @@ def build_md_report(result: dict, cq_closure: Optional[dict] = None) -> str:
         inv_prop_norm = {_norm(k): v for k, v in inv_prop.items()}
 
         def _can_translate(name, inv_map, inv_map_norm=None):
-
+            # True if `name` (or any of its label/camel/lowercase variants) is
+            # present in the inverse alignment map.
             label = pred_label_map.get(name, name)
             split_form = _split_camel(name)
             variants = [name]
@@ -1841,6 +1993,7 @@ def build_md_report(result: dict, cq_closure: Optional[dict] = None) -> str:
             return False
 
         def _classify(s, x, inv_map, inv_map_norm=None):
+            # Which side of the pair failed to translate: [SUB], [SUP], or [BOTH].
             sub_ok = _can_translate(s, inv_map, inv_map_norm)
             sup_ok = _can_translate(x, inv_map, inv_map_norm)
             if sub_ok and not sup_ok:
@@ -1864,6 +2017,7 @@ def build_md_report(result: dict, cq_closure: Optional[dict] = None) -> str:
                 L.append(f"- `{tag}` `{s}` ⊑ `{x}`")
             L.append("")
 
+    # --- Closure-based CQ coverage section ---
     if cq_closure is not None:
         L.append("## CQ Coverage (closure-based)")
         L.append("")
@@ -1881,6 +2035,7 @@ def build_md_report(result: dict, cq_closure: Optional[dict] = None) -> str:
              "match does not automatically count as 100%.")
         L.append("")
 
+        # Count CQs by coverage source for the summary line.
         n_strict_only = 0
         n_closure_new = 0
         n_both = 0
@@ -1904,6 +2059,7 @@ def build_md_report(result: dict, cq_closure: Optional[dict] = None) -> str:
         # Detect whether closure rescue is in play (per_cq has axiom_rescue)
         any_rescue_in_play = any(info.get("axiom_rescue")
                                  for info in cq_closure["per_cq"].values())
+        # Adjust the wording of each metric depending on whether rescue applies.
         if any_rescue_in_play:
             any_meaning = ("CQs where at least one gold axiom got TP "
                            "or was rescued by closure")
@@ -1938,6 +2094,7 @@ def build_md_report(result: dict, cq_closure: Optional[dict] = None) -> str:
         pred_class_trans = result.get("pred_class_translated", set())
         pred_prop_trans = result.get("pred_prop_translated", set())
 
+        # Every gold-closure entailment, typed.
         all_closure = (
             [("class", s, p) for (s, p) in sorted(gold_class_clos)]
             + [("property", s, p) for (s, p) in sorted(gold_prop_clos)]
@@ -1945,6 +2102,7 @@ def build_md_report(result: dict, cq_closure: Optional[dict] = None) -> str:
 
         per_cq = cq_closure.get("per_cq", {})
 
+        # Map each entailment back to the CQ(s) and axiom id(s) that produced it.
         ent_to_cqs: Dict[Tuple[str, str, str], list] = {}
         for cq_id, pcq in per_cq.items():
             pair_map: Dict[Tuple[str, str, str], list] = {}
@@ -1979,6 +2137,7 @@ def build_md_report(result: dict, cq_closure: Optional[dict] = None) -> str:
                  "CQ tag.")
         L.append("")
 
+        # Headline counts: reproduced and CQ-tagged.
         n_total_e = len(all_closure)
         n_reproduced = sum(
             1 for (kind, s, p) in all_closure
@@ -2022,6 +2181,7 @@ def build_md_report(result: dict, cq_closure: Optional[dict] = None) -> str:
                      f"{cqs_cell} | {reason_cell} |")
         L.append("")
 
+        # --- Per-CQ coverage table (strict TP + rescue breakdown) ---
         any_rescue_data = any(info.get("axiom_rescue")
                               for info in cq_closure["per_cq"].values())
         L.append("### Per-CQ coverage")
@@ -2039,6 +2199,7 @@ def build_md_report(result: dict, cq_closure: Optional[dict] = None) -> str:
         L.append("| CQ id | Strict TP | Closure-confirmed | Closure-recovered | Total | Coverage | "
                  "Source | Closure-recovered axioms | Missing closure facts |")
         L.append("|---|---:|---:|---:|---:|---:|---|---|---|")
+        # Friendly labels for the source / rescue-mode codes.
         src_label_map = {
             "strict-only": "strict-only",
             "strict + rescued": "strict + rescued",
@@ -2062,6 +2223,7 @@ def build_md_report(result: dict, cq_closure: Optional[dict] = None) -> str:
             rate_disp = "—" if not info.get("n_axioms_total") else f"{info['rate']*100:.1f}%"
             src = src_label_map.get(info.get("source", "none"), "")
 
+            # Build the "closure-recovered axioms" cell (one line per rescue).
             rescued_lines = []
             for r in info.get("axiom_rescue", []):
                 if r.get("rescued"):
@@ -2078,6 +2240,7 @@ def build_md_report(result: dict, cq_closure: Optional[dict] = None) -> str:
                         line = (f"`{r['axiom_id']}`: `{sub} ⊑ {sup}`, "
                                 f"{mode_glyph.get(r['mode'], r['mode'])}")
                     if r.get("path"):
+                        # Show the chain of edges used to infer the pair.
                         ps = " then ".join(
                             f"`{_fmt_gold(e['sub'])}⊑{_fmt_gold(e['sup'])}`"
                             for e in r["path"])
@@ -2086,6 +2249,7 @@ def build_md_report(result: dict, cq_closure: Optional[dict] = None) -> str:
             rescued_cell = ("<br>".join(rescued_lines)
                             if rescued_lines else "")
 
+            # Build the "missing closure facts" cell: partial rescues + misses.
             partial_strs = []
             for r in info.get("axiom_rescue", []):
                 if r.get("mode") != "partial":
@@ -2137,6 +2301,10 @@ def build_md_report(result: dict, cq_closure: Optional[dict] = None) -> str:
 
 
 def append_md_report(report_text: str, output_path: str) -> None:
+    # Write the HermiT report into a Markdown file:
+    #   - File missing: create it (and warn it contains only this report).
+    #   - File has a prior HermiT section: replace it.
+    #   - File exists without one: append after existing content.
     hermit_marker = "# HermiT Closure Evaluation Report"
 
     if not os.path.exists(output_path):
@@ -2152,6 +2320,7 @@ def append_md_report(report_text: str, output_path: str) -> None:
     with open(output_path, "r", encoding="utf-8") as f:
         existing = f.read()
 
+    # Replace a previously-written HermiT section if present.
     if hermit_marker in existing:
         idx = existing.find(hermit_marker)
         prefix = existing[:idx].rstrip()
@@ -2164,6 +2333,7 @@ def append_md_report(report_text: str, output_path: str) -> None:
               f"'{output_path}', replaced it with the new run.")
         return
 
+    # Otherwise append after existing content with a separator.
     if not existing.endswith("\n"):
         existing += "\n"
     new_text = existing + "\n---\n\n" + report_text
@@ -2172,10 +2342,13 @@ def append_md_report(report_text: str, output_path: str) -> None:
     print(f"\n[report] HermiT report appended to '{output_path}'.")
 
 def get_parser():
+    # Define the CLI: required OWL files + alignment CSVs, optional axioms/CQ
+    # inputs for closure-based coverage, and the various output paths.
     p = argparse.ArgumentParser(
         description=__doc__,
         formatter_class=argparse.RawDescriptionHelpFormatter)
 
+    # --- Required inputs ---
     p.add_argument("--gold_owl", required=True,
                    help="Gold OWL file (HermiT input)")
     p.add_argument("--pred_owl", required=True,
@@ -2185,6 +2358,7 @@ def get_parser():
     p.add_argument("--property_csv", required=True,
                    help="Property alignment CSV (same format)")
 
+    # --- Optional inputs for CQ coverage ---
     p.add_argument("--gold", default=None,
                    help="Gold axioms JSON (with cq_numbers). Required for "
                         "closure-based CQ coverage.")
@@ -2200,6 +2374,7 @@ def get_parser():
                         "coverage will tag each CQ as strict / closure-new / "
                         "both. Expected columns: cq_id, covered.")
 
+    # --- Output paths ---
     p.add_argument("--output_json", default=None,
                    help="Output JSON path: {config, results: [...]}")
     p.add_argument("--output_csv", default=None,
@@ -2215,8 +2390,11 @@ def get_parser():
 
 
 def main():
+    # Entry point: load alignments, run the HermiT evaluation, optionally
+    # compute CQ coverage, and write the requested outputs + console summary.
     args = get_parser().parse_args()
 
+    # Load the class and property alignment tables.
     print(f"Loading class alignment from '{args.class_csv}'...",
           file=sys.stderr)
     class_align = load_alignment_csv(args.class_csv)
@@ -2227,6 +2405,7 @@ def main():
     prop_align = load_alignment_csv(args.property_csv)
     print(f"  {len(prop_align)} property pairs", file=sys.stderr)
 
+    # Run HermiT on both ontologies and compute the metrics.
     result = compute_hermit_evaluation(
         gold_owl_path=args.gold_owl,
         pred_owl_path=args.pred_owl,
@@ -2234,11 +2413,13 @@ def main():
         prop_align=prop_align,
     )
 
+    # Optional closure-based CQ coverage (needs gold axioms with cq_numbers).
     cq_closure = None
     if args.gold:
         try:
             gold_axioms = load_axioms(args.gold)
             cq_defs = load_cq_definitions(args.gold)
+            # Fall back to a CQ CSV if the gold JSON lacks cq_definitions.
             if not cq_defs and args.cq_csv:
                 try:
                     cq_defs = []
@@ -2255,6 +2436,7 @@ def main():
                           file=sys.stderr)
 
             if any(ax.get("cq_numbers") for ax in gold_axioms):
+                # Pull in strict-evaluation results if provided.
                 strict_set = load_strict_covered_cqs(args.strict_cq_csv) \
                     if args.strict_cq_csv else None
                 cq_closure = compute_cq_coverage_closure(
@@ -2277,19 +2459,23 @@ def main():
         except Exception as e:
             print(f"[warn] CQ coverage skipped: {e}", file=sys.stderr)
 
+    # Write JSON output.
     if args.output_json:
         out = build_json_output(result, args, cq_closure=cq_closure)
         with open(args.output_json, "w", encoding="utf-8") as f:
             json.dump(out, f, ensure_ascii=False, indent=2)
         print(f"\nJSON output saved to: {args.output_json}")
 
+    # Write per-pair CSV output.
     if args.output_csv:
         save_csv_output(result, args.output_csv)
 
+    # Write / append Markdown report.
     if args.output_md:
         report_text = build_md_report(result, cq_closure=cq_closure)
         append_md_report(report_text, args.output_md)
 
+    # Write a plain-text version (lightly stripped of Markdown syntax).
     if args.output_txt:
         # Plain-text version: same MD content but stripped of MD syntax
         report_text = build_md_report(result, cq_closure=cq_closure)
