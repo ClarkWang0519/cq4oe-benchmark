@@ -1,0 +1,31 @@
+diff --git a/CQ2Onto/scripts/run_all_evaluation_agent_datsets.py b/CQ2Onto/scripts/run_all_evaluation_agent_datsets.py
+index 35e2b5d..912220e 100644
+--- a/CQ2Onto/scripts/run_all_evaluation_agent_datsets.py
++++ b/CQ2Onto/scripts/run_all_evaluation_agent_datsets.py
+@@ -22,9 +22,10 @@ import subprocess
+ import sys
+ from pathlib import Path
+ 
+-PYTHON = "/Users/ljymacbook/opt/anaconda3/envs/tempautocl/bin/python"
++import os
++PYTHON = os.environ.get("CQ4OE_PYTHON", sys.executable)
+ 
+-MODES = ["agent", "normal", "cqbycq", "mymodel"]
++MODES = ["agent", "normal", "cqbycq", "mymodel", "challenge"]
+ 
+ GOLD_ROOT = Path("00_gold_standard")
+ DATASETS = ["wine", "vgo", "swo", "awo", "odrl", "water"]
+diff --git a/CQ2Term/scripts/run_all_cq2term.py b/CQ2Term/scripts/run_all_cq2term.py
+index 49be2ae..780b6c4 100644
+--- a/CQ2Term/scripts/run_all_cq2term.py
++++ b/CQ2Term/scripts/run_all_cq2term.py
+@@ -24,7 +24,8 @@ import subprocess
+ import sys
+ from pathlib import Path
+ 
+-PYTHON = "/Users/ljymacbook/opt/anaconda3/envs/tempautocl/bin/python"
++import os
++PYTHON = os.environ.get("CQ4OE_PYTHON", sys.executable)
+ 
+ PRED_ROOT = Path("01_predictions")
+ GOLD_ROOT = Path("00_gold_standard")

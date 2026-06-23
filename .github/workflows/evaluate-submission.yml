@@ -1,0 +1,140 @@
+name: Evaluate challenge submission
+
+# Steps performed on every PR that adds/changes a submissions/ folder:
+#   1. detect the submission that changed
+#   2. validate it against the submission guideline (metadata + files + formats)
+#   3. if valid, run the evaluation over the submitted results
+#   4. write the results into submissions/<name>/evaluation/ and commit them
+#      back onto the PR branch
+#
+# IMPORTANT - writing back into the PR:
+# Committing files onto the PR branch is only possible when the PR comes from a
+# branch in THIS repository. GitHub gives fork PRs a read-only token that cannot
+# push to the contributor's fork, so step 4 cannot commit there. For fork PRs the
+# results are still produced and uploaded as a downloadable artifact; commit them
+# at merge time instead (record-results.yml, writing into main).
+
+on:
+  pull_request:
+    paths:
+      - "submissions/**"
+
+permissions:
+  contents: write          # effective for same-repo PRs; forced read-only on forks
+
+concurrency:
+  group: eval-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      IS_FORK: ${{ github.event.pull_request.head.repo.full_name != github.repository }}
+    steps:
+      # Check out the PR's head branch (fork or same repo) so we can both
+      # evaluate its content and, for same-repo PRs, commit back to it.
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+
+      # ---- STEP 1: which submission changed ----
+      - name: Compute changed files
+        run: |
+          git remote add base https://github.com/${{ github.repository }} 2>/dev/null || true
+          git fetch base "${{ github.base_ref }}" --depth=1
+          git diff --name-only "base/${{ github.base_ref }}...HEAD" > changed.txt
+          echo "----- changed -----"; cat changed.txt
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - run: pip install pyyaml
+
+      # ---- STEP 2: validate against the submission guideline ----
+      - name: Validate submission
+        id: validate
+        run: |
+          python .github/challenge/validate_submission.py --changed-files changed.txt | tee val.out
+          echo "name=$(grep '^NAME=' val.out | cut -d= -f2)" >> "$GITHUB_OUTPUT"
+
+      - name: Install benchmark deps
+        run: pip install -r requirements.txt
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - name: Cache Ollama model
+        uses: actions/cache@v4
+        with:
+          path: ~/.ollama
+          key: ollama-embeddinggemma-v1
+      - name: Install Ollama and pull the embedding model
+        run: |
+          curl -fsSL https://ollama.com/install.sh | sh
+          ollama serve & sleep 5
+          ollama pull embeddinggemma
+
+      # ---- STEP 3: run the evaluation over the submitted results ----
+      - name: Stage submission into the pipeline layout
+        id: stage
+        env:
+          NAME: ${{ steps.validate.outputs.name }}
+        run: |
+          python .github/challenge/stage_submission.py --name "$NAME" | tee stage.out
+          echo "run_term=$(grep '^RUN_CQ2TERM=' stage.out | cut -d= -f2)" >> "$GITHUB_OUTPUT"
+          echo "run_onto=$(grep '^RUN_CQ2ONTO=' stage.out | cut -d= -f2)" >> "$GITHUB_OUTPUT"
+
+      - name: Run CQ2Term evaluation
+        if: steps.stage.outputs.run_term == '1'
+        env:
+          CQ4OE_PYTHON: python
+          NAME: ${{ steps.validate.outputs.name }}
+        working-directory: CQ2Term
+        run: python -u scripts/run_all_cq2term.py --models "$NAME" --no_leaderboard
+
+      - name: Run CQ2Onto evaluation
+        if: steps.stage.outputs.run_onto == '1'
+        env:
+          CQ4OE_PYTHON: python
+        working-directory: CQ2Onto
+        run: python -u scripts/run_all_evaluation_agent_datsets.py --modes challenge --no_leaderboard
+
+      # ---- STEP 4: write results into the submission folder ----
+      - name: Collect results into submissions/<name>/evaluation/
+        env:
+          NAME: ${{ steps.validate.outputs.name }}
+        run: |
+          python .github/challenge/collect_into_submission.py \
+            --name "$NAME" --onto-mode challenge --commit "${{ github.sha }}"
+
+      - name: Commit results onto the PR branch (same-repo PRs only)
+        if: env.IS_FORK == 'false'
+        env:
+          NAME: ${{ steps.validate.outputs.name }}
+        run: |
+          git config user.name  "cq4oe-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add "submissions/$NAME/evaluation"
+          git commit -m "Add evaluation results for $NAME [skip ci]" || { echo "no changes"; exit 0; }
+          git push origin HEAD:"${{ github.event.pull_request.head.ref }}"
+
+      - name: Upload results artifact (always; the only channel for fork PRs)
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: evaluation-${{ steps.validate.outputs.name }}
+          path: submissions/${{ steps.validate.outputs.name }}/evaluation/**
+          if-no-files-found: ignore
+
+      - name: Note fork limitation in the run summary
+        if: env.IS_FORK == 'true'
+        run: |
+          {
+            echo "### Evaluation complete";
+            echo "This PR is from a fork, so results could not be committed onto the PR branch (fork PRs get a read-only token).";
+            echo "The full evaluation/ folder is attached as a workflow artifact and will be committed when the submission is merged.";
+          } >> "$GITHUB_STEP_SUMMARY"
