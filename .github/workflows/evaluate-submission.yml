@@ -43,8 +43,9 @@ jobs:
       - name: Compute changed files
         run: |
           git remote add base https://github.com/${{ github.repository }} 2>/dev/null || true
-          git fetch base "${{ github.base_ref }}" --depth=1
-          git diff --name-only "base/${{ github.base_ref }}...HEAD" > changed.txt
+          git fetch base "${{ github.base_ref }}"
+          # two-dot diff (no merge-base needed; robust for fork/shallow histories)
+          git diff --name-only "base/${{ github.base_ref }}" HEAD > changed.txt
           echo "----- changed -----"; cat changed.txt
 
       - uses: actions/setup-python@v5
