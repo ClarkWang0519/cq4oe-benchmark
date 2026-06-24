@@ -47,7 +47,7 @@ Each method runs an **independent 1-to-1 greedy matching** at its own convention
 | `hard_match` | 9/20 | 45.0% | 33.3% | 45.0% | 38.3% |
 | `jaro_winkler` | 14/20 | 70.0% | 51.9% | 70.0% | 59.6% |
 | `levenshtein` | 9/20 | 45.0% | 33.3% | 45.0% | 38.3% |
-| `semantic` | 16/20 | 80.0% | 59.3% | 80.0% | 68.1% |
+| `semantic` | 15/20 | 75.0% | 55.6% | 75.0% | 63.8% |
 | `sequence_match` | 11/20 | 55.0% | 40.7% | 55.0% | 46.8% |
 
 ### Property alignment (18 gold terms)
@@ -81,7 +81,7 @@ Each pair's per-method scores are averaged over the **top 3** methods, then pair
 | `text editing` | `xmlediting` | 0.729 | sequence_match=0.76, jaro_winkler=0.76, semantic=0.67 |
 | `data item` | `dataexport` | 0.678 | jaro_winkler=0.84, semantic=0.64, sequence_match=0.56 |
 | `cel ascii format` | `dataformat` | 0.673 | jaro_winkler=0.73, semantic=0.70, sequence_match=0.58 |
-| `cel binary format` | `opendataformat` | 0.645 | jaro_winkler=0.71, sequence_match=0.62, semantic=0.60 |
+| `cel binary format` | `opendataformat` | 0.645 | jaro_winkler=0.71, sequence_match=0.62, semantic=0.61 |
 
 ### Accepted property alignments
 
@@ -100,7 +100,7 @@ Each pair's per-method scores are averaged over the **top 3** methods, then pair
 | `has interface` | `hasinputformat` | 0.687 | jaro_winkler=0.86, sequence_match=0.62, semantic=0.59 |
 | `has specified data output` | `hasdataexport` | 0.675 | jaro_winkler=0.81, semantic=0.71, sequence_match=0.51 |
 | `has support url` | `hasurl` | 0.667 | jaro_winkler=0.82, sequence_match=0.63, semantic=0.55 |
-| `has specified data input` | `hasmodification` | 0.645 | jaro_winkler=0.83, sequence_match=0.56, semantic=0.54 |
+| `has specified data input` | `hasmodification` | 0.644 | jaro_winkler=0.83, sequence_match=0.56, semantic=0.54 |
 
 ## Step 4 — Term-level Metrics
 
@@ -120,13 +120,13 @@ Per-CQ accuracy (_does pred mention the right concepts in the right CQ?_) is rep
 
 **Missed gold terms (FN):**
 
-- Classes (5): `free`, `not free`, `xml`, `desktop graphical user interface`, `application programming interface`
-- Properties (4): `has license`, `is software for`, `has download location`, `implements`
+- Classes (5): `xml`, `application programming interface`, `free`, `desktop graphical user interface`, `not free`
+- Properties (4): `has license`, `implements`, `is software for`, `has download location`
 
 **Extra pred terms (FP) — don't translate to any gold term:**
 
-- Classes (12): `softwaretype`, `tool`, `distributionchannel`, `proprietarydataformat`, `txt`, `modification`, `developedentity`, `developer`, `celfile`, `documentation`, `input`, `resource`
-- Properties (20): `isavailableas`, `supportstask`, `exportsto`, `processes`, `isvalid`, `exportsfrom`, `outputs`, `develops`, `collaborateswith`, `availableat`, `isopensource`, `isfree`, `created`, `workswith`, `uses`, `runson`, `ispublished`, `hasname`, `provides`, `reads`
+- Classes (12): `modification`, `txt`, `proprietarydataformat`, `tool`, `distributionchannel`, `input`, `resource`, `softwaretype`, `documentation`, `developedentity`, `developer`, `celfile`
+- Properties (20): `collaborateswith`, `develops`, `exportsto`, `isopensource`, `uses`, `hasname`, `isvalid`, `exportsfrom`, `isfree`, `provides`, `supportstask`, `created`, `reads`, `ispublished`, `outputs`, `isavailableas`, `availableat`, `runson`, `workswith`, `processes`
 
 ### Per-term Coverage Overview
 

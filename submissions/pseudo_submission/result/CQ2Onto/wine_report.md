@@ -43,14 +43,14 @@ Threshold applied: **`final_threshold = 0.6`** — pairs with averaged score bel
 | `Region` | `Region` | hard_match | 1.0000 |
 | `Vintage` | `Vintage` | hard_match | 1.0000 |
 | `wine` | `Wine` | hard_match | 1.0000 |
-| `WineColor` | `Red Wine Color` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.8824 |
-| `Bordeaux` | `Bordeaux Wine` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.8593 |
-| `WhiteWine` | `White Wine Color` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.8544 |
-| `VintageYear` | `Vintage Quality` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.7784 |
-| `WineTaste` | `Wine Characteristic` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.7138 |
-| `RedBordeaux` | `Bordeaux Grapes` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.6843 |
-| `WineBody` | `Body` | top3_avg(levenshtein+semantic+sequence_match) | 0.6560 |
-| `WineGrape` | `Grape Variety` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.6290 |
+| `WineColor` | `Red Wine Color` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.8823 |
+| `Bordeaux` | `Bordeaux Wine` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.8592 |
+| `WhiteWine` | `White Wine Color` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.8543 |
+| `VintageYear` | `Vintage Quality` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.7783 |
+| `WineTaste` | `Wine Characteristic` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.7139 |
+| `RedBordeaux` | `Bordeaux Grapes` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.6841 |
+| `WineBody` | `Body` | top3_avg(levenshtein+semantic+sequence_match) | 0.6559 |
+| `WineGrape` | `Grape Variety` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.6293 |
 
 ### Overall (Layer 3 — macro-level) Precision / Recall / F1
 
@@ -123,8 +123,8 @@ Threshold applied: **`final_threshold = 0.7`** — pairs with averaged score bel
 
 | Gold property | Pred property | Method(s) | Score |
 |---|---|---|---:|
-| `hasVintageYear` | `has vintage` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.8856 |
-| `hasWineDescriptor` | `has wine characteristic` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.7369 |
+| `hasVintageYear` | `has vintage` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.8854 |
+| `hasWineDescriptor` | `has wine characteristic` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.7371 |
 
 **Alignment summary (ObjectProperty):**
 
@@ -279,7 +279,7 @@ Each property's axioms are derived into a natural-language string and embedded w
 | Score | Gold text | Pred text |
 |---:|---|---|
 | 0.813 | `vintage has vintage year vintage year` | `vintage has vintage quality vintage quality` |
-| 0.706 | `wine has wine descriptor wine descriptor` | `wine has wine characteristic wine characteristic` |
+| 0.705 | `wine has wine descriptor wine descriptor` | `wine has wine characteristic wine characteristic` |
 | 0.700 | `wine made from grape wine grape` | `vintage from wine wine` |
 | 0.691 | `has body wine body` | `wine has vintage vintage` |
 | 0.657 | `wine has color wine color` | `vintage has vintage characteristic wine characteristic` |
@@ -288,7 +288,7 @@ Each property's axioms are derived into a natural-language string and embedded w
 
 | Score | Gold text | Pred text |
 |---:|---|---|
-| 0.817 | `vintage year year value xsd positive integer` | `vintage vintage year xsd g year` |
+| 0.818 | `vintage year year value xsd positive integer` | `vintage vintage year xsd g year` |
 
 ## Layer 3, Strict Alignment
 

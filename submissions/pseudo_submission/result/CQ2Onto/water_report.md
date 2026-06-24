@@ -46,12 +46,12 @@ Threshold applied: **`final_threshold = 0.6`** — pairs with averaged score bel
 | `Tariff` | `Tariff` | hard_match | 1.0000 |
 | `Water` | `Water` | hard_match | 1.0000 |
 | `Water meter` | `Water meter` | hard_match | 1.0000 |
-| `Water infrastructure` | `Water distribution infrastructure` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.8478 |
-| `Temporal entity` | `Temporal setting` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.8260 |
-| `Measurement` | `Water measurement` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.8157 |
-| `Water asset` | `Asset` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.7018 |
-| `Water property` | `Physical property` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.6600 |
-| `Temporal duration` | `Temperature` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.6396 |
+| `Water infrastructure` | `Water distribution infrastructure` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.8479 |
+| `Temporal entity` | `Temporal setting` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.8259 |
+| `Measurement` | `Water measurement` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.8155 |
+| `Water asset` | `Asset` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.7017 |
+| `Water property` | `Physical property` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.6604 |
+| `Temporal duration` | `Temperature` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.6394 |
 
 ### Overall (Layer 3 — macro-level) Precision / Recall / F1
 
@@ -126,9 +126,9 @@ Threshold applied: **`final_threshold = 0.7`** — pairs with averaged score bel
 |---|---|---|---:|
 | `has billing period` | `has billing period` | hard_match | 1.0000 |
 | `has measurement` | `is measurement of` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.8388 |
-| `makes measurement` | `provides measurement` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.8232 |
-| `has property` | `has physical property` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.7885 |
-| `is measured by device` | `is measured property of` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.7301 |
+| `makes measurement` | `provides measurement` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.8231 |
+| `has property` | `has physical property` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.7884 |
+| `is measured by device` | `is measured property of` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.7300 |
 
 **Alignment summary (ObjectProperty):**
 
@@ -150,10 +150,10 @@ Threshold applied: **`final_threshold = 0.7`** — pairs with averaged score bel
 |---|---|---|---:|
 | `has hardware version` | `hardware version` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.9226 |
 | `has fabrication number` | `fabrication number` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.9139 |
-| `has firmware version` | `firmware version` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.9029 |
-| `has manufacturer` | `manufacturer` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.8869 |
-| `has start timestamp` | `start timestamp` | top3_avg(levenshtein+semantic+sequence_match) | 0.8858 |
-| `has version` | `version` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.8462 |
+| `has firmware version` | `firmware version` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.9031 |
+| `has manufacturer` | `manufacturer` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.8870 |
+| `has start timestamp` | `start timestamp` | top3_avg(levenshtein+semantic+sequence_match) | 0.8859 |
+| `has version` | `version` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.8461 |
 | `has model` | `model` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.8411 |
 
 **Alignment summary (DatatypeProperty):**
@@ -289,11 +289,11 @@ Each property's axioms are derived into a natural-language string and embedded w
 | Score | Gold text | Pred text |
 |---:|---|---|
 | 0.897 | `tariff applies to water meter` | `water meter uses tariff tariff` |
-| 0.758 | `makes measurement` | `water meter provides measurement water measurement` |
+| 0.759 | `makes measurement` | `water meter provides measurement water measurement` |
 | 0.754 | `measurement has phenomenon time temporal entity` | `water measurement has temporal setting temporal setting` |
-| 0.731 | `has measurement` | `water measurement has measured property physical property` |
+| 0.730 | `has measurement` | `water measurement has measured property physical property` |
 | 0.725 | `tariff has billing period temporal duration` | `water meter has billing period billing period` |
-| 0.701 | `measurement made by` | `water measurement is measurement of water meter` |
+| 0.700 | `measurement made by` | `water measurement is measurement of water meter` |
 | 0.667 | `is measured by device` | `physical property is measured property of water measurement` |
 
 ### DatatypeProperty, semantic-aligned pairs (top 10)
@@ -304,7 +304,7 @@ Each property's axioms are derived into a natural-language string and embedded w
 | 0.658 | `has firmware version xsd http www w3 org 2000 01 rdf schema literal` | `water meter firmware version xsd string` |
 | 0.632 | `has hardware version xsd http www w3 org 2000 01 rdf schema literal` | `water meter hardware version xsd string` |
 | 0.631 | `has fabrication number xsd http www w3 org 2000 01 rdf schema literal` | `water meter fabrication number xsd string` |
-| 0.602 | `has model` | `water meter model xsd string` |
+| 0.600 | `has model` | `water meter model xsd string` |
 
 ## Layer 3, Strict Alignment
 

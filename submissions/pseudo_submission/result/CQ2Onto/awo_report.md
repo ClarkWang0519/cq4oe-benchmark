@@ -46,7 +46,7 @@ Threshold applied: **`final_threshold = 0.6`** — pairs with averaged score bel
 | `herbivore` | `Herbivore` | hard_match | 1.0000 |
 | `lion` | `Lion` | hard_match | 1.0000 |
 | `plant` | `Plant` | hard_match | 1.0000 |
-| `PlantParts` | `Plant Part` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.9514 |
+| `PlantParts` | `Plant Part` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.9515 |
 
 ### Overall (Layer 3 — macro-level) Precision / Recall / F1
 
@@ -242,8 +242,8 @@ Each property's axioms are derived into a natural-language string and embedded w
 
 | Score | Gold text | Pred text |
 |---:|---|---|
-| 0.737 | `eaten by` | `animal eats animal` |
-| 0.647 | `eats` | `plant eats animal animal` |
+| 0.738 | `eaten by` | `animal eats animal` |
+| 0.648 | `eats` | `plant eats animal animal` |
 
 ## Layer 3, Strict Alignment
 

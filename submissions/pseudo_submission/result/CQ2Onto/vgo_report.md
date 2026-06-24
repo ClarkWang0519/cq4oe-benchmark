@@ -45,9 +45,9 @@ Threshold applied: **`final_threshold = 0.6`** — pairs with averaged score bel
 | `Item` | `Item` | hard_match | 1.0000 |
 | `Player` | `Player` | hard_match | 1.0000 |
 | `playing area` | `Playing Area` | hard_match | 1.0000 |
-| `in-app purchase event` | `In-App Purchase` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.8872 |
-| `Session` | `Game Session` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.8153 |
-| `Completion` | `Game Completion` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.8010 |
+| `in-app purchase event` | `In-App Purchase` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.8869 |
+| `Session` | `Game Session` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.8154 |
+| `Completion` | `Game Completion` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.8008 |
 
 ### Overall (Layer 3 — macro-level) Precision / Recall / F1
 
@@ -124,10 +124,10 @@ Threshold applied: **`final_threshold = 0.7`** — pairs with averaged score bel
 | `has item` | `has item` | hard_match | 1.0000 |
 | `has playing area` | `has playing area` | hard_match | 1.0000 |
 | `owns item` | `owns item` | hard_match | 1.0000 |
-| `purchases game offering` | `purchase game` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.8147 |
-| `has game genre` | `has game` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.8110 |
-| `is achievement in game` | `game has achievement` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.7489 |
-| `owns achievement` | `has achievement type` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.7437 |
+| `purchases game offering` | `purchase game` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.8144 |
+| `has game genre` | `has game` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.8109 |
+| `is achievement in game` | `game has achievement` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.7488 |
+| `owns achievement` | `has achievement type` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.7432 |
 | `plays game` | `last played game` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.7094 |
 
 **Alignment summary (ObjectProperty):**
@@ -148,7 +148,7 @@ Threshold applied: **`final_threshold = 0.7`** — pairs with averaged score bel
 
 | Gold property | Pred property | Method(s) | Score |
 |---|---|---|---:|
-| `release date` | `has release date` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.8758 |
+| `release date` | `has release date` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.8759 |
 | `username` | `has username` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.8593 |
 
 **Alignment summary (DatatypeProperty):**
@@ -291,10 +291,10 @@ Each property's axioms are derived into a natural-language string and embedded w
 | 0.917 | `player is friend with player player` | `player has friend player` |
 | 0.881 | `character owns item item` | `player owns item item` |
 | 0.856 | `player owns achievement achievement` | `player has achievement achievement` |
-| 0.839 | `session is session in game game` | `game session has game game` |
+| 0.838 | `session is session in game game` | `game session has game game` |
 | 0.834 | `in app purchase event purchases game offering game product` | `in app purchase purchase game game` |
-| 0.791 | `session involves player player` | `game session has participant player` |
-| 0.746 | `player plays game game` | `player last played game game` |
+| 0.790 | `session involves player player` | `game session has participant player` |
+| 0.745 | `player plays game game` | `player last played game game` |
 
 _…and 5 more pairs._
 
@@ -306,7 +306,7 @@ _…and 5 more pairs._
 | 0.914 | `game release date xsd date time` | `game has release date xsd date` |
 | 0.884 | `session start time xsd date time` | `game session session start date time xsd date time` |
 | 0.628 | `session end time xsd date time` | `game session hours played xsd decimal` |
-| 0.601 | `event time xsd date time` | `in app purchase purchase date xsd date time` |
+| 0.602 | `event time xsd date time` | `in app purchase purchase date xsd date time` |
 
 ## Layer 3, Strict Alignment
 

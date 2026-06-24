@@ -44,12 +44,12 @@ Threshold applied: **`final_threshold = 0.6`** — pairs with averaged score bel
 | `programming language` | `programming language` | hard_match | 1.0000 |
 | `licence` | `License` | top3_avg(jaro_winkler+levenshtein+semantic) | 0.9059 |
 | `version number` | `version` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.8496 |
-| `software` | `software type` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.8461 |
+| `software` | `software type` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.8462 |
 | `data item` | `data` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.7817 |
-| `Development status` | `development activity level` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.7472 |
-| `CEL binary format` | `open format` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.6726 |
-| `software developer role` | `developer` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.6612 |
-| `function` | `Modification` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.6056 |
+| `Development status` | `development activity level` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.7474 |
+| `CEL binary format` | `open format` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.6727 |
+| `software developer role` | `developer` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.6611 |
+| `function` | `Modification` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.6055 |
 
 ### Overall (Layer 3 — macro-level) Precision / Recall / F1
 
@@ -123,11 +123,11 @@ Threshold applied: **`final_threshold = 0.7`** — pairs with averaged score bel
 | Gold property | Pred property | Method(s) | Score |
 |---|---|---|---:|
 | `has license` | `has license` | hard_match | 1.0000 |
-| `has output` | `has output format` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.8342 |
+| `has output` | `has output format` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.8344 |
 | `has input` | `has input format` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.8121 |
-| `has version` | `has export version` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.7954 |
-| `uses platform` | `runs on platform` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.7907 |
-| `is developed by` | `has developer` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.7682 |
+| `has version` | `has export version` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.7957 |
+| `uses platform` | `runs on platform` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.7906 |
+| `is developed by` | `has developer` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.7679 |
 | `uses software` | `has software type` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.7259 |
 | `has format specification` | `has modification` | top3_avg(jaro_winkler+levenshtein+sequence_match) | 0.7144 |
 
@@ -149,7 +149,7 @@ Threshold applied: **`final_threshold = 0.7`** — pairs with averaged score bel
 
 | Gold property | Pred property | Method(s) | Score |
 |---|---|---|---:|
-| `has release date` | `release date` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.8758 |
+| `has release date` | `release date` | top3_avg(jaro_winkler+semantic+sequence_match) | 0.8759 |
 
 **Alignment summary (DatatypeProperty):**
 
@@ -285,13 +285,13 @@ Each property's axioms are derived into a natural-language string and embedded w
 
 | Score | Gold text | Pred text |
 |---:|---|---|
-| 0.768 | `has version version number` | `feature introduced in version version` |
-| 0.763 | `has license` | `tool has license license` |
-| 0.728 | `uses platform` | `tool runs on platform platform` |
-| 0.699 | `is developed by` | `tool has developer developer` |
+| 0.769 | `has version version number` | `feature introduced in version version` |
+| 0.762 | `has license` | `tool has license license` |
+| 0.727 | `uses platform` | `tool runs on platform platform` |
+| 0.698 | `is developed by` | `tool has developer developer` |
 | 0.689 | `has input` | `tool has input format format` |
 | 0.684 | `implements algorithm` | `tool uses algorithm algorithm` |
-| 0.675 | `has output` | `tool has output format format` |
+| 0.676 | `has output` | `tool has output format format` |
 | 0.656 | `has interface software interface` | `tool has software type software type` |
 | 0.612 | `data item has format specification data format specification` | `export capability has export source format format` |
 | 0.609 | `has specified data output data item` | `tool task data capability has data data` |

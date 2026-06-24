@@ -117,13 +117,13 @@ Per-CQ accuracy (_does pred mention the right concepts in the right CQ?_) is rep
 
 **Missed gold terms (FN):**
 
-- Classes (4): `meter`, `water property`, `city`, `key performance indicator`
-- Properties (5): `requires power`, `has key performance indicator`, `has firmware version`, `makes measurement`, `applies to`
+- Classes (4): `city`, `water property`, `key performance indicator`, `meter`
+- Properties (5): `applies to`, `has firmware version`, `has key performance indicator`, `makes measurement`, `requires power`
 
 **Extra pred terms (FP) — don't translate to any gold term:**
 
-- Classes (8): `billingdateperiod`, `tariffperiod`, `region`, `asset`, `geolocation`, `waterdistributioninfrastructure`, `aspect`, `firmware`
-- Properties (10): `hasaspect`, `provides`, `definedfor`, `usestariff`, `hastemporalsetting`, `usedin`, `composes`, `hastariff`, `uses`, `haschemicalproperty`
+- Classes (8): `aspect`, `billingdateperiod`, `geolocation`, `waterdistributioninfrastructure`, `region`, `tariffperiod`, `asset`, `firmware`
+- Properties (10): `usestariff`, `uses`, `definedfor`, `composes`, `hasaspect`, `hastariff`, `hastemporalsetting`, `haschemicalproperty`, `provides`, `usedin`
 
 ### Per-term Coverage Overview
 
