@@ -1,0 +1,218 @@
+====================================================================================================
+ATOMIC TBOX AXIOMS
+====================================================================================================
+
+── Class ──
+
+  Term: AcceptabilityProperty  [Class]
+    SubClassOf                 AcceptabilityProperty ⊑ WaterProperty
+      Subject: AcceptabilityProperty
+      Object : WaterProperty
+
+  Term: Actuator  [Class]
+    SubClassOf                 Actuator ⊑ Device
+      Subject: Actuator
+      Object : Device
+    DisjointClasses            DisjointClasses(Actuator, Sensor)
+      Subject: Actuator
+      Object : Sensor
+
+  Term: ChemicalProperty  [Class]
+    SubClassOf                 ChemicalProperty ⊑ WaterProperty
+      Subject: ChemicalProperty
+      Object : WaterProperty
+
+  Term: Device  [Class]
+    SubClassOf                 Device ⊑ ∀makesMeasurement.Measurement
+      Subject: Device
+      Object : ∀makesMeasurement.Measurement
+
+  Term: FeatureOfInterest  [Class]
+    SubClassOf                 FeatureOfInterest ⊑ ∀hasMeasurement.Measurement
+      Subject: FeatureOfInterest
+      Object : ∀hasMeasurement.Measurement
+
+  Term: Measurement  [Class]
+    SubClassOf                 Measurement ⊑ ∀hasTimestamp.datetime'>
+      Subject: Measurement
+      Object : ∀hasTimestamp.datetime'>
+
+  Term: Meter  [Class]
+    SubClassOf                 Meter ⊑ Sensor
+      Subject: Meter
+      Object : Sensor
+
+  Term: Point  [Class]
+    SubClassOf                 Point ⊑ Geometry
+      Subject: Point
+      Object : Geometry
+
+  Term: Sensor  [Class]
+    SubClassOf                 Sensor ⊑ Device
+      Subject: Sensor
+      Object : Device
+
+  Term: TimeBasedTariff  [Class]
+    SubClassOf                 TimeBasedTariff ⊑ Tariff
+      Subject: TimeBasedTariff
+      Object : Tariff
+
+  Term: Water  [Class]
+    SubClassOf                 Water ⊑ FeatureOfInterest
+      Subject: Water
+      Object : FeatureOfInterest
+    SubClassOf                 Water ⊑ ∀hasProperty.WaterProperty
+      Subject: Water
+      Object : ∀hasProperty.WaterProperty
+
+  Term: WaterAsset  [Class]
+    SubClassOf                 WaterAsset ⊑ FeatureOfInterest
+      Subject: WaterAsset
+      Object : FeatureOfInterest
+
+  Term: WaterMeter  [Class]
+    SubClassOf                 WaterMeter ⊑ Meter
+      Subject: WaterMeter
+      Object : Meter
+    SubClassOf                 WaterMeter ⊑ ≤1 hasFabricationNumber.⊤
+      Subject: WaterMeter
+      Object : ≤1 hasFabricationNumber.⊤
+    SubClassOf                 WaterMeter ⊑ ≤1 hasFirmwareVersion.⊤
+      Subject: WaterMeter
+      Object : ≤1 hasFirmwareVersion.⊤
+    SubClassOf                 WaterMeter ⊑ ≤1 hasHardwareVersion.⊤
+      Subject: WaterMeter
+      Object : ≤1 hasHardwareVersion.⊤
+    SubClassOf                 WaterMeter ⊑ ≤1 hasVersion.⊤
+      Subject: WaterMeter
+      Object : ≤1 hasVersion.⊤
+
+
+── ObjectProperty ──
+
+  Term: appliesTo  [ObjectProperty]
+    Domain                     ∃appliesTo.⊤ ⊑ Tariff
+      Subject: appliesTo
+      Object : Tariff
+    Range                      ⊤ ⊑ ∀appliesTo.WaterMeter
+      Subject: appliesTo
+      Object : WaterMeter
+
+  Term: featureIsMeasuredByDevice  [ObjectProperty]
+    Domain                     ∃featureIsMeasuredByDevice.⊤ ⊑ FeatureOfInterest
+      Subject: featureIsMeasuredByDevice
+      Object : FeatureOfInterest
+    Range                      ⊤ ⊑ ∀featureIsMeasuredByDevice.Device
+      Subject: featureIsMeasuredByDevice
+      Object : Device
+
+  Term: hasBillingPeriod  [ObjectProperty]
+    Domain                     ∃hasBillingPeriod.⊤ ⊑ Tariff
+      Subject: hasBillingPeriod
+      Object : Tariff
+    Range                      ⊤ ⊑ ∀hasBillingPeriod.TemporalDuration
+      Subject: hasBillingPeriod
+      Object : TemporalDuration
+
+  Term: hasDuration  [ObjectProperty]
+    Domain                     ∃hasDuration.⊤ ⊑ Tariff
+      Subject: hasDuration
+      Object : Tariff
+    Range                      ⊤ ⊑ ∀hasDuration.TemporalDuration
+      Subject: hasDuration
+      Object : TemporalDuration
+
+  Term: hasKPI  [ObjectProperty]
+    InverseOf                  hasKPI ≡ isKPIOf⁻
+      Subject: hasKPI
+      Object : isKPIOf
+
+  Term: hasPeriod  [ObjectProperty]
+    Domain                     ∃hasPeriod.⊤ ⊑ Tariff
+      Subject: hasPeriod
+      Object : Tariff
+    Range                      ⊤ ⊑ ∀hasPeriod.TemporalDuration
+      Subject: hasPeriod
+      Object : TemporalDuration
+
+  Term: hasPhenomenonTime  [ObjectProperty]
+    Domain                     ∃hasPhenomenonTime.⊤ ⊑ Measurement
+      Subject: hasPhenomenonTime
+      Object : Measurement
+    Range                      ⊤ ⊑ ∀hasPhenomenonTime.TemporalEntity
+      Subject: hasPhenomenonTime
+      Object : TemporalEntity
+
+  Term: isKPIOf  [ObjectProperty]
+    InverseOf                  isKPIOf ≡ hasKPI⁻
+      Subject: isKPIOf
+      Object : hasKPI
+
+  Term: makesMeasurement  [ObjectProperty]
+    InverseOf                  makesMeasurement ≡ measurementMadeBy⁻
+      Subject: makesMeasurement
+      Object : measurementMadeBy
+
+  Term: measurementMadeBy  [ObjectProperty]
+    InverseOf                  measurementMadeBy ≡ makesMeasurement⁻
+      Subject: measurementMadeBy
+      Object : makesMeasurement
+
+
+── DatatypeProperty ──
+
+  Term: hasBillingDate  [DatatypeProperty]
+    Domain                     ∃hasBillingDate.⊤ ⊑ Tariff
+      Subject: hasBillingDate
+      Object : Tariff
+    Range                      hasBillingDate maps-to datetime'>
+      Subject: hasBillingDate
+      Object : datetime'>
+
+  Term: hasFabricationNumber  [DatatypeProperty]
+    Range                      hasFabricationNumber maps-to ⊤
+      Subject: hasFabricationNumber
+      Object : ⊤
+
+  Term: hasFirmwareVersion  [DatatypeProperty]
+    Range                      hasFirmwareVersion maps-to ⊤
+      Subject: hasFirmwareVersion
+      Object : ⊤
+
+  Term: hasHardwareVersion  [DatatypeProperty]
+    Range                      hasHardwareVersion maps-to ⊤
+      Subject: hasHardwareVersion
+      Object : ⊤
+
+  Term: hasStartTimestamp  [DatatypeProperty]
+    Domain                     ∃hasStartTimestamp.⊤ ⊑ Tariff
+      Subject: hasStartTimestamp
+      Object : Tariff
+    Range                      hasStartTimestamp maps-to datetime'>
+      Subject: hasStartTimestamp
+      Object : datetime'>
+
+  Term: hasVersion  [DatatypeProperty]
+    Range                      hasVersion maps-to ⊤
+      Subject: hasVersion
+      Object : ⊤
+
+
+====================================================================================================
+STATISTICS
+====================================================================================================
+
+  Classes:               20  (defined: 0, primitive: 20)
+  ObjectProperties:      14
+  DatatypeProperties:    11
+
+  Axiom Breakdown:
+    DisjointClasses           1
+    Domain                    8
+    InverseOf                 4
+    Range                     12
+    SubClassOf                18
+    ------------------------------
+    Total TBox Axioms         43
+
+====================================================================================================

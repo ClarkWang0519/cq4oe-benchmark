@@ -1,0 +1,325 @@
+====================================================================================================
+ATOMIC TBOX AXIOMS
+====================================================================================================
+
+── Class ──
+
+  Term: Bordeaux  [Class]
+    Declaration                Declaration: Bordeaux (Class)
+      Subject: Bordeaux
+      Object : Class
+    EquivalentClasses          Bordeaux ≡ (wine ⊓ ∃locatedIn.{BordeauxRegion})
+      Subject: Bordeaux
+      Object : (wine ⊓ ∃locatedIn.{BordeauxRegion})
+
+  Term: RedBordeaux  [Class]
+    Declaration                Declaration: RedBordeaux (Class)
+      Subject: RedBordeaux
+      Object : Class
+    EquivalentClasses          RedBordeaux ≡ (Bordeaux ⊓ RedWine)
+      Subject: RedBordeaux
+      Object : (Bordeaux ⊓ RedWine)
+    SubClassOf                 RedBordeaux ⊑ ∀madeFromGrape.{CabernetSauvignonGrape, MerlotGrape}
+      Subject: RedBordeaux
+      Object : ∀madeFromGrape.{CabernetSauvignonGrape, MerlotGrape}
+
+  Term: RedWine  [Class]
+    Declaration                Declaration: RedWine (Class)
+      Subject: RedWine
+      Object : Class
+    EquivalentClasses          RedWine ≡ (wine ⊓ ∃hasColor.{Red})
+      Subject: RedWine
+      Object : (wine ⊓ ∃hasColor.{Red})
+
+  Term: Region  [Class]
+    Declaration                Declaration: Region (Class)
+      Subject: Region
+      Object : Class
+
+  Term: Vintage  [Class]
+    Declaration                Declaration: Vintage (Class)
+      Subject: Vintage
+      Object : Class
+    SubClassOf                 Vintage ⊑ =1 hasVintageYear.⊤
+      Subject: Vintage
+      Object : =1 hasVintageYear.⊤
+
+  Term: VintageYear  [Class]
+    Declaration                Declaration: VintageYear (Class)
+      Subject: VintageYear
+      Object : Class
+
+  Term: WhiteBordeaux  [Class]
+    Declaration                Declaration: WhiteBordeaux (Class)
+      Subject: WhiteBordeaux
+      Object : Class
+    EquivalentClasses          WhiteBordeaux ≡ (Bordeaux ⊓ WhiteWine)
+      Subject: WhiteBordeaux
+      Object : (Bordeaux ⊓ WhiteWine)
+    SubClassOf                 WhiteBordeaux ⊑ ∀madeFromGrape.{SauvignonBlancGrape, SemillonGrape}
+      Subject: WhiteBordeaux
+      Object : ∀madeFromGrape.{SauvignonBlancGrape, SemillonGrape}
+
+  Term: WhiteWine  [Class]
+    Declaration                Declaration: WhiteWine (Class)
+      Subject: WhiteWine
+      Object : Class
+    EquivalentClasses          WhiteWine ≡ (wine ⊓ ∃hasColor.{White})
+      Subject: WhiteWine
+      Object : (wine ⊓ ∃hasColor.{White})
+
+  Term: WineBody  [Class]
+    Declaration                Declaration: WineBody (Class)
+      Subject: WineBody
+      Object : Class
+    EquivalentClasses          WineBody ≡ {Full, Light, Medium}
+      Subject: WineBody
+      Object : {Full, Light, Medium}
+    SubClassOf                 WineBody ⊑ WineTaste
+      Subject: WineBody
+      Object : WineTaste
+
+  Term: WineColor  [Class]
+    Declaration                Declaration: WineColor (Class)
+      Subject: WineColor
+      Object : Class
+    EquivalentClasses          WineColor ≡ {Red, Rose, White}
+      Subject: WineColor
+      Object : {Red, Rose, White}
+    SubClassOf                 WineColor ⊑ WineDescriptor
+      Subject: WineColor
+      Object : WineDescriptor
+
+  Term: WineDescriptor  [Class]
+    Declaration                Declaration: WineDescriptor (Class)
+      Subject: WineDescriptor
+      Object : Class
+    EquivalentClasses          WineDescriptor ≡ (WineColor ⊔ WineTaste)
+      Subject: WineDescriptor
+      Object : (WineColor ⊔ WineTaste)
+
+  Term: WineFlavor  [Class]
+    Declaration                Declaration: WineFlavor (Class)
+      Subject: WineFlavor
+      Object : Class
+    EquivalentClasses          WineFlavor ≡ {Delicate, Moderate, Strong}
+      Subject: WineFlavor
+      Object : {Delicate, Moderate, Strong}
+    SubClassOf                 WineFlavor ⊑ WineTaste
+      Subject: WineFlavor
+      Object : WineTaste
+
+  Term: WineGrape  [Class]
+    Declaration                Declaration: WineGrape (Class)
+      Subject: WineGrape
+      Object : Class
+
+  Term: WineSugar  [Class]
+    Declaration                Declaration: WineSugar (Class)
+      Subject: WineSugar
+      Object : Class
+    EquivalentClasses          WineSugar ≡ {Dry, OffDry, Sweet}
+      Subject: WineSugar
+      Object : {Dry, OffDry, Sweet}
+    SubClassOf                 WineSugar ⊑ WineTaste
+      Subject: WineSugar
+      Object : WineTaste
+
+  Term: WineTaste  [Class]
+    Declaration                Declaration: WineTaste (Class)
+      Subject: WineTaste
+      Object : Class
+    SubClassOf                 WineTaste ⊑ WineDescriptor
+      Subject: WineTaste
+      Object : WineDescriptor
+
+  Term: Zinfandel  [Class]
+    Declaration                Declaration: Zinfandel (Class)
+      Subject: Zinfandel
+      Object : Class
+    EquivalentClasses          Zinfandel ≡ (wine ⊓ ∃madeFromGrape.{ZinfandelGrape} ⊓ ≤1 madeFromGrape.⊤)
+      Subject: Zinfandel
+      Object : (wine ⊓ ∃madeFromGrape.{ZinfandelGrape} ⊓ ≤1 madeFromGrape.⊤)
+    SubClassOf                 Zinfandel ⊑ ∀hasBody.{Full, Medium}
+      Subject: Zinfandel
+      Object : ∀hasBody.{Full, Medium}
+    SubClassOf                 Zinfandel ⊑ ∀hasFlavor.{Moderate, Strong}
+      Subject: Zinfandel
+      Object : ∀hasFlavor.{Moderate, Strong}
+    SubClassOf                 Zinfandel ⊑ ∃hasColor.{Red}
+      Subject: Zinfandel
+      Object : ∃hasColor.{Red}
+    SubClassOf                 Zinfandel ⊑ ∃hasSugar.{Dry}
+      Subject: Zinfandel
+      Object : ∃hasSugar.{Dry}
+
+  Term: wine  [Class]
+    Declaration                Declaration: wine (Class)
+      Subject: wine
+      Object : Class
+    SubClassOf                 wine ⊑ ∃locatedIn.Region
+      Subject: wine
+      Object : ∃locatedIn.Region
+    SubClassOf                 wine ⊑ ≥1 madeFromGrape.⊤
+      Subject: wine
+      Object : ≥1 madeFromGrape.⊤
+    SubClassOf                 wine ⊑ =1 hasBody.⊤
+      Subject: wine
+      Object : =1 hasBody.⊤
+    SubClassOf                 wine ⊑ =1 hasColor.⊤
+      Subject: wine
+      Object : =1 hasColor.⊤
+    SubClassOf                 wine ⊑ =1 hasFlavor.⊤
+      Subject: wine
+      Object : =1 hasFlavor.⊤
+    SubClassOf                 wine ⊑ =1 hasSugar.⊤
+      Subject: wine
+      Object : =1 hasSugar.⊤
+
+
+── ObjectProperty ──
+
+  Term: hasBody  [ObjectProperty]
+    Declaration                Declaration: hasBody (ObjectProperty)
+      Subject: hasBody
+      Object : ObjectProperty
+    SubPropertyOf              hasBody ⊑ hasWineDescriptor
+      Subject: hasBody
+      Object : hasWineDescriptor
+    Range                      ⊤ ⊑ ∀hasBody.WineBody
+      Subject: hasBody
+      Object : WineBody
+    Characteristics            Functional(hasBody)
+      Subject: hasBody
+      Object : Functional
+
+  Term: hasColor  [ObjectProperty]
+    Declaration                Declaration: hasColor (ObjectProperty)
+      Subject: hasColor
+      Object : ObjectProperty
+    SubPropertyOf              hasColor ⊑ hasWineDescriptor
+      Subject: hasColor
+      Object : hasWineDescriptor
+    Domain                     ∃hasColor.⊤ ⊑ wine
+      Subject: hasColor
+      Object : wine
+    Range                      ⊤ ⊑ ∀hasColor.WineColor
+      Subject: hasColor
+      Object : WineColor
+    Characteristics            Functional(hasColor)
+      Subject: hasColor
+      Object : Functional
+
+  Term: hasFlavor  [ObjectProperty]
+    Declaration                Declaration: hasFlavor (ObjectProperty)
+      Subject: hasFlavor
+      Object : ObjectProperty
+    SubPropertyOf              hasFlavor ⊑ hasWineDescriptor
+      Subject: hasFlavor
+      Object : hasWineDescriptor
+    Range                      ⊤ ⊑ ∀hasFlavor.WineFlavor
+      Subject: hasFlavor
+      Object : WineFlavor
+    Characteristics            Functional(hasFlavor)
+      Subject: hasFlavor
+      Object : Functional
+
+  Term: hasSugar  [ObjectProperty]
+    Declaration                Declaration: hasSugar (ObjectProperty)
+      Subject: hasSugar
+      Object : ObjectProperty
+    SubPropertyOf              hasSugar ⊑ hasWineDescriptor
+      Subject: hasSugar
+      Object : hasWineDescriptor
+    Range                      ⊤ ⊑ ∀hasSugar.WineSugar
+      Subject: hasSugar
+      Object : WineSugar
+    Characteristics            Functional(hasSugar)
+      Subject: hasSugar
+      Object : Functional
+
+  Term: hasVintageYear  [ObjectProperty]
+    Declaration                Declaration: hasVintageYear (ObjectProperty)
+      Subject: hasVintageYear
+      Object : ObjectProperty
+    Domain                     ∃hasVintageYear.⊤ ⊑ Vintage
+      Subject: hasVintageYear
+      Object : Vintage
+    Range                      ⊤ ⊑ ∀hasVintageYear.VintageYear
+      Subject: hasVintageYear
+      Object : VintageYear
+    Characteristics            Functional(hasVintageYear)
+      Subject: hasVintageYear
+      Object : Functional
+
+  Term: hasWineDescriptor  [ObjectProperty]
+    Declaration                Declaration: hasWineDescriptor (ObjectProperty)
+      Subject: hasWineDescriptor
+      Object : ObjectProperty
+    Domain                     ∃hasWineDescriptor.⊤ ⊑ wine
+      Subject: hasWineDescriptor
+      Object : wine
+    Range                      ⊤ ⊑ ∀hasWineDescriptor.WineDescriptor
+      Subject: hasWineDescriptor
+      Object : WineDescriptor
+
+  Term: locatedIn  [ObjectProperty]
+    Declaration                Declaration: locatedIn (ObjectProperty)
+      Subject: locatedIn
+      Object : ObjectProperty
+    Domain                     ∃locatedIn.⊤ ⊑ ⊤
+      Subject: locatedIn
+      Object : ⊤
+    Range                      ⊤ ⊑ ∀locatedIn.Region
+      Subject: locatedIn
+      Object : Region
+    Characteristics            Transitive(locatedIn)
+      Subject: locatedIn
+      Object : Transitive
+
+  Term: madeFromGrape  [ObjectProperty]
+    Declaration                Declaration: madeFromGrape (ObjectProperty)
+      Subject: madeFromGrape
+      Object : ObjectProperty
+    Domain                     ∃madeFromGrape.⊤ ⊑ wine
+      Subject: madeFromGrape
+      Object : wine
+    Range                      ⊤ ⊑ ∀madeFromGrape.WineGrape
+      Subject: madeFromGrape
+      Object : WineGrape
+
+
+── DatatypeProperty ──
+
+  Term: yearValue  [DatatypeProperty]
+    Declaration                Declaration: yearValue (DatatypeProperty)
+      Subject: yearValue
+      Object : DatatypeProperty
+    Domain                     ∃yearValue.⊤ ⊑ VintageYear
+      Subject: yearValue
+      Object : VintageYear
+    Range                      yearValue maps-to xsd:integer
+      Subject: yearValue
+      Object : xsd:integer
+
+
+====================================================================================================
+STATISTICS
+====================================================================================================
+
+  Classes:               17  (defined: 11, primitive: 6)
+  ObjectProperties:      8
+  DatatypeProperties:    1
+
+  Axiom Breakdown:
+    Characteristics           6
+    Declaration               26
+    Domain                    6
+    EquivalentClasses         11
+    Range                     9
+    SubClassOf                18
+    SubPropertyOf             4
+    ------------------------------
+    Total TBox Axioms         80
+
+====================================================================================================

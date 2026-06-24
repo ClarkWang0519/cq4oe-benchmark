@@ -1,0 +1,129 @@
+====================================================================================================
+ATOMIC TBOX AXIOMS
+====================================================================================================
+
+── Class ──
+
+  Term: CarnivorousPlant  [Class]
+    SubClassOf                 CarnivorousPlant ⊑ plant
+      Subject: CarnivorousPlant
+      Object : plant
+    SubClassOf                 CarnivorousPlant ⊑ ∃eats.animal
+      Subject: CarnivorousPlant
+      Object : ∃eats.animal
+
+  Term: Omnivore  [Class]
+    EquivalentClasses          Omnivore ≡ (∃eats.animal ⊓ ∃eats.plant ⊓ ∃eats.(∃is-part-of.animal ⊔ ∃is-part-of.plant))
+      Subject: Omnivore
+      Object : (∃eats.animal ⊓ ∃eats.plant ⊓ ∃eats.(∃is-part-of.animal ⊔ ∃is-part-of.plant))
+    SubClassOf                 Omnivore ⊑ animal
+      Subject: Omnivore
+      Object : animal
+    DisjointClasses            DisjointClasses(Omnivore, carnivore)
+      Subject: Omnivore
+      Object : carnivore
+    DisjointClasses            DisjointClasses(Omnivore, herbivore)
+      Subject: Omnivore
+      Object : herbivore
+
+  Term: PlantParts  [Class]
+    SubClassOf                 PlantParts ⊑ ∃is-proper-part-of.plant
+      Subject: PlantParts
+      Object : ∃is-proper-part-of.plant
+
+  Term: animal  [Class]
+    DisjointClasses            DisjointClasses(animal, plant)
+      Subject: animal
+      Object : plant
+
+  Term: carnivore  [Class]
+    EquivalentClasses          carnivore ≡ (∀eats.animal ⊔ ∀eats.∃is-part-of.animal)
+      Subject: carnivore
+      Object : (∀eats.animal ⊔ ∀eats.∃is-part-of.animal)
+    SubClassOf                 carnivore ⊑ animal
+      Subject: carnivore
+      Object : animal
+    DisjointClasses            DisjointClasses(carnivore, herbivore)
+      Subject: carnivore
+      Object : herbivore
+
+  Term: herbivore  [Class]
+    EquivalentClasses          herbivore ≡ (∀eats.plant ⊔ ∀eats.∃is-part-of.plant)
+      Subject: herbivore
+      Object : (∀eats.plant ⊔ ∀eats.∃is-part-of.plant)
+    SubClassOf                 herbivore ⊑ animal
+      Subject: herbivore
+      Object : animal
+
+  Term: lion  [Class]
+    SubClassOf                 lion ⊑ animal
+      Subject: lion
+      Object : animal
+    SubClassOf                 lion ⊑ ∀eats.herbivore
+      Subject: lion
+      Object : ∀eats.herbivore
+
+
+── ObjectProperty ──
+
+  Term: eaten-by  [ObjectProperty]
+    InverseOf                  eaten-by ≡ eats⁻
+      Subject: eaten-by
+      Object : eats
+
+  Term: eats  [ObjectProperty]
+    InverseOf                  eats ≡ eaten-by⁻
+      Subject: eats
+      Object : eaten-by
+    Range                      ⊤ ⊑ ∀eats.(animal ⊔ plant ⊔ ∃is-part-of.animal ⊔ ∃is-part-of.plant)
+      Subject: eats
+      Object : (animal ⊔ plant ⊔ ∃is-part-of.animal ⊔ ∃is-part-of.plant)
+
+  Term: has-part  [ObjectProperty]
+    InverseOf                  has-part ≡ is-part-of⁻
+      Subject: has-part
+      Object : is-part-of
+    Characteristics            Transitive(has-part)
+      Subject: has-part
+      Object : Transitive
+
+  Term: is-part-of  [ObjectProperty]
+    InverseOf                  is-part-of ≡ has-part⁻
+      Subject: is-part-of
+      Object : has-part
+    Characteristics            Transitive(is-part-of)
+      Subject: is-part-of
+      Object : Transitive
+    Characteristics            Reflexive(is-part-of)
+      Subject: is-part-of
+      Object : Reflexive
+
+  Term: is-proper-part-of  [ObjectProperty]
+    SubPropertyOf              is-proper-part-of ⊑ is-part-of
+      Subject: is-proper-part-of
+      Object : is-part-of
+    Characteristics            Irreflexive(is-proper-part-of)
+      Subject: is-proper-part-of
+      Object : Irreflexive
+
+
+====================================================================================================
+STATISTICS
+====================================================================================================
+
+  Classes:               9  (defined: 3, primitive: 6)
+  ObjectProperties:      5
+  DatatypeProperties:    0
+
+  Axiom Breakdown:
+    Characteristics           4
+    DisjointClasses           4
+    EquivalentClasses         3
+    InverseOf                 4
+    Range                     1
+    SubClassOf                8
+    SubPropertyOf             1
+    ------------------------------
+    Total TBox Axioms         25
+
+====================================================================================================

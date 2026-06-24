@@ -1,0 +1,398 @@
+====================================================================================================
+ATOMIC TBOX AXIOMS
+====================================================================================================
+
+── Class ──
+
+  Term: .csv  [Class]
+    Declaration                Declaration: .csv (Class)
+      Subject: .csv
+      Object : Class
+
+  Term: CEL ASCII format  [Class]
+    Declaration                Declaration: CEL ASCII format (Class)
+      Subject: CEL ASCII format
+      Object : Class
+
+  Term: CEL binary format  [Class]
+    Declaration                Declaration: CEL binary format (Class)
+      Subject: CEL binary format
+      Object : Class
+
+  Term: Development status  [Class]
+    Declaration                Declaration: Development status (Class)
+      Subject: Development status
+      Object : Class
+
+  Term: Free  [Class]
+    Declaration                Declaration: Free (Class)
+      Subject: Free
+      Object : Class
+    SubClassOf                 Free ⊑ Purchase cost
+      Subject: Free
+      Object : Purchase cost
+
+  Term: GIF  [Class]
+    Declaration                Declaration: GIF (Class)
+      Subject: GIF
+      Object : Class
+
+  Term: Maintained  [Class]
+    Declaration                Declaration: Maintained (Class)
+      Subject: Maintained
+      Object : Class
+    SubClassOf                 Maintained ⊑ Development status
+      Subject: Maintained
+      Object : Development status
+
+  Term: Not Free  [Class]
+    Declaration                Declaration: Not Free (Class)
+      Subject: Not Free
+      Object : Class
+    SubClassOf                 Not Free ⊑ Purchase cost
+      Subject: Not Free
+      Object : Purchase cost
+
+  Term: Open source software license  [Class]
+    Declaration                Declaration: Open source software license (Class)
+      Subject: Open source software license
+      Object : Class
+    EquivalentClasses          Open source software license ≡ ∃has clause.Source code available
+      Subject: Open source software license
+      Object : ∃has clause.Source code available
+    SubClassOf                 Open source software license ⊑ licence
+      Subject: Open source software license
+      Object : licence
+    SubClassOf                 Open source software license ⊑ ∃has clause.Source code available
+      Subject: Open source software license
+      Object : ∃has clause.Source code available
+
+  Term: PROcess  [Class]
+    Declaration                Declaration: PROcess (Class)
+      Subject: PROcess
+      Object : Class
+
+  Term: Purchase cost  [Class]
+    Declaration                Declaration: Purchase cost (Class)
+      Subject: Purchase cost
+      Object : Class
+
+  Term: Source code available  [Class]
+    Declaration                Declaration: Source code available (Class)
+      Subject: Source code available
+      Object : Class
+
+  Term: XML  [Class]
+    Declaration                Declaration: XML (Class)
+      Subject: XML
+      Object : Class
+    SubClassOf                 XML ⊑ data format specification
+      Subject: XML
+      Object : data format specification
+
+  Term: algorithm  [Class]
+    Declaration                Declaration: algorithm (Class)
+      Subject: algorithm
+      Object : Class
+
+  Term: application programming interface  [Class]
+    Declaration                Declaration: application programming interface (Class)
+      Subject: application programming interface
+      Object : Class
+    SubClassOf                 application programming interface ⊑ software interface
+      Subject: application programming interface
+      Object : software interface
+
+  Term: data format specification  [Class]
+    Declaration                Declaration: data format specification (Class)
+      Subject: data format specification
+      Object : Class
+
+  Term: data item  [Class]
+    Declaration                Declaration: data item (Class)
+      Subject: data item
+      Object : Class
+    SubClassOf                 data item ⊑ ∃is encoded in.data format specification
+      Subject: data item
+      Object : ∃is encoded in.data format specification
+
+  Term: desktop graphical user interface  [Class]
+    Declaration                Declaration: desktop graphical user interface (Class)
+      Subject: desktop graphical user interface
+      Object : Class
+
+  Term: file rendering  [Class]
+    Declaration                Declaration: file rendering (Class)
+      Subject: file rendering
+      Object : Class
+
+  Term: function  [Class]
+    Declaration                Declaration: function (Class)
+      Subject: function
+      Object : Class
+
+  Term: licence  [Class]
+    Declaration                Declaration: licence (Class)
+      Subject: licence
+      Object : Class
+
+  Term: plain text file format  [Class]
+    Declaration                Declaration: plain text file format (Class)
+      Subject: plain text file format
+      Object : Class
+
+  Term: programming language  [Class]
+    Declaration                Declaration: programming language (Class)
+      Subject: programming language
+      Object : Class
+
+  Term: software  [Class]
+    Declaration                Declaration: software (Class)
+      Subject: software
+      Object : Class
+
+  Term: software developer organization  [Class]
+    Declaration                Declaration: software developer organization (Class)
+      Subject: software developer organization
+      Object : Class
+
+  Term: software developer role  [Class]
+    Declaration                Declaration: software developer role (Class)
+      Subject: software developer role
+      Object : Class
+
+  Term: software interface  [Class]
+    Declaration                Declaration: software interface (Class)
+      Subject: software interface
+      Object : Class
+
+  Term: text editing  [Class]
+    Declaration                Declaration: text editing (Class)
+      Subject: text editing
+      Object : Class
+
+  Term: version number  [Class]
+    Declaration                Declaration: version number (Class)
+      Subject: version number
+      Object : Class
+
+  Term: web service  [Class]
+    Declaration                Declaration: web service (Class)
+      Subject: web service
+      Object : Class
+    SubClassOf                 web service ⊑ software interface
+      Subject: web service
+      Object : software interface
+
+
+── ObjectProperty ──
+
+  Term: has clause  [ObjectProperty]
+    Declaration                Declaration: has clause (ObjectProperty)
+      Subject: has clause
+      Object : ObjectProperty
+
+  Term: has declared status  [ObjectProperty]
+    Declaration                Declaration: has declared status (ObjectProperty)
+      Subject: has declared status
+      Object : ObjectProperty
+    Range                      ⊤ ⊑ ∀has declared status.Development status
+      Subject: has declared status
+      Object : Development status
+
+  Term: has format specification  [ObjectProperty]
+    Declaration                Declaration: has format specification (ObjectProperty)
+      Subject: has format specification
+      Object : ObjectProperty
+    SubPropertyOf              has format specification ⊑ is encoded in
+      Subject: has format specification
+      Object : is encoded in
+    Domain                     ∃has format specification.⊤ ⊑ data item
+      Subject: has format specification
+      Object : data item
+    Range                      ⊤ ⊑ ∀has format specification.data format specification
+      Subject: has format specification
+      Object : data format specification
+
+  Term: has function  [ObjectProperty]
+    Declaration                Declaration: has function (ObjectProperty)
+      Subject: has function
+      Object : ObjectProperty
+    Range                      ⊤ ⊑ ∀has function.function
+      Subject: has function
+      Object : function
+
+  Term: has input  [ObjectProperty]
+    Declaration                Declaration: has input (ObjectProperty)
+      Subject: has input
+      Object : ObjectProperty
+
+  Term: has interface  [ObjectProperty]
+    Declaration                Declaration: has interface (ObjectProperty)
+      Subject: has interface
+      Object : ObjectProperty
+    Range                      ⊤ ⊑ ∀has interface.software interface
+      Subject: has interface
+      Object : software interface
+
+  Term: has license  [ObjectProperty]
+    Declaration                Declaration: has license (ObjectProperty)
+      Subject: has license
+      Object : ObjectProperty
+
+  Term: has output  [ObjectProperty]
+    Declaration                Declaration: has output (ObjectProperty)
+      Subject: has output
+      Object : ObjectProperty
+
+  Term: has specified data input  [ObjectProperty]
+    Declaration                Declaration: has specified data input (ObjectProperty)
+      Subject: has specified data input
+      Object : ObjectProperty
+    Range                      ⊤ ⊑ ∀has specified data input.data item
+      Subject: has specified data input
+      Object : data item
+
+  Term: has specified data output  [ObjectProperty]
+    Declaration                Declaration: has specified data output (ObjectProperty)
+      Subject: has specified data output
+      Object : ObjectProperty
+    Range                      ⊤ ⊑ ∀has specified data output.data item
+      Subject: has specified data output
+      Object : data item
+
+  Term: has version  [ObjectProperty]
+    Declaration                Declaration: has version (ObjectProperty)
+      Subject: has version
+      Object : ObjectProperty
+    Range                      ⊤ ⊑ ∀has version.version number
+      Subject: has version
+      Object : version number
+
+  Term: implements  [ObjectProperty]
+    Declaration                Declaration: implements (ObjectProperty)
+      Subject: implements
+      Object : ObjectProperty
+    Range                      ⊤ ⊑ ∀implements.algorithm
+      Subject: implements
+      Object : algorithm
+
+  Term: is alternative format of  [ObjectProperty]
+    Declaration                Declaration: is alternative format of (ObjectProperty)
+      Subject: is alternative format of
+      Object : ObjectProperty
+    Domain                     ∃is alternative format of.⊤ ⊑ data format specification
+      Subject: is alternative format of
+      Object : data format specification
+    Range                      ⊤ ⊑ ∀is alternative format of.data format specification
+      Subject: is alternative format of
+      Object : data format specification
+    Characteristics            Symmetric(is alternative format of)
+      Subject: is alternative format of
+      Object : Symmetric
+
+  Term: is developed by  [ObjectProperty]
+    Declaration                Declaration: is developed by (ObjectProperty)
+      Subject: is developed by
+      Object : ObjectProperty
+
+  Term: is encoded in  [ObjectProperty]
+    Declaration                Declaration: is encoded in (ObjectProperty)
+      Subject: is encoded in
+      Object : ObjectProperty
+
+  Term: is software for  [ObjectProperty]
+    Declaration                Declaration: is software for (ObjectProperty)
+      Subject: is software for
+      Object : ObjectProperty
+    InverseOf                  is software for ≡ uses software⁻
+      Subject: is software for
+      Object : uses software
+
+  Term: uses platform  [ObjectProperty]
+    Declaration                Declaration: uses platform (ObjectProperty)
+      Subject: uses platform
+      Object : ObjectProperty
+
+  Term: uses software  [ObjectProperty]
+    Declaration                Declaration: uses software (ObjectProperty)
+      Subject: uses software
+      Object : ObjectProperty
+    InverseOf                  uses software ≡ is software for⁻
+      Subject: uses software
+      Object : is software for
+    Domain                     ∃uses software.⊤ ⊑ ⊤
+      Subject: uses software
+      Object : ⊤
+    Range                      ⊤ ⊑ ∀uses software.⊤
+      Subject: uses software
+      Object : ⊤
+
+
+── DatatypeProperty ──
+
+  Term: has documentation  [DatatypeProperty]
+    Declaration                Declaration: has documentation (DatatypeProperty)
+      Subject: has documentation
+      Object : DatatypeProperty
+    Range                      has documentation maps-to xsd:string
+      Subject: has documentation
+      Object : xsd:string
+
+  Term: has download location  [DatatypeProperty]
+    Declaration                Declaration: has download location (DatatypeProperty)
+      Subject: has download location
+      Object : DatatypeProperty
+    SubPropertyOf              has download location ⊑ has website homepage
+      Subject: has download location
+      Object : has website homepage
+    Range                      has download location maps-to xsd:string
+      Subject: has download location
+      Object : xsd:string
+
+  Term: has release date  [DatatypeProperty]
+    Declaration                Declaration: has release date (DatatypeProperty)
+      Subject: has release date
+      Object : DatatypeProperty
+    Range                      has release date maps-to xsd:string
+      Subject: has release date
+      Object : xsd:string
+
+  Term: has support URL  [DatatypeProperty]
+    Declaration                Declaration: has support URL (DatatypeProperty)
+      Subject: has support URL
+      Object : DatatypeProperty
+    Range                      has support URL maps-to ⊤
+      Subject: has support URL
+      Object : ⊤
+
+  Term: has website homepage  [DatatypeProperty]
+    Declaration                Declaration: has website homepage (DatatypeProperty)
+      Subject: has website homepage
+      Object : DatatypeProperty
+    Range                      has website homepage maps-to ⊤
+      Subject: has website homepage
+      Object : ⊤
+
+
+====================================================================================================
+STATISTICS
+====================================================================================================
+
+  Classes:               30  (defined: 1, primitive: 29)
+  ObjectProperties:      18
+  DatatypeProperties:    5
+
+  Axiom Breakdown:
+    Characteristics           1
+    Declaration               53
+    Domain                    3
+    EquivalentClasses         1
+    InverseOf                 2
+    Range                     15
+    SubClassOf                9
+    SubPropertyOf             2
+    ------------------------------
+    Total TBox Axioms         86
+
+====================================================================================================

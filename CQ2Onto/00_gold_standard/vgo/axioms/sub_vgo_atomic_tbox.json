@@ -1,0 +1,1555 @@
+{
+  "stats": {
+    "total_classes": 25,
+    "primitive_classes": 25,
+    "total_axioms": 77,
+    "SubClassOf": 13,
+    "total_object_properties": 23,
+    "InverseOf": 10,
+    "Domain": 26,
+    "Range": 27,
+    "Characteristics": 1,
+    "total_datatype_properties": 5
+  },
+  "axioms": [
+    {
+      "id": "AX1",
+      "term": "Collection",
+      "term_label": "Collection",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "Collection",
+      "subject_label": "Collection",
+      "object": "Achievement",
+      "dl": "Collection ⊑ Achievement",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "Collection"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Achievement"
+      }
+    },
+    {
+      "id": "AX2",
+      "term": "Completion",
+      "term_label": "Completion",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "Completion",
+      "subject_label": "Completion",
+      "object": "Achievement",
+      "dl": "Completion ⊑ Achievement",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "Completion"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Achievement"
+      }
+    },
+    {
+      "id": "AX3",
+      "term": "Curiosity",
+      "term_label": "Curiosity",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "Curiosity",
+      "subject_label": "Curiosity",
+      "object": "Achievement",
+      "dl": "Curiosity ⊑ Achievement",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "Curiosity"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Achievement"
+      }
+    },
+    {
+      "id": "AX4",
+      "term": "Fandom",
+      "term_label": "Fandom",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "Fandom",
+      "subject_label": "Fandom",
+      "object": "Achievement",
+      "dl": "Fandom ⊑ Achievement",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "Fandom"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Achievement"
+      }
+    },
+    {
+      "id": "AX5",
+      "term": "GameProduct",
+      "term_label": "game product",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "GameProduct",
+      "subject_label": "game product",
+      "object": "(Achievement ⊔ Character ⊔ Game ⊔ Item ⊔ PlayingArea)",
+      "dl": "GameProduct ⊑ (Achievement ⊔ Character ⊔ Game ⊔ Item ⊔ PlayingArea)",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "GameProduct"
+      },
+      "rhs_struct": {
+        "expr_type": "ObjectUnionOf",
+        "operands": [
+          {
+            "expr_type": "Class",
+            "name": "Achievement"
+          },
+          {
+            "expr_type": "Class",
+            "name": "Character"
+          },
+          {
+            "expr_type": "Class",
+            "name": "Game"
+          },
+          {
+            "expr_type": "Class",
+            "name": "Item"
+          },
+          {
+            "expr_type": "Class",
+            "name": "PlayingArea"
+          }
+        ]
+      }
+    },
+    {
+      "id": "AX6",
+      "term": "HardMode",
+      "term_label": "hard mode",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "HardMode",
+      "subject_label": "hard mode",
+      "object": "Achievement",
+      "dl": "HardMode ⊑ Achievement",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "HardMode"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Achievement"
+      }
+    },
+    {
+      "id": "AX7",
+      "term": "Loyalty",
+      "term_label": "Loyalty",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "Loyalty",
+      "subject_label": "Loyalty",
+      "object": "Achievement",
+      "dl": "Loyalty ⊑ Achievement",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "Loyalty"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Achievement"
+      }
+    },
+    {
+      "id": "AX8",
+      "term": "Luck",
+      "term_label": "Luck",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "Luck",
+      "subject_label": "Luck",
+      "object": "Achievement",
+      "dl": "Luck ⊑ Achievement",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "Luck"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Achievement"
+      }
+    },
+    {
+      "id": "AX9",
+      "term": "Paragon",
+      "term_label": "Paragon",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "Paragon",
+      "subject_label": "Paragon",
+      "object": "Achievement",
+      "dl": "Paragon ⊑ Achievement",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "Paragon"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Achievement"
+      }
+    },
+    {
+      "id": "AX10",
+      "term": "SpecialPlayStyle",
+      "term_label": "special play style",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "SpecialPlayStyle",
+      "subject_label": "special play style",
+      "object": "Achievement",
+      "dl": "SpecialPlayStyle ⊑ Achievement",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "SpecialPlayStyle"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Achievement"
+      }
+    },
+    {
+      "id": "AX11",
+      "term": "Tutorial",
+      "term_label": "Tutorial",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "Tutorial",
+      "subject_label": "Tutorial",
+      "object": "Achievement",
+      "dl": "Tutorial ⊑ Achievement",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "Tutorial"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Achievement"
+      }
+    },
+    {
+      "id": "AX12",
+      "term": "Veteran",
+      "term_label": "Veteran",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "Veteran",
+      "subject_label": "Veteran",
+      "object": "Achievement",
+      "dl": "Veteran ⊑ Achievement",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "Veteran"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Achievement"
+      }
+    },
+    {
+      "id": "AX13",
+      "term": "Virtuosity",
+      "term_label": "Virtuosity",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "Virtuosity",
+      "subject_label": "Virtuosity",
+      "object": "Achievement",
+      "dl": "Virtuosity ⊑ Achievement",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "Virtuosity"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Achievement"
+      }
+    },
+    {
+      "id": "AX14",
+      "term": "hasAchievement",
+      "term_label": "has achievement",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Domain",
+      "subject": "hasAchievement",
+      "subject_label": "has achievement",
+      "object": "Game",
+      "dl": "∃hasAchievement.⊤ ⊑ Game",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasAchievement"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Game"
+      }
+    },
+    {
+      "id": "AX15",
+      "term": "hasAchievement",
+      "term_label": "has achievement",
+      "term_type": "ObjectProperty",
+      "axiom_type": "InverseOf",
+      "subject": "hasAchievement",
+      "subject_label": "has achievement",
+      "object": "isAchievementInGame",
+      "dl": "hasAchievement ≡ isAchievementInGame⁻",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasAchievement"
+      },
+      "rhs_struct": {
+        "expr_type": "InverseObjectProperty",
+        "name": "isAchievementInGame"
+      }
+    },
+    {
+      "id": "AX16",
+      "term": "hasAchievement",
+      "term_label": "has achievement",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Range",
+      "subject": "hasAchievement",
+      "subject_label": "has achievement",
+      "object": "Achievement",
+      "dl": "⊤ ⊑ ∀hasAchievement.Achievement",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasAchievement"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Achievement"
+      }
+    },
+    {
+      "id": "AX17",
+      "term": "hasCharacter",
+      "term_label": "has character",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Domain",
+      "subject": "hasCharacter",
+      "subject_label": "has character",
+      "object": "Game",
+      "dl": "∃hasCharacter.⊤ ⊑ Game",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasCharacter"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Game"
+      }
+    },
+    {
+      "id": "AX18",
+      "term": "hasCharacter",
+      "term_label": "has character",
+      "term_type": "ObjectProperty",
+      "axiom_type": "InverseOf",
+      "subject": "hasCharacter",
+      "subject_label": "has character",
+      "object": "isCharacterInGame",
+      "dl": "hasCharacter ≡ isCharacterInGame⁻",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasCharacter"
+      },
+      "rhs_struct": {
+        "expr_type": "InverseObjectProperty",
+        "name": "isCharacterInGame"
+      }
+    },
+    {
+      "id": "AX19",
+      "term": "hasCharacter",
+      "term_label": "has character",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Range",
+      "subject": "hasCharacter",
+      "subject_label": "has character",
+      "object": "Character",
+      "dl": "⊤ ⊑ ∀hasCharacter.Character",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasCharacter"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Character"
+      }
+    },
+    {
+      "id": "AX20",
+      "term": "hasFeature",
+      "term_label": "has feature",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Domain",
+      "subject": "hasFeature",
+      "subject_label": "has feature",
+      "object": "Item",
+      "dl": "∃hasFeature.⊤ ⊑ Item",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasFeature"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Item"
+      }
+    },
+    {
+      "id": "AX21",
+      "term": "hasFeature",
+      "term_label": "has feature",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Range",
+      "subject": "hasFeature",
+      "subject_label": "has feature",
+      "object": "Feature",
+      "dl": "⊤ ⊑ ∀hasFeature.Feature",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasFeature"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Feature"
+      }
+    },
+    {
+      "id": "AX22",
+      "term": "hasGameGenre",
+      "term_label": "has game genre",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Domain",
+      "subject": "hasGameGenre",
+      "subject_label": "has game genre",
+      "object": "Game",
+      "dl": "∃hasGameGenre.⊤ ⊑ Game",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasGameGenre"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Game"
+      }
+    },
+    {
+      "id": "AX23",
+      "term": "hasGameGenre",
+      "term_label": "has game genre",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Range",
+      "subject": "hasGameGenre",
+      "subject_label": "has game genre",
+      "object": "Genre",
+      "dl": "⊤ ⊑ ∀hasGameGenre.Genre",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasGameGenre"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Genre"
+      }
+    },
+    {
+      "id": "AX24",
+      "term": "hasItem",
+      "term_label": "has item",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Domain",
+      "subject": "hasItem",
+      "subject_label": "has item",
+      "object": "Game",
+      "dl": "∃hasItem.⊤ ⊑ Game",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasItem"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Game"
+      }
+    },
+    {
+      "id": "AX25",
+      "term": "hasItem",
+      "term_label": "has item",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Range",
+      "subject": "hasItem",
+      "subject_label": "has item",
+      "object": "Item",
+      "dl": "⊤ ⊑ ∀hasItem.Item",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasItem"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Item"
+      }
+    },
+    {
+      "id": "AX26",
+      "term": "hasLeaderboard",
+      "term_label": "has leaderboard",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Domain",
+      "subject": "hasLeaderboard",
+      "subject_label": "has leaderboard",
+      "object": "Game",
+      "dl": "∃hasLeaderboard.⊤ ⊑ Game",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasLeaderboard"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Game"
+      }
+    },
+    {
+      "id": "AX27",
+      "term": "hasLeaderboard",
+      "term_label": "has leaderboard",
+      "term_type": "ObjectProperty",
+      "axiom_type": "InverseOf",
+      "subject": "hasLeaderboard",
+      "subject_label": "has leaderboard",
+      "object": "isLeaderboardInGame",
+      "dl": "hasLeaderboard ≡ isLeaderboardInGame⁻",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasLeaderboard"
+      },
+      "rhs_struct": {
+        "expr_type": "InverseObjectProperty",
+        "name": "isLeaderboardInGame"
+      }
+    },
+    {
+      "id": "AX28",
+      "term": "hasLeaderboard",
+      "term_label": "has leaderboard",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Range",
+      "subject": "hasLeaderboard",
+      "subject_label": "has leaderboard",
+      "object": "Leaderboard",
+      "dl": "⊤ ⊑ ∀hasLeaderboard.Leaderboard",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasLeaderboard"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Leaderboard"
+      }
+    },
+    {
+      "id": "AX29",
+      "term": "hasPlayingArea",
+      "term_label": "has playing area",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Domain",
+      "subject": "hasPlayingArea",
+      "subject_label": "has playing area",
+      "object": "Game",
+      "dl": "∃hasPlayingArea.⊤ ⊑ Game",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasPlayingArea"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Game"
+      }
+    },
+    {
+      "id": "AX30",
+      "term": "hasPlayingArea",
+      "term_label": "has playing area",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Range",
+      "subject": "hasPlayingArea",
+      "subject_label": "has playing area",
+      "object": "PlayingArea",
+      "dl": "⊤ ⊑ ∀hasPlayingArea.PlayingArea",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasPlayingArea"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "PlayingArea"
+      }
+    },
+    {
+      "id": "AX31",
+      "term": "involvesCharacter",
+      "term_label": "involves character",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Domain",
+      "subject": "involvesCharacter",
+      "subject_label": "involves character",
+      "object": "Session",
+      "dl": "∃involvesCharacter.⊤ ⊑ Session",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "involvesCharacter"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Session"
+      }
+    },
+    {
+      "id": "AX32",
+      "term": "involvesCharacter",
+      "term_label": "involves character",
+      "term_type": "ObjectProperty",
+      "axiom_type": "InverseOf",
+      "subject": "involvesCharacter",
+      "subject_label": "involves character",
+      "object": "isCharacterInSession",
+      "dl": "involvesCharacter ≡ isCharacterInSession⁻",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "involvesCharacter"
+      },
+      "rhs_struct": {
+        "expr_type": "InverseObjectProperty",
+        "name": "isCharacterInSession"
+      }
+    },
+    {
+      "id": "AX33",
+      "term": "involvesCharacter",
+      "term_label": "involves character",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Range",
+      "subject": "involvesCharacter",
+      "subject_label": "involves character",
+      "object": "Character",
+      "dl": "⊤ ⊑ ∀involvesCharacter.Character",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "involvesCharacter"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Character"
+      }
+    },
+    {
+      "id": "AX34",
+      "term": "involvesPlayer",
+      "term_label": "involves player",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Domain",
+      "subject": "involvesPlayer",
+      "subject_label": "involves player",
+      "object": "Session",
+      "dl": "∃involvesPlayer.⊤ ⊑ Session",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "involvesPlayer"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Session"
+      }
+    },
+    {
+      "id": "AX35",
+      "term": "involvesPlayer",
+      "term_label": "involves player",
+      "term_type": "ObjectProperty",
+      "axiom_type": "InverseOf",
+      "subject": "involvesPlayer",
+      "subject_label": "involves player",
+      "object": "isPlayerInSession",
+      "dl": "involvesPlayer ≡ isPlayerInSession⁻",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "involvesPlayer"
+      },
+      "rhs_struct": {
+        "expr_type": "InverseObjectProperty",
+        "name": "isPlayerInSession"
+      }
+    },
+    {
+      "id": "AX36",
+      "term": "involvesPlayer",
+      "term_label": "involves player",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Range",
+      "subject": "involvesPlayer",
+      "subject_label": "involves player",
+      "object": "Player",
+      "dl": "⊤ ⊑ ∀involvesPlayer.Player",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "involvesPlayer"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Player"
+      }
+    },
+    {
+      "id": "AX37",
+      "term": "isAchievementInGame",
+      "term_label": "is achievement in game",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Domain",
+      "subject": "isAchievementInGame",
+      "subject_label": "is achievement in game",
+      "object": "Achievement",
+      "dl": "∃isAchievementInGame.⊤ ⊑ Achievement",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "isAchievementInGame"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Achievement"
+      }
+    },
+    {
+      "id": "AX38",
+      "term": "isAchievementInGame",
+      "term_label": "is achievement in game",
+      "term_type": "ObjectProperty",
+      "axiom_type": "InverseOf",
+      "subject": "isAchievementInGame",
+      "subject_label": "is achievement in game",
+      "object": "hasAchievement",
+      "dl": "isAchievementInGame ≡ hasAchievement⁻",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "isAchievementInGame"
+      },
+      "rhs_struct": {
+        "expr_type": "InverseObjectProperty",
+        "name": "hasAchievement"
+      }
+    },
+    {
+      "id": "AX39",
+      "term": "isAchievementInGame",
+      "term_label": "is achievement in game",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Range",
+      "subject": "isAchievementInGame",
+      "subject_label": "is achievement in game",
+      "object": "Game",
+      "dl": "⊤ ⊑ ∀isAchievementInGame.Game",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "isAchievementInGame"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Game"
+      }
+    },
+    {
+      "id": "AX40",
+      "term": "isCharacterInGame",
+      "term_label": "is character in game",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Domain",
+      "subject": "isCharacterInGame",
+      "subject_label": "is character in game",
+      "object": "Character",
+      "dl": "∃isCharacterInGame.⊤ ⊑ Character",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "isCharacterInGame"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Character"
+      }
+    },
+    {
+      "id": "AX41",
+      "term": "isCharacterInGame",
+      "term_label": "is character in game",
+      "term_type": "ObjectProperty",
+      "axiom_type": "InverseOf",
+      "subject": "isCharacterInGame",
+      "subject_label": "is character in game",
+      "object": "hasCharacter",
+      "dl": "isCharacterInGame ≡ hasCharacter⁻",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "isCharacterInGame"
+      },
+      "rhs_struct": {
+        "expr_type": "InverseObjectProperty",
+        "name": "hasCharacter"
+      }
+    },
+    {
+      "id": "AX42",
+      "term": "isCharacterInGame",
+      "term_label": "is character in game",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Range",
+      "subject": "isCharacterInGame",
+      "subject_label": "is character in game",
+      "object": "Game",
+      "dl": "⊤ ⊑ ∀isCharacterInGame.Game",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "isCharacterInGame"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Game"
+      }
+    },
+    {
+      "id": "AX43",
+      "term": "isCharacterInSession",
+      "term_label": "is character in session",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Domain",
+      "subject": "isCharacterInSession",
+      "subject_label": "is character in session",
+      "object": "Character",
+      "dl": "∃isCharacterInSession.⊤ ⊑ Character",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "isCharacterInSession"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Character"
+      }
+    },
+    {
+      "id": "AX44",
+      "term": "isCharacterInSession",
+      "term_label": "is character in session",
+      "term_type": "ObjectProperty",
+      "axiom_type": "InverseOf",
+      "subject": "isCharacterInSession",
+      "subject_label": "is character in session",
+      "object": "involvesCharacter",
+      "dl": "isCharacterInSession ≡ involvesCharacter⁻",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "isCharacterInSession"
+      },
+      "rhs_struct": {
+        "expr_type": "InverseObjectProperty",
+        "name": "involvesCharacter"
+      }
+    },
+    {
+      "id": "AX45",
+      "term": "isCharacterInSession",
+      "term_label": "is character in session",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Range",
+      "subject": "isCharacterInSession",
+      "subject_label": "is character in session",
+      "object": "Session",
+      "dl": "⊤ ⊑ ∀isCharacterInSession.Session",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "isCharacterInSession"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Session"
+      }
+    },
+    {
+      "id": "AX46",
+      "term": "isEventAssociatedToPlayer",
+      "term_label": "is event associated to player",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Range",
+      "subject": "isEventAssociatedToPlayer",
+      "subject_label": "is event associated to player",
+      "object": "Player",
+      "dl": "⊤ ⊑ ∀isEventAssociatedToPlayer.Player",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "isEventAssociatedToPlayer"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Player"
+      }
+    },
+    {
+      "id": "AX47",
+      "term": "isFriendWithPlayer",
+      "term_label": "is friend with player",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Characteristics",
+      "subject": "isFriendWithPlayer",
+      "subject_label": "is friend with player",
+      "object": "Symmetric",
+      "dl": "Symmetric(isFriendWithPlayer)",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "isFriendWithPlayer"
+      },
+      "rhs_struct": {
+        "expr_type": "PropertyCharacteristic",
+        "name": "Symmetric"
+      }
+    },
+    {
+      "id": "AX48",
+      "term": "isFriendWithPlayer",
+      "term_label": "is friend with player",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Domain",
+      "subject": "isFriendWithPlayer",
+      "subject_label": "is friend with player",
+      "object": "Player",
+      "dl": "∃isFriendWithPlayer.⊤ ⊑ Player",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "isFriendWithPlayer"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Player"
+      }
+    },
+    {
+      "id": "AX49",
+      "term": "isFriendWithPlayer",
+      "term_label": "is friend with player",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Range",
+      "subject": "isFriendWithPlayer",
+      "subject_label": "is friend with player",
+      "object": "Player",
+      "dl": "⊤ ⊑ ∀isFriendWithPlayer.Player",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "isFriendWithPlayer"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Player"
+      }
+    },
+    {
+      "id": "AX50",
+      "term": "isLeaderboardInGame",
+      "term_label": "is leaderboard in game",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Domain",
+      "subject": "isLeaderboardInGame",
+      "subject_label": "is leaderboard in game",
+      "object": "Leaderboard",
+      "dl": "∃isLeaderboardInGame.⊤ ⊑ Leaderboard",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "isLeaderboardInGame"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Leaderboard"
+      }
+    },
+    {
+      "id": "AX51",
+      "term": "isLeaderboardInGame",
+      "term_label": "is leaderboard in game",
+      "term_type": "ObjectProperty",
+      "axiom_type": "InverseOf",
+      "subject": "isLeaderboardInGame",
+      "subject_label": "is leaderboard in game",
+      "object": "hasLeaderboard",
+      "dl": "isLeaderboardInGame ≡ hasLeaderboard⁻",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "isLeaderboardInGame"
+      },
+      "rhs_struct": {
+        "expr_type": "InverseObjectProperty",
+        "name": "hasLeaderboard"
+      }
+    },
+    {
+      "id": "AX52",
+      "term": "isLeaderboardInGame",
+      "term_label": "is leaderboard in game",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Range",
+      "subject": "isLeaderboardInGame",
+      "subject_label": "is leaderboard in game",
+      "object": "Game",
+      "dl": "⊤ ⊑ ∀isLeaderboardInGame.Game",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "isLeaderboardInGame"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Game"
+      }
+    },
+    {
+      "id": "AX53",
+      "term": "isPlayerInSession",
+      "term_label": "is player in session",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Domain",
+      "subject": "isPlayerInSession",
+      "subject_label": "is player in session",
+      "object": "Player",
+      "dl": "∃isPlayerInSession.⊤ ⊑ Player",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "isPlayerInSession"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Player"
+      }
+    },
+    {
+      "id": "AX54",
+      "term": "isPlayerInSession",
+      "term_label": "is player in session",
+      "term_type": "ObjectProperty",
+      "axiom_type": "InverseOf",
+      "subject": "isPlayerInSession",
+      "subject_label": "is player in session",
+      "object": "involvesPlayer",
+      "dl": "isPlayerInSession ≡ involvesPlayer⁻",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "isPlayerInSession"
+      },
+      "rhs_struct": {
+        "expr_type": "InverseObjectProperty",
+        "name": "involvesPlayer"
+      }
+    },
+    {
+      "id": "AX55",
+      "term": "isPlayerInSession",
+      "term_label": "is player in session",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Range",
+      "subject": "isPlayerInSession",
+      "subject_label": "is player in session",
+      "object": "Session",
+      "dl": "⊤ ⊑ ∀isPlayerInSession.Session",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "isPlayerInSession"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Session"
+      }
+    },
+    {
+      "id": "AX56",
+      "term": "isSessionInGame",
+      "term_label": "is session in game",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Domain",
+      "subject": "isSessionInGame",
+      "subject_label": "is session in game",
+      "object": "Session",
+      "dl": "∃isSessionInGame.⊤ ⊑ Session",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "isSessionInGame"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Session"
+      }
+    },
+    {
+      "id": "AX57",
+      "term": "isSessionInGame",
+      "term_label": "is session in game",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Range",
+      "subject": "isSessionInGame",
+      "subject_label": "is session in game",
+      "object": "Game",
+      "dl": "⊤ ⊑ ∀isSessionInGame.Game",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "isSessionInGame"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Game"
+      }
+    },
+    {
+      "id": "AX58",
+      "term": "livesIn",
+      "term_label": "lives in",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Domain",
+      "subject": "livesIn",
+      "subject_label": "lives in",
+      "object": "Player",
+      "dl": "∃livesIn.⊤ ⊑ Player",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "livesIn"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Player"
+      }
+    },
+    {
+      "id": "AX59",
+      "term": "ownsAchievement",
+      "term_label": "owns achievement",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Domain",
+      "subject": "ownsAchievement",
+      "subject_label": "owns achievement",
+      "object": "Player",
+      "dl": "∃ownsAchievement.⊤ ⊑ Player",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "ownsAchievement"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Player"
+      }
+    },
+    {
+      "id": "AX60",
+      "term": "ownsAchievement",
+      "term_label": "owns achievement",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Range",
+      "subject": "ownsAchievement",
+      "subject_label": "owns achievement",
+      "object": "Achievement",
+      "dl": "⊤ ⊑ ∀ownsAchievement.Achievement",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "ownsAchievement"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Achievement"
+      }
+    },
+    {
+      "id": "AX61",
+      "term": "ownsCharacter",
+      "term_label": "owns character",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Domain",
+      "subject": "ownsCharacter",
+      "subject_label": "owns character",
+      "object": "Player",
+      "dl": "∃ownsCharacter.⊤ ⊑ Player",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "ownsCharacter"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Player"
+      }
+    },
+    {
+      "id": "AX62",
+      "term": "ownsCharacter",
+      "term_label": "owns character",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Range",
+      "subject": "ownsCharacter",
+      "subject_label": "owns character",
+      "object": "Character",
+      "dl": "⊤ ⊑ ∀ownsCharacter.Character",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "ownsCharacter"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Character"
+      }
+    },
+    {
+      "id": "AX63",
+      "term": "ownsItem",
+      "term_label": "owns item",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Domain",
+      "subject": "ownsItem",
+      "subject_label": "owns item",
+      "object": "Character",
+      "dl": "∃ownsItem.⊤ ⊑ Character",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "ownsItem"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Character"
+      }
+    },
+    {
+      "id": "AX64",
+      "term": "ownsItem",
+      "term_label": "owns item",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Range",
+      "subject": "ownsItem",
+      "subject_label": "owns item",
+      "object": "Item",
+      "dl": "⊤ ⊑ ∀ownsItem.Item",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "ownsItem"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Item"
+      }
+    },
+    {
+      "id": "AX65",
+      "term": "playsGame",
+      "term_label": "plays game",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Domain",
+      "subject": "playsGame",
+      "subject_label": "plays game",
+      "object": "Player",
+      "dl": "∃playsGame.⊤ ⊑ Player",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "playsGame"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Player"
+      }
+    },
+    {
+      "id": "AX66",
+      "term": "playsGame",
+      "term_label": "plays game",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Range",
+      "subject": "playsGame",
+      "subject_label": "plays game",
+      "object": "Game",
+      "dl": "⊤ ⊑ ∀playsGame.Game",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "playsGame"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Game"
+      }
+    },
+    {
+      "id": "AX67",
+      "term": "purchasesGameOffering",
+      "term_label": "purchases game offering",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Domain",
+      "subject": "purchasesGameOffering",
+      "subject_label": "purchases game offering",
+      "object": "InAppPurchaseEvent",
+      "dl": "∃purchasesGameOffering.⊤ ⊑ InAppPurchaseEvent",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "purchasesGameOffering"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "InAppPurchaseEvent"
+      }
+    },
+    {
+      "id": "AX68",
+      "term": "purchasesGameOffering",
+      "term_label": "purchases game offering",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Range",
+      "subject": "purchasesGameOffering",
+      "subject_label": "purchases game offering",
+      "object": "GameProduct",
+      "dl": "⊤ ⊑ ∀purchasesGameOffering.GameProduct",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "purchasesGameOffering"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "GameProduct"
+      }
+    },
+    {
+      "id": "AX69",
+      "term": "endTime",
+      "term_label": "end time",
+      "term_type": "DatatypeProperty",
+      "axiom_type": "Domain",
+      "subject": "endTime",
+      "subject_label": "end time",
+      "object": "Session",
+      "dl": "∃endTime.⊤ ⊑ Session",
+      "lhs_struct": {
+        "expr_type": "DatatypeProperty",
+        "name": "endTime"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Session"
+      }
+    },
+    {
+      "id": "AX70",
+      "term": "endTime",
+      "term_label": "end time",
+      "term_type": "DatatypeProperty",
+      "axiom_type": "Range",
+      "subject": "endTime",
+      "subject_label": "end time",
+      "object": "datetime'>",
+      "dl": "endTime maps-to datetime'>",
+      "lhs_struct": {
+        "expr_type": "DatatypeProperty",
+        "name": "endTime"
+      },
+      "rhs_struct": {
+        "expr_type": "Datatype",
+        "name": "datetime'>"
+      }
+    },
+    {
+      "id": "AX71",
+      "term": "eventTime",
+      "term_label": "event time",
+      "term_type": "DatatypeProperty",
+      "axiom_type": "Range",
+      "subject": "eventTime",
+      "subject_label": "event time",
+      "object": "datetime'>",
+      "dl": "eventTime maps-to datetime'>",
+      "lhs_struct": {
+        "expr_type": "DatatypeProperty",
+        "name": "eventTime"
+      },
+      "rhs_struct": {
+        "expr_type": "Datatype",
+        "name": "datetime'>"
+      }
+    },
+    {
+      "id": "AX72",
+      "term": "releaseDate",
+      "term_label": "release date",
+      "term_type": "DatatypeProperty",
+      "axiom_type": "Domain",
+      "subject": "releaseDate",
+      "subject_label": "release date",
+      "object": "Game",
+      "dl": "∃releaseDate.⊤ ⊑ Game",
+      "lhs_struct": {
+        "expr_type": "DatatypeProperty",
+        "name": "releaseDate"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Game"
+      }
+    },
+    {
+      "id": "AX73",
+      "term": "releaseDate",
+      "term_label": "release date",
+      "term_type": "DatatypeProperty",
+      "axiom_type": "Range",
+      "subject": "releaseDate",
+      "subject_label": "release date",
+      "object": "datetime'>",
+      "dl": "releaseDate maps-to datetime'>",
+      "lhs_struct": {
+        "expr_type": "DatatypeProperty",
+        "name": "releaseDate"
+      },
+      "rhs_struct": {
+        "expr_type": "Datatype",
+        "name": "datetime'>"
+      }
+    },
+    {
+      "id": "AX74",
+      "term": "startTime",
+      "term_label": "start time",
+      "term_type": "DatatypeProperty",
+      "axiom_type": "Domain",
+      "subject": "startTime",
+      "subject_label": "start time",
+      "object": "Session",
+      "dl": "∃startTime.⊤ ⊑ Session",
+      "lhs_struct": {
+        "expr_type": "DatatypeProperty",
+        "name": "startTime"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Session"
+      }
+    },
+    {
+      "id": "AX75",
+      "term": "startTime",
+      "term_label": "start time",
+      "term_type": "DatatypeProperty",
+      "axiom_type": "Range",
+      "subject": "startTime",
+      "subject_label": "start time",
+      "object": "datetime'>",
+      "dl": "startTime maps-to datetime'>",
+      "lhs_struct": {
+        "expr_type": "DatatypeProperty",
+        "name": "startTime"
+      },
+      "rhs_struct": {
+        "expr_type": "Datatype",
+        "name": "datetime'>"
+      }
+    },
+    {
+      "id": "AX76",
+      "term": "username",
+      "term_label": "username",
+      "term_type": "DatatypeProperty",
+      "axiom_type": "Domain",
+      "subject": "username",
+      "subject_label": "username",
+      "object": "Player",
+      "dl": "∃username.⊤ ⊑ Player",
+      "lhs_struct": {
+        "expr_type": "DatatypeProperty",
+        "name": "username"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Player"
+      }
+    },
+    {
+      "id": "AX77",
+      "term": "username",
+      "term_label": "username",
+      "term_type": "DatatypeProperty",
+      "axiom_type": "Range",
+      "subject": "username",
+      "subject_label": "username",
+      "object": "xsd:string",
+      "dl": "username maps-to xsd:string",
+      "lhs_struct": {
+        "expr_type": "DatatypeProperty",
+        "name": "username"
+      },
+      "rhs_struct": {
+        "expr_type": "Datatype",
+        "name": "xsd:string"
+      }
+    }
+  ],
+  "name_to_label": {
+    "Achievement": "Achievement",
+    "Character": "Character",
+    "Collection": "Collection",
+    "Completion": "Completion",
+    "Curiosity": "Curiosity",
+    "Fandom": "Fandom",
+    "Feature": "Feature",
+    "Game": "Game",
+    "GameProduct": "game product",
+    "Genre": "Genre",
+    "HardMode": "hard mode",
+    "InAppPurchaseEvent": "in-app purchase event",
+    "Item": "Item",
+    "Leaderboard": "Leaderboard",
+    "Loyalty": "Loyalty",
+    "Luck": "Luck",
+    "Paragon": "Paragon",
+    "Player": "Player",
+    "PlayingArea": "playing area",
+    "Session": "Session",
+    "SpecialPlayStyle": "special play style",
+    "Tutorial": "Tutorial",
+    "Veteran": "Veteran",
+    "Virtuosity": "Virtuosity",
+    "Thing": "Thing",
+    "hasAchievement": "has achievement",
+    "hasCharacter": "has character",
+    "hasFeature": "has feature",
+    "hasGameGenre": "has game genre",
+    "hasItem": "has item",
+    "hasLeaderboard": "has leaderboard",
+    "hasPlayingArea": "has playing area",
+    "involvesCharacter": "involves character",
+    "involvesPlayer": "involves player",
+    "isAchievementInGame": "is achievement in game",
+    "isCharacterInGame": "is character in game",
+    "isCharacterInSession": "is character in session",
+    "isEventAssociatedToPlayer": "is event associated to player",
+    "isFriendWithPlayer": "is friend with player",
+    "isLeaderboardInGame": "is leaderboard in game",
+    "isPlayerInSession": "is player in session",
+    "isSessionInGame": "is session in game",
+    "livesIn": "lives in",
+    "ownsAchievement": "owns achievement",
+    "ownsCharacter": "owns character",
+    "ownsItem": "owns item",
+    "playsGame": "plays game",
+    "purchasesGameOffering": "purchases game offering",
+    "endTime": "end time",
+    "eventTime": "event time",
+    "releaseDate": "release date",
+    "startTime": "start time",
+    "username": "username"
+  }
+}

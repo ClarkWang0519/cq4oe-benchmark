@@ -1,0 +1,1703 @@
+{
+  "cq_definitions": [],
+  "name_to_label": {
+    "Bordeaux": "Bordeaux",
+    "RedBordeaux": "RedBordeaux",
+    "RedWine": "RedWine",
+    "Region": "Region",
+    "Vintage": "Vintage",
+    "VintageYear": "VintageYear",
+    "WhiteBordeaux": "WhiteBordeaux",
+    "WhiteWine": "WhiteWine",
+    "Wine": "wine",
+    "WineBody": "WineBody",
+    "WineColor": "WineColor",
+    "WineDescriptor": "WineDescriptor",
+    "WineFlavor": "WineFlavor",
+    "WineGrape": "WineGrape",
+    "WineSugar": "WineSugar",
+    "WineTaste": "WineTaste",
+    "Zinfandel": "Zinfandel",
+    "hasBody": "hasBody",
+    "hasColor": "hasColor",
+    "hasFlavor": "hasFlavor",
+    "hasSugar": "hasSugar",
+    "hasVintageYear": "hasVintageYear",
+    "hasWineDescriptor": "hasWineDescriptor",
+    "locatedIn": "locatedIn",
+    "madeFromGrape": "madeFromGrape",
+    "yearValue": "yearValue"
+  },
+  "gold_axioms": [
+    {
+      "id": "AX1",
+      "term": "Bordeaux",
+      "term_label": "Bordeaux",
+      "term_type": "Class",
+      "axiom_type": "Declaration",
+      "subject": "Bordeaux",
+      "subject_label": "Bordeaux",
+      "object": "Class",
+      "dl": "Declaration: Bordeaux (Class)",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "Bordeaux"
+      },
+      "rhs_struct": {
+        "expr_type": "Declaration",
+        "term_type": "Class"
+      },
+      "cq_numbers": [
+        "CQ2",
+        "CQnew1"
+      ],
+      "missing_elements": "CQ2 uses Bordeaux as Explicit Class; new1 uses Bordeaux as Explicit Class"
+    },
+    {
+      "id": "AX3",
+      "term": "RedBordeaux",
+      "term_label": "RedBordeaux",
+      "term_type": "Class",
+      "axiom_type": "Declaration",
+      "subject": "RedBordeaux",
+      "subject_label": "RedBordeaux",
+      "object": "Class",
+      "dl": "Declaration: RedBordeaux (Class)",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "RedBordeaux"
+      },
+      "rhs_struct": {
+        "expr_type": "Declaration",
+        "term_type": "Class"
+      },
+      "cq_numbers": [
+        "CQ2"
+      ],
+      "missing_elements": "CQ2 uses RedBordeaux as Explicit Class (is Bordeaux red or white?)"
+    },
+    {
+      "id": "AX4",
+      "term": "RedBordeaux",
+      "term_label": "RedBordeaux",
+      "term_type": "Class",
+      "axiom_type": "EquivalentClasses",
+      "subject": "RedBordeaux",
+      "subject_label": "RedBordeaux",
+      "object": "(Bordeaux ⊓ RedWine)",
+      "dl": "RedBordeaux ≡ (Bordeaux ⊓ RedWine)",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "RedBordeaux"
+      },
+      "rhs_struct": {
+        "expr_type": "ObjectIntersectionOf",
+        "operands": [
+          {
+            "expr_type": "Class",
+            "name": "Bordeaux"
+          },
+          {
+            "expr_type": "Class",
+            "name": "RedWine"
+          }
+        ]
+      },
+      "cq_numbers": [
+        "CQ2"
+      ],
+      "missing_elements": "CQ2: RedBordeaux = Bordeaux ⊓ RedWine answers the red classification"
+    },
+    {
+      "id": "AX6",
+      "term": "RedWine",
+      "term_label": "RedWine",
+      "term_type": "Class",
+      "axiom_type": "Declaration",
+      "subject": "RedWine",
+      "subject_label": "RedWine",
+      "object": "Class",
+      "dl": "Declaration: RedWine (Class)",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "RedWine"
+      },
+      "rhs_struct": {
+        "expr_type": "Declaration",
+        "term_type": "Class"
+      },
+      "cq_numbers": [
+        "CQ2"
+      ],
+      "missing_elements": "CQ2 uses RedWine as Explicit Class"
+    },
+    {
+      "id": "AX7",
+      "term": "RedWine",
+      "term_label": "RedWine",
+      "term_type": "Class",
+      "axiom_type": "EquivalentClasses",
+      "subject": "RedWine",
+      "subject_label": "RedWine",
+      "object": "(wine ⊓ ∃hasColor.{Red})",
+      "dl": "RedWine ≡ (wine ⊓ ∃hasColor.{Red})",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "RedWine"
+      },
+      "rhs_struct": {
+        "expr_type": "ObjectIntersectionOf",
+        "operands": [
+          {
+            "expr_type": "Class",
+            "name": "wine"
+          },
+          {
+            "expr_type": "ObjectHasValue",
+            "property": "hasColor",
+            "value": "Red"
+          }
+        ]
+      },
+      "cq_numbers": [
+        "CQ2"
+      ],
+      "missing_elements": "CQ2: RedWine defined by hasColor.Red"
+    },
+    {
+      "id": "AX8",
+      "term": "Region",
+      "term_label": "Region",
+      "term_type": "Class",
+      "axiom_type": "Declaration",
+      "subject": "Region",
+      "subject_label": "Region",
+      "object": "Class",
+      "dl": "Declaration: Region (Class)",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "Region"
+      },
+      "rhs_struct": {
+        "expr_type": "Declaration",
+        "term_type": "Class"
+      },
+      "cq_numbers": [
+        "CQ7"
+      ],
+      "missing_elements": "CQ7 uses Region as Explicit Class (Napa is a Region)"
+    },
+    {
+      "id": "AX9",
+      "term": "Vintage",
+      "term_label": "Vintage",
+      "term_type": "Class",
+      "axiom_type": "Declaration",
+      "subject": "Vintage",
+      "subject_label": "Vintage",
+      "object": "Class",
+      "dl": "Declaration: Vintage (Class)",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "Vintage"
+      },
+      "rhs_struct": {
+        "expr_type": "Declaration",
+        "term_type": "Class"
+      },
+      "cq_numbers": [
+        "CQ6",
+        "CQ7"
+      ],
+      "missing_elements": "CQ6 uses Vintage as Explicit Class; CQ7 uses Vintage as Explicit Class"
+    },
+    {
+      "id": "AX10",
+      "term": "Vintage",
+      "term_label": "Vintage",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "Vintage",
+      "subject_label": "Vintage",
+      "object": "=1 hasVintageYear.⊤",
+      "dl": "Vintage ⊑ =1 hasVintageYear.⊤",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "Vintage"
+      },
+      "rhs_struct": {
+        "expr_type": "ObjectExactCardinality",
+        "property": "hasVintageYear",
+        "cardinality": 1,
+        "filler": {
+          "expr_type": "Top"
+        }
+      },
+      "cq_numbers": [
+        "CQ6",
+        "CQ7"
+      ],
+      "missing_elements": "CQ6/CQ7: Vintage must have exactly 1 hasVintageYear"
+    },
+    {
+      "id": "AX11",
+      "term": "VintageYear",
+      "term_label": "VintageYear",
+      "term_type": "Class",
+      "axiom_type": "Declaration",
+      "subject": "VintageYear",
+      "subject_label": "VintageYear",
+      "object": "Class",
+      "dl": "Declaration: VintageYear (Class)",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "VintageYear"
+      },
+      "rhs_struct": {
+        "expr_type": "Declaration",
+        "term_type": "Class"
+      },
+      "cq_numbers": [
+        "CQ6",
+        "CQ7"
+      ],
+      "missing_elements": "CQ6 uses VintageYear as Explicit Class; CQ7 references vintage year"
+    },
+    {
+      "id": "AX12",
+      "term": "WhiteBordeaux",
+      "term_label": "WhiteBordeaux",
+      "term_type": "Class",
+      "axiom_type": "Declaration",
+      "subject": "WhiteBordeaux",
+      "subject_label": "WhiteBordeaux",
+      "object": "Class",
+      "dl": "Declaration: WhiteBordeaux (Class)",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "WhiteBordeaux"
+      },
+      "rhs_struct": {
+        "expr_type": "Declaration",
+        "term_type": "Class"
+      },
+      "cq_numbers": [
+        "CQ2"
+      ],
+      "missing_elements": "CQ2 uses WhiteBordeaux as Explicit Class"
+    },
+    {
+      "id": "AX13",
+      "term": "WhiteBordeaux",
+      "term_label": "WhiteBordeaux",
+      "term_type": "Class",
+      "axiom_type": "EquivalentClasses",
+      "subject": "WhiteBordeaux",
+      "subject_label": "WhiteBordeaux",
+      "object": "(Bordeaux ⊓ WhiteWine)",
+      "dl": "WhiteBordeaux ≡ (Bordeaux ⊓ WhiteWine)",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "WhiteBordeaux"
+      },
+      "rhs_struct": {
+        "expr_type": "ObjectIntersectionOf",
+        "operands": [
+          {
+            "expr_type": "Class",
+            "name": "Bordeaux"
+          },
+          {
+            "expr_type": "Class",
+            "name": "WhiteWine"
+          }
+        ]
+      },
+      "cq_numbers": [
+        "CQ2"
+      ],
+      "missing_elements": "CQ2: WhiteBordeaux = Bordeaux ⊓ WhiteWine"
+    },
+    {
+      "id": "AX15",
+      "term": "WhiteWine",
+      "term_label": "WhiteWine",
+      "term_type": "Class",
+      "axiom_type": "Declaration",
+      "subject": "WhiteWine",
+      "subject_label": "WhiteWine",
+      "object": "Class",
+      "dl": "Declaration: WhiteWine (Class)",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "WhiteWine"
+      },
+      "rhs_struct": {
+        "expr_type": "Declaration",
+        "term_type": "Class"
+      },
+      "cq_numbers": [
+        "CQ2"
+      ],
+      "missing_elements": "CQ2 uses WhiteWine as Explicit Class"
+    },
+    {
+      "id": "AX16",
+      "term": "WhiteWine",
+      "term_label": "WhiteWine",
+      "term_type": "Class",
+      "axiom_type": "EquivalentClasses",
+      "subject": "WhiteWine",
+      "subject_label": "WhiteWine",
+      "object": "(wine ⊓ ∃hasColor.{White})",
+      "dl": "WhiteWine ≡ (wine ⊓ ∃hasColor.{White})",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "WhiteWine"
+      },
+      "rhs_struct": {
+        "expr_type": "ObjectIntersectionOf",
+        "operands": [
+          {
+            "expr_type": "Class",
+            "name": "wine"
+          },
+          {
+            "expr_type": "ObjectHasValue",
+            "property": "hasColor",
+            "value": "White"
+          }
+        ]
+      },
+      "cq_numbers": [
+        "CQ2"
+      ],
+      "missing_elements": "CQ2: WhiteWine defined by hasColor.White"
+    },
+    {
+      "id": "AX17",
+      "term": "WineBody",
+      "term_label": "WineBody",
+      "term_type": "Class",
+      "axiom_type": "Declaration",
+      "subject": "WineBody",
+      "subject_label": "WineBody",
+      "object": "Class",
+      "dl": "Declaration: WineBody (Class)",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "WineBody"
+      },
+      "rhs_struct": {
+        "expr_type": "Declaration",
+        "term_type": "Class"
+      },
+      "cq_numbers": [
+        "CQ1"
+      ],
+      "missing_elements": "CQ1 uses WineBody as Explicit Class"
+    },
+    {
+      "id": "AX19",
+      "term": "WineBody",
+      "term_label": "WineBody",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "WineBody",
+      "subject_label": "WineBody",
+      "object": "WineTaste",
+      "dl": "WineBody ⊑ WineTaste",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "WineBody"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "WineTaste"
+      },
+      "cq_numbers": [
+        "CQ1"
+      ],
+      "missing_elements": "CQ1 uses WineTaste as Explicit Class; WineBody subClassOf WineTaste"
+    },
+    {
+      "id": "AX20",
+      "term": "WineColor",
+      "term_label": "WineColor",
+      "term_type": "Class",
+      "axiom_type": "Declaration",
+      "subject": "WineColor",
+      "subject_label": "WineColor",
+      "object": "Class",
+      "dl": "Declaration: WineColor (Class)",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "WineColor"
+      },
+      "rhs_struct": {
+        "expr_type": "Declaration",
+        "term_type": "Class"
+      },
+      "cq_numbers": [
+        "CQ1"
+      ],
+      "missing_elements": "CQ1 uses WineColor as Explicit Class"
+    },
+    {
+      "id": "AX22",
+      "term": "WineColor",
+      "term_label": "WineColor",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "WineColor",
+      "subject_label": "WineColor",
+      "object": "WineDescriptor",
+      "dl": "WineColor ⊑ WineDescriptor",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "WineColor"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "WineDescriptor"
+      },
+      "cq_numbers": [
+        "CQ1"
+      ],
+      "missing_elements": "CQ1 uses WineDescriptor; WineColor subClassOf WineDescriptor"
+    },
+    {
+      "id": "AX23",
+      "term": "WineDescriptor",
+      "term_label": "WineDescriptor",
+      "term_type": "Class",
+      "axiom_type": "Declaration",
+      "subject": "WineDescriptor",
+      "subject_label": "WineDescriptor",
+      "object": "Class",
+      "dl": "Declaration: WineDescriptor (Class)",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "WineDescriptor"
+      },
+      "rhs_struct": {
+        "expr_type": "Declaration",
+        "term_type": "Class"
+      },
+      "cq_numbers": [
+        "CQ1"
+      ],
+      "missing_elements": "CQ1 uses WineDescriptor as Explicit Class"
+    },
+    {
+      "id": "AX24",
+      "term": "WineDescriptor",
+      "term_label": "WineDescriptor",
+      "term_type": "Class",
+      "axiom_type": "EquivalentClasses",
+      "subject": "WineDescriptor",
+      "subject_label": "WineDescriptor",
+      "object": "(WineColor ⊔ WineTaste)",
+      "dl": "WineDescriptor ≡ (WineColor ⊔ WineTaste)",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "WineDescriptor"
+      },
+      "rhs_struct": {
+        "expr_type": "ObjectUnionOf",
+        "operands": [
+          {
+            "expr_type": "Class",
+            "name": "WineColor"
+          },
+          {
+            "expr_type": "Class",
+            "name": "WineTaste"
+          }
+        ]
+      },
+      "cq_numbers": [
+        "CQ1"
+      ],
+      "missing_elements": "CQ1: WineDescriptor = WineColor ⊔ WineTaste"
+    },
+    {
+      "id": "AX25",
+      "term": "WineFlavor",
+      "term_label": "WineFlavor",
+      "term_type": "Class",
+      "axiom_type": "Declaration",
+      "subject": "WineFlavor",
+      "subject_label": "WineFlavor",
+      "object": "Class",
+      "dl": "Declaration: WineFlavor (Class)",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "WineFlavor"
+      },
+      "rhs_struct": {
+        "expr_type": "Declaration",
+        "term_type": "Class"
+      },
+      "cq_numbers": [
+        "CQ1",
+        "CQ6"
+      ],
+      "missing_elements": "CQ1 uses WineFlavor as Explicit Class; CQ6 uses WineFlavor as Explicit Class"
+    },
+    {
+      "id": "AX27",
+      "term": "WineFlavor",
+      "term_label": "WineFlavor",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "WineFlavor",
+      "subject_label": "WineFlavor",
+      "object": "WineTaste",
+      "dl": "WineFlavor ⊑ WineTaste",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "WineFlavor"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "WineTaste"
+      },
+      "cq_numbers": [
+        "CQ1",
+        "CQ6"
+      ],
+      "missing_elements": "CQ1/CQ6 use WineFlavor; WineFlavor subClassOf WineTaste"
+    },
+    {
+      "id": "AX28",
+      "term": "WineGrape",
+      "term_label": "WineGrape",
+      "term_type": "Class",
+      "axiom_type": "Declaration",
+      "subject": "WineGrape",
+      "subject_label": "WineGrape",
+      "object": "Class",
+      "dl": "Declaration: WineGrape (Class)",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "WineGrape"
+      },
+      "rhs_struct": {
+        "expr_type": "Declaration",
+        "term_type": "Class"
+      },
+      "cq_numbers": [
+        "CQnew1"
+      ],
+      "missing_elements": "new1 uses WineGrape as Explicit Class"
+    },
+    {
+      "id": "AX29",
+      "term": "WineSugar",
+      "term_label": "WineSugar",
+      "term_type": "Class",
+      "axiom_type": "Declaration",
+      "subject": "WineSugar",
+      "subject_label": "WineSugar",
+      "object": "Class",
+      "dl": "Declaration: WineSugar (Class)",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "WineSugar"
+      },
+      "rhs_struct": {
+        "expr_type": "Declaration",
+        "term_type": "Class"
+      },
+      "cq_numbers": [
+        "CQ1"
+      ],
+      "missing_elements": "CQ1 uses WineSugar as Explicit Class"
+    },
+    {
+      "id": "AX31",
+      "term": "WineSugar",
+      "term_label": "WineSugar",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "WineSugar",
+      "subject_label": "WineSugar",
+      "object": "WineTaste",
+      "dl": "WineSugar ⊑ WineTaste",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "WineSugar"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "WineTaste"
+      },
+      "cq_numbers": [
+        "CQ1"
+      ],
+      "missing_elements": "CQ1 uses WineTaste; WineSugar subClassOf WineTaste"
+    },
+    {
+      "id": "AX32",
+      "term": "WineTaste",
+      "term_label": "WineTaste",
+      "term_type": "Class",
+      "axiom_type": "Declaration",
+      "subject": "WineTaste",
+      "subject_label": "WineTaste",
+      "object": "Class",
+      "dl": "Declaration: WineTaste (Class)",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "WineTaste"
+      },
+      "rhs_struct": {
+        "expr_type": "Declaration",
+        "term_type": "Class"
+      },
+      "cq_numbers": [
+        "CQ1"
+      ],
+      "missing_elements": "CQ1 uses WineTaste as Explicit Class"
+    },
+    {
+      "id": "AX33",
+      "term": "WineTaste",
+      "term_label": "WineTaste",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "WineTaste",
+      "subject_label": "WineTaste",
+      "object": "WineDescriptor",
+      "dl": "WineTaste ⊑ WineDescriptor",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "WineTaste"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "WineDescriptor"
+      },
+      "cq_numbers": [
+        "CQ1"
+      ],
+      "missing_elements": "CQ1: WineTaste subClassOf WineDescriptor"
+    },
+    {
+      "id": "AX34",
+      "term": "Zinfandel",
+      "term_label": "Zinfandel",
+      "term_type": "Class",
+      "axiom_type": "Declaration",
+      "subject": "Zinfandel",
+      "subject_label": "Zinfandel",
+      "object": "Class",
+      "dl": "Declaration: Zinfandel (Class)",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "Zinfandel"
+      },
+      "rhs_struct": {
+        "expr_type": "Declaration",
+        "term_type": "Class"
+      },
+      "cq_numbers": [
+        "CQ7"
+      ],
+      "missing_elements": "CQ7 uses Zinfandel as Explicit Class"
+    },
+    {
+      "id": "AX40",
+      "term": "wine",
+      "term_label": "wine",
+      "term_type": "Class",
+      "axiom_type": "Declaration",
+      "subject": "wine",
+      "subject_label": "wine",
+      "object": "Class",
+      "dl": "Declaration: wine (Class)",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "wine"
+      },
+      "rhs_struct": {
+        "expr_type": "Declaration",
+        "term_type": "Class"
+      },
+      "cq_numbers": [
+        "CQ1",
+        "CQ6"
+      ],
+      "missing_elements": "CQ1 uses hasBody as Explicit Property; CQ6 uses hasBody as Explicit Property"
+    },
+    {
+      "id": "AX41",
+      "term": "wine",
+      "term_label": "wine",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "wine",
+      "subject_label": "wine",
+      "object": "∃locatedIn.Region",
+      "dl": "wine ⊑ ∃locatedIn.Region",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "wine"
+      },
+      "rhs_struct": {
+        "expr_type": "ObjectSomeValuesFrom",
+        "property": "locatedIn",
+        "filler": {
+          "expr_type": "Class",
+          "name": "Region"
+        }
+      },
+      "cq_numbers": [
+        "CQ1",
+        "CQ6"
+      ],
+      "missing_elements": "CQ1 uses both hasBody and hasWineDescriptor; hasBody subPropertyOf"
+    },
+    {
+      "id": "AX42",
+      "term": "wine",
+      "term_label": "wine",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "wine",
+      "subject_label": "wine",
+      "object": "≥1 madeFromGrape.⊤",
+      "dl": "wine ⊑ ≥1 madeFromGrape.⊤",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "wine"
+      },
+      "rhs_struct": {
+        "expr_type": "ObjectMinCardinality",
+        "property": "madeFromGrape",
+        "cardinality": 1,
+        "filler": {
+          "expr_type": "Top"
+        }
+      },
+      "cq_numbers": [
+        "CQ1",
+        "CQ6"
+      ],
+      "missing_elements": "Range = WineBody; CQ1 uses WineBody Explicit"
+    },
+    {
+      "id": "AX43",
+      "term": "wine",
+      "term_label": "wine",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "wine",
+      "subject_label": "wine",
+      "object": "=1 hasBody.⊤",
+      "dl": "wine ⊑ =1 hasBody.⊤",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "wine"
+      },
+      "rhs_struct": {
+        "expr_type": "ObjectExactCardinality",
+        "property": "hasBody",
+        "cardinality": 1,
+        "filler": {
+          "expr_type": "Top"
+        }
+      },
+      "cq_numbers": [
+        "CQ1",
+        "CQ6"
+      ],
+      "missing_elements": "Wine has exactly one body"
+    },
+    {
+      "id": "AX44",
+      "term": "wine",
+      "term_label": "wine",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "wine",
+      "subject_label": "wine",
+      "object": "=1 hasColor.⊤",
+      "dl": "wine ⊑ =1 hasColor.⊤",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "wine"
+      },
+      "rhs_struct": {
+        "expr_type": "ObjectExactCardinality",
+        "property": "hasColor",
+        "cardinality": 1,
+        "filler": {
+          "expr_type": "Top"
+        }
+      },
+      "cq_numbers": [
+        "CQ1",
+        "CQ2"
+      ],
+      "missing_elements": "CQ1 uses hasColor as Explicit Property; CQ2 asks about color"
+    },
+    {
+      "id": "AX45",
+      "term": "wine",
+      "term_label": "wine",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "wine",
+      "subject_label": "wine",
+      "object": "=1 hasFlavor.⊤",
+      "dl": "wine ⊑ =1 hasFlavor.⊤",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "wine"
+      },
+      "rhs_struct": {
+        "expr_type": "ObjectExactCardinality",
+        "property": "hasFlavor",
+        "cardinality": 1,
+        "filler": {
+          "expr_type": "Top"
+        }
+      },
+      "cq_numbers": [
+        "CQ1"
+      ],
+      "missing_elements": "CQ1 uses hasWineDescriptor; hasColor subPropertyOf"
+    },
+    {
+      "id": "AX46",
+      "term": "wine",
+      "term_label": "wine",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "wine",
+      "subject_label": "wine",
+      "object": "=1 hasSugar.⊤",
+      "dl": "wine ⊑ =1 hasSugar.⊤",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "wine"
+      },
+      "rhs_struct": {
+        "expr_type": "ObjectExactCardinality",
+        "property": "hasSugar",
+        "cardinality": 1,
+        "filler": {
+          "expr_type": "Top"
+        }
+      },
+      "cq_numbers": [
+        "CQ1",
+        "CQ2"
+      ],
+      "missing_elements": "Domain = wine; CQ1/CQ2 involve wine+color"
+    },
+    {
+      "id": "AX47",
+      "term": "hasBody",
+      "term_label": "hasBody",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Characteristics",
+      "subject": "hasBody",
+      "subject_label": "hasBody",
+      "object": "Functional",
+      "dl": "Functional(hasBody)",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasBody"
+      },
+      "rhs_struct": {
+        "expr_type": "PropertyCharacteristic",
+        "name": "Functional"
+      },
+      "cq_numbers": [
+        "CQ1",
+        "CQ2"
+      ],
+      "missing_elements": "Range = WineColor; CQ1 uses WineColor Explicit"
+    },
+    {
+      "id": "AX48",
+      "term": "hasBody",
+      "term_label": "hasBody",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Declaration",
+      "subject": "hasBody",
+      "subject_label": "hasBody",
+      "object": "ObjectProperty",
+      "dl": "Declaration: hasBody (ObjectProperty)",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasBody"
+      },
+      "rhs_struct": {
+        "expr_type": "Declaration",
+        "term_type": "ObjectProperty"
+      },
+      "cq_numbers": [
+        "CQ1",
+        "CQ2"
+      ],
+      "missing_elements": "Wine has exactly one color; CQ2 expects one answer"
+    },
+    {
+      "id": "AX49",
+      "term": "hasBody",
+      "term_label": "hasBody",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Range",
+      "subject": "hasBody",
+      "subject_label": "hasBody",
+      "object": "WineBody",
+      "dl": "⊤ ⊑ ∀hasBody.WineBody",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasBody"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "WineBody"
+      },
+      "cq_numbers": [
+        "CQ1",
+        "CQ6"
+      ],
+      "missing_elements": "CQ1 uses hasFlavor Explicit; CQ6 uses hasFlavor Explicit"
+    },
+    {
+      "id": "AX50",
+      "term": "hasBody",
+      "term_label": "hasBody",
+      "term_type": "ObjectProperty",
+      "axiom_type": "SubPropertyOf",
+      "subject": "hasBody",
+      "subject_label": "hasBody",
+      "object": "hasWineDescriptor",
+      "dl": "hasBody ⊑ hasWineDescriptor",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasBody"
+      },
+      "rhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasWineDescriptor"
+      },
+      "cq_numbers": [
+        "CQ1",
+        "CQ6"
+      ],
+      "missing_elements": "CQ1 uses hasWineDescriptor; hasFlavor subPropertyOf"
+    },
+    {
+      "id": "AX51",
+      "term": "hasColor",
+      "term_label": "hasColor",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Characteristics",
+      "subject": "hasColor",
+      "subject_label": "hasColor",
+      "object": "Functional",
+      "dl": "Functional(hasColor)",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasColor"
+      },
+      "rhs_struct": {
+        "expr_type": "PropertyCharacteristic",
+        "name": "Functional"
+      },
+      "cq_numbers": [
+        "CQ1",
+        "CQ6"
+      ],
+      "missing_elements": "Range = WineFlavor; CQ1/CQ6 use WineFlavor"
+    },
+    {
+      "id": "AX52",
+      "term": "hasColor",
+      "term_label": "hasColor",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Declaration",
+      "subject": "hasColor",
+      "subject_label": "hasColor",
+      "object": "ObjectProperty",
+      "dl": "Declaration: hasColor (ObjectProperty)",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasColor"
+      },
+      "rhs_struct": {
+        "expr_type": "Declaration",
+        "term_type": "ObjectProperty"
+      },
+      "cq_numbers": [
+        "CQ1",
+        "CQ6"
+      ],
+      "missing_elements": "Wine has exactly one flavor"
+    },
+    {
+      "id": "AX53",
+      "term": "hasColor",
+      "term_label": "hasColor",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Domain",
+      "subject": "hasColor",
+      "subject_label": "hasColor",
+      "object": "wine",
+      "dl": "∃hasColor.⊤ ⊑ wine",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasColor"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "wine"
+      },
+      "cq_numbers": [
+        "CQ1"
+      ],
+      "missing_elements": "CQ1 uses hasSugar as Explicit Property"
+    },
+    {
+      "id": "AX54",
+      "term": "hasColor",
+      "term_label": "hasColor",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Range",
+      "subject": "hasColor",
+      "subject_label": "hasColor",
+      "object": "WineColor",
+      "dl": "⊤ ⊑ ∀hasColor.WineColor",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasColor"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "WineColor"
+      },
+      "cq_numbers": [
+        "CQ1"
+      ],
+      "missing_elements": "CQ1: hasSugar subPropertyOf hasWineDescriptor"
+    },
+    {
+      "id": "AX55",
+      "term": "hasColor",
+      "term_label": "hasColor",
+      "term_type": "ObjectProperty",
+      "axiom_type": "SubPropertyOf",
+      "subject": "hasColor",
+      "subject_label": "hasColor",
+      "object": "hasWineDescriptor",
+      "dl": "hasColor ⊑ hasWineDescriptor",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasColor"
+      },
+      "rhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasWineDescriptor"
+      },
+      "cq_numbers": [
+        "CQ1"
+      ],
+      "missing_elements": "Range = WineSugar; CQ1 uses WineSugar Explicit"
+    },
+    {
+      "id": "AX56",
+      "term": "hasFlavor",
+      "term_label": "hasFlavor",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Characteristics",
+      "subject": "hasFlavor",
+      "subject_label": "hasFlavor",
+      "object": "Functional",
+      "dl": "Functional(hasFlavor)",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasFlavor"
+      },
+      "rhs_struct": {
+        "expr_type": "PropertyCharacteristic",
+        "name": "Functional"
+      },
+      "cq_numbers": [
+        "CQ1"
+      ],
+      "missing_elements": "Wine has exactly one sugar level"
+    },
+    {
+      "id": "AX57",
+      "term": "hasFlavor",
+      "term_label": "hasFlavor",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Declaration",
+      "subject": "hasFlavor",
+      "subject_label": "hasFlavor",
+      "object": "ObjectProperty",
+      "dl": "Declaration: hasFlavor (ObjectProperty)",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasFlavor"
+      },
+      "rhs_struct": {
+        "expr_type": "Declaration",
+        "term_type": "ObjectProperty"
+      },
+      "cq_numbers": [
+        "CQ6",
+        "CQ7"
+      ],
+      "missing_elements": "CQ6/CQ7 both use hasVintageYear as Explicit Property"
+    },
+    {
+      "id": "AX58",
+      "term": "hasFlavor",
+      "term_label": "hasFlavor",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Range",
+      "subject": "hasFlavor",
+      "subject_label": "hasFlavor",
+      "object": "WineFlavor",
+      "dl": "⊤ ⊑ ∀hasFlavor.WineFlavor",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasFlavor"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "WineFlavor"
+      },
+      "cq_numbers": [
+        "CQ6",
+        "CQ7"
+      ],
+      "missing_elements": "Domain = Vintage; CQ6/CQ7 use Vintage Explicit"
+    },
+    {
+      "id": "AX59",
+      "term": "hasFlavor",
+      "term_label": "hasFlavor",
+      "term_type": "ObjectProperty",
+      "axiom_type": "SubPropertyOf",
+      "subject": "hasFlavor",
+      "subject_label": "hasFlavor",
+      "object": "hasWineDescriptor",
+      "dl": "hasFlavor ⊑ hasWineDescriptor",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasFlavor"
+      },
+      "rhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasWineDescriptor"
+      },
+      "cq_numbers": [
+        "CQ6",
+        "CQ7"
+      ],
+      "missing_elements": "Range = VintageYear; CQ6 uses VintageYear Explicit"
+    },
+    {
+      "id": "AX60",
+      "term": "hasSugar",
+      "term_label": "hasSugar",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Characteristics",
+      "subject": "hasSugar",
+      "subject_label": "hasSugar",
+      "object": "Functional",
+      "dl": "Functional(hasSugar)",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasSugar"
+      },
+      "rhs_struct": {
+        "expr_type": "PropertyCharacteristic",
+        "name": "Functional"
+      },
+      "cq_numbers": [
+        "CQ6",
+        "CQ7"
+      ],
+      "missing_elements": "Vintage has exactly one VintageYear"
+    },
+    {
+      "id": "AX61",
+      "term": "hasSugar",
+      "term_label": "hasSugar",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Declaration",
+      "subject": "hasSugar",
+      "subject_label": "hasSugar",
+      "object": "ObjectProperty",
+      "dl": "Declaration: hasSugar (ObjectProperty)",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasSugar"
+      },
+      "rhs_struct": {
+        "expr_type": "Declaration",
+        "term_type": "ObjectProperty"
+      },
+      "cq_numbers": [
+        "CQ1"
+      ],
+      "missing_elements": "CQ1 uses hasWineDescriptor as Explicit Property"
+    },
+    {
+      "id": "AX62",
+      "term": "hasSugar",
+      "term_label": "hasSugar",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Range",
+      "subject": "hasSugar",
+      "subject_label": "hasSugar",
+      "object": "WineSugar",
+      "dl": "⊤ ⊑ ∀hasSugar.WineSugar",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasSugar"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "WineSugar"
+      },
+      "cq_numbers": [
+        "CQ1"
+      ],
+      "missing_elements": "Domain = wine; CQ1 uses wine"
+    },
+    {
+      "id": "AX63",
+      "term": "hasSugar",
+      "term_label": "hasSugar",
+      "term_type": "ObjectProperty",
+      "axiom_type": "SubPropertyOf",
+      "subject": "hasSugar",
+      "subject_label": "hasSugar",
+      "object": "hasWineDescriptor",
+      "dl": "hasSugar ⊑ hasWineDescriptor",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasSugar"
+      },
+      "rhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasWineDescriptor"
+      },
+      "cq_numbers": [
+        "CQ1"
+      ],
+      "missing_elements": "Range = WineDescriptor; CQ1 uses WineDescriptor Explicit"
+    },
+    {
+      "id": "AX64",
+      "term": "hasVintageYear",
+      "term_label": "hasVintageYear",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Characteristics",
+      "subject": "hasVintageYear",
+      "subject_label": "hasVintageYear",
+      "object": "Functional",
+      "dl": "Functional(hasVintageYear)",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasVintageYear"
+      },
+      "rhs_struct": {
+        "expr_type": "PropertyCharacteristic",
+        "name": "Functional"
+      },
+      "cq_numbers": [
+        "CQ7"
+      ],
+      "missing_elements": "CQ7 uses locatedIn as Explicit Property (Napa region)"
+    },
+    {
+      "id": "AX65",
+      "term": "hasVintageYear",
+      "term_label": "hasVintageYear",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Declaration",
+      "subject": "hasVintageYear",
+      "subject_label": "hasVintageYear",
+      "object": "ObjectProperty",
+      "dl": "Declaration: hasVintageYear (ObjectProperty)",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasVintageYear"
+      },
+      "rhs_struct": {
+        "expr_type": "Declaration",
+        "term_type": "ObjectProperty"
+      },
+      "cq_numbers": [
+        "CQ7"
+      ],
+      "missing_elements": "Domain = ⊤; CQ7 triggers locatedIn"
+    },
+    {
+      "id": "AX66",
+      "term": "hasVintageYear",
+      "term_label": "hasVintageYear",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Domain",
+      "subject": "hasVintageYear",
+      "subject_label": "hasVintageYear",
+      "object": "Vintage",
+      "dl": "∃hasVintageYear.⊤ ⊑ Vintage",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasVintageYear"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Vintage"
+      },
+      "cq_numbers": [
+        "CQ7"
+      ],
+      "missing_elements": "Range = Region; CQ7 uses Region Explicit"
+    },
+    {
+      "id": "AX67",
+      "term": "hasVintageYear",
+      "term_label": "hasVintageYear",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Range",
+      "subject": "hasVintageYear",
+      "subject_label": "hasVintageYear",
+      "object": "VintageYear",
+      "dl": "⊤ ⊑ ∀hasVintageYear.VintageYear",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasVintageYear"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "VintageYear"
+      },
+      "cq_numbers": [
+        "CQ7"
+      ],
+      "missing_elements": "Transitive: Napa locatedIn California locatedIn US"
+    },
+    {
+      "id": "AX68",
+      "term": "hasWineDescriptor",
+      "term_label": "hasWineDescriptor",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Declaration",
+      "subject": "hasWineDescriptor",
+      "subject_label": "hasWineDescriptor",
+      "object": "ObjectProperty",
+      "dl": "Declaration: hasWineDescriptor (ObjectProperty)",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasWineDescriptor"
+      },
+      "rhs_struct": {
+        "expr_type": "Declaration",
+        "term_type": "ObjectProperty"
+      },
+      "cq_numbers": [
+        "CQnew1"
+      ],
+      "missing_elements": "new1 uses madeFromGrape as Explicit Property"
+    },
+    {
+      "id": "AX69",
+      "term": "hasWineDescriptor",
+      "term_label": "hasWineDescriptor",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Domain",
+      "subject": "hasWineDescriptor",
+      "subject_label": "hasWineDescriptor",
+      "object": "wine",
+      "dl": "∃hasWineDescriptor.⊤ ⊑ wine",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasWineDescriptor"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "wine"
+      },
+      "cq_numbers": [
+        "CQnew1"
+      ],
+      "missing_elements": "Domain = wine; new1 uses wine Explicit"
+    },
+    {
+      "id": "AX70",
+      "term": "hasWineDescriptor",
+      "term_label": "hasWineDescriptor",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Range",
+      "subject": "hasWineDescriptor",
+      "subject_label": "hasWineDescriptor",
+      "object": "WineDescriptor",
+      "dl": "⊤ ⊑ ∀hasWineDescriptor.WineDescriptor",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasWineDescriptor"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "WineDescriptor"
+      },
+      "cq_numbers": [
+        "CQnew1"
+      ],
+      "missing_elements": "Range = WineGrape; new1 uses WineGrape Explicit"
+    },
+    {
+      "id": "AX71",
+      "term": "locatedIn",
+      "term_label": "locatedIn",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Characteristics",
+      "subject": "locatedIn",
+      "subject_label": "locatedIn",
+      "object": "Transitive",
+      "dl": "Transitive(locatedIn)",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "locatedIn"
+      },
+      "rhs_struct": {
+        "expr_type": "PropertyCharacteristic",
+        "name": "Transitive"
+      },
+      "cq_numbers": [
+        "CQ1",
+        "CQ2",
+        "CQ6",
+        "CQ7",
+        "CQnew1"
+      ],
+      "missing_elements": "All 5 CQs use wine"
+    },
+    {
+      "id": "AX72",
+      "term": "locatedIn",
+      "term_label": "locatedIn",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Declaration",
+      "subject": "locatedIn",
+      "subject_label": "locatedIn",
+      "object": "ObjectProperty",
+      "dl": "Declaration: locatedIn (ObjectProperty)",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "locatedIn"
+      },
+      "rhs_struct": {
+        "expr_type": "Declaration",
+        "term_type": "ObjectProperty"
+      },
+      "cq_numbers": [
+        "CQ7"
+      ],
+      "missing_elements": "CQ7: wine locatedIn Region"
+    },
+    {
+      "id": "AX73",
+      "term": "locatedIn",
+      "term_label": "locatedIn",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Domain",
+      "subject": "locatedIn",
+      "subject_label": "locatedIn",
+      "object": "⊤",
+      "dl": "∃locatedIn.⊤ ⊑ ⊤",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "locatedIn"
+      },
+      "rhs_struct": {
+        "expr_type": "Top"
+      },
+      "cq_numbers": [
+        "CQnew1"
+      ],
+      "missing_elements": "new1: wine must have at least 1 madeFromGrape"
+    },
+    {
+      "id": "AX74",
+      "term": "locatedIn",
+      "term_label": "locatedIn",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Range",
+      "subject": "locatedIn",
+      "subject_label": "locatedIn",
+      "object": "Region",
+      "dl": "⊤ ⊑ ∀locatedIn.Region",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "locatedIn"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Region"
+      },
+      "cq_numbers": [
+        "CQ1",
+        "CQ6"
+      ],
+      "missing_elements": "CQ1 lists body; CQ6 asks about body; wine has exactly 1 body"
+    },
+    {
+      "id": "AX75",
+      "term": "madeFromGrape",
+      "term_label": "madeFromGrape",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Declaration",
+      "subject": "madeFromGrape",
+      "subject_label": "madeFromGrape",
+      "object": "ObjectProperty",
+      "dl": "Declaration: madeFromGrape (ObjectProperty)",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "madeFromGrape"
+      },
+      "rhs_struct": {
+        "expr_type": "Declaration",
+        "term_type": "ObjectProperty"
+      },
+      "cq_numbers": [
+        "CQ1",
+        "CQ2"
+      ],
+      "missing_elements": "CQ1 lists color; CQ2 asks red/white; wine has exactly 1 color"
+    },
+    {
+      "id": "AX76",
+      "term": "madeFromGrape",
+      "term_label": "madeFromGrape",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Domain",
+      "subject": "madeFromGrape",
+      "subject_label": "madeFromGrape",
+      "object": "wine",
+      "dl": "∃madeFromGrape.⊤ ⊑ wine",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "madeFromGrape"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "wine"
+      },
+      "cq_numbers": [
+        "CQ1",
+        "CQ6"
+      ],
+      "missing_elements": "CQ1 lists flavor; CQ6 asks about bouquet; wine has exactly 1 flavor"
+    },
+    {
+      "id": "AX77",
+      "term": "madeFromGrape",
+      "term_label": "madeFromGrape",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Range",
+      "subject": "madeFromGrape",
+      "subject_label": "madeFromGrape",
+      "object": "WineGrape",
+      "dl": "⊤ ⊑ ∀madeFromGrape.WineGrape",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "madeFromGrape"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "WineGrape"
+      },
+      "cq_numbers": [
+        "CQ1"
+      ],
+      "missing_elements": "CQ1 lists sugar; wine has exactly 1 sugar"
+    },
+    {
+      "id": "AX78",
+      "term": "yearValue",
+      "term_label": "yearValue",
+      "term_type": "DatatypeProperty",
+      "axiom_type": "Declaration",
+      "subject": "yearValue",
+      "subject_label": "yearValue",
+      "object": "DatatypeProperty",
+      "dl": "Declaration: yearValue (DatatypeProperty)",
+      "lhs_struct": {
+        "expr_type": "DatatypeProperty",
+        "name": "yearValue"
+      },
+      "rhs_struct": {
+        "expr_type": "Declaration",
+        "term_type": "DatatypeProperty"
+      },
+      "cq_numbers": [
+        "CQ6",
+        "CQ7"
+      ],
+      "missing_elements": "CQ6/CQ7 both use yearValue as Explicit Property"
+    },
+    {
+      "id": "AX79",
+      "term": "yearValue",
+      "term_label": "yearValue",
+      "term_type": "DatatypeProperty",
+      "axiom_type": "Domain",
+      "subject": "yearValue",
+      "subject_label": "yearValue",
+      "object": "VintageYear",
+      "dl": "∃yearValue.⊤ ⊑ VintageYear",
+      "lhs_struct": {
+        "expr_type": "DatatypeProperty",
+        "name": "yearValue"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "VintageYear"
+      },
+      "cq_numbers": [
+        "CQ6",
+        "CQ7"
+      ],
+      "missing_elements": "Domain = VintageYear; CQ6/CQ7 use VintageYear"
+    },
+    {
+      "id": "AX80",
+      "term": "yearValue",
+      "term_label": "yearValue",
+      "term_type": "DatatypeProperty",
+      "axiom_type": "Range",
+      "subject": "yearValue",
+      "subject_label": "yearValue",
+      "object": "xsd:integer",
+      "dl": "yearValue maps-to xsd:integer",
+      "lhs_struct": {
+        "expr_type": "DatatypeProperty",
+        "name": "yearValue"
+      },
+      "rhs_struct": {
+        "expr_type": "Datatype",
+        "name": "xsd:integer"
+      },
+      "cq_numbers": [
+        "CQ6",
+        "CQ7"
+      ],
+      "missing_elements": "Range = xsd:integer; year values for comparison"
+    }
+  ]
+}

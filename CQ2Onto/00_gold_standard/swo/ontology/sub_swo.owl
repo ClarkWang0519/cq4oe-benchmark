@@ -1,0 +1,771 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.ebi.ac.uk/swo/swo.owl#"
+     xml:base="http://www.ebi.ac.uk/swo/swo.owl"
+     xmlns:dc="http://purl.org/dc/elements/1.1/"
+     xmlns:efo="http://www.ebi.ac.uk/efo/"
+     xmlns:obo="http://purl.obolibrary.org/obo/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+     xmlns:terms="http://purl.org/dc/terms/"
+     xmlns:oboInOwl="http://www.geneontology.org/formats/oboInOwl#">
+    <owl:Ontology rdf:about="http://www.ebi.ac.uk/swo/swo.owl">
+        <owl:versionIRI rdf:resource="http://www.ebi.ac.uk/swo/swo/releases/2023-03-05/swo.owl"/>
+        <terms:creator>Allyson Lister</terms:creator>
+        <terms:creator>Andy Brown</terms:creator>
+        <terms:creator>Duncan Hull</terms:creator>
+        <terms:creator>Helen Parkinson</terms:creator>
+        <terms:creator>James Malone</terms:creator>
+        <terms:creator>Jon Ison</terms:creator>
+        <terms:creator>Nandini Badarinarayan</terms:creator>
+        <terms:creator>Robert Stevens</terms:creator>
+        <terms:description>The Software Ontology (SWO) is a resource for describing software tools, their types, tasks, versions, provenance and associated data. It contains detailed information on licensing and formats as well as software applications themselves, mainly (but not limited) to the bioinformatics community.</terms:description>
+        <terms:license>https://creativecommons.org/licenses/by/4.0/</terms:license>
+        <terms:title>Software Ontology</terms:title>
+        <rdfs:comment>The Software Ontology (SWO) is a resource for describing software tools, their types, tasks, versions, licensing, provenance and associated data. It contains SWO-specific classes and axioms as well as imports from:
+
+   
+1. BFO`
+2. IAO
+3. OBI
+4. EDAM</rdfs:comment>
+        <owl:versionInfo>2023-03-05</owl:versionInfo>
+    </owl:Ontology>
+    
+
+
+    
+
+    
+
+
+
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Object Properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/RO_0000085 -->
+
+    <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/RO_0000085">
+        <rdfs:range rdf:resource="http://purl.obolibrary.org/obo/BFO_0000034"/>
+        <obo:IAO_0000112 xml:lang="en">this enzyme has function this catalysis function (more colloquially: this enzyme has this catalysis function)</obo:IAO_0000112>
+        <obo:IAO_0000115 xml:lang="en">a relation between an independent continuant (the bearer) and a function, in which the function specifically depends on the bearer for its existence</obo:IAO_0000115>
+        <obo:IAO_0000116 xml:lang="en">A bearer can have many functions, and its functions can exist for different periods of time, but none of its functions can exist when the bearer does not exist. A function need not be realized at all the times that the function exists.</obo:IAO_0000116>
+        <obo:IAO_0000118 xml:lang="en">has_function</obo:IAO_0000118>
+        <rdfs:label xml:lang="en">has function</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/RO_0002233 -->
+
+    <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/RO_0002233">
+        <obo:IAO_0000114 rdf:resource="http://purl.obolibrary.org/obo/IAO_0000125"/>
+        <obo:IAO_0000115>p has input c iff: p is a process, c is a material entity, c is a participant in p, c is present at the start of p, and the state of c is modified during p.</obo:IAO_0000115>
+        <obo:IAO_0000117 rdf:resource="https://orcid.org/0000-0002-6601-2165"/>
+        <obo:IAO_0000118>consumes</obo:IAO_0000118>
+        <oboInOwl:inSubset rdf:resource="http://purl.obolibrary.org/obo/valid_for_go_annotation_extension"/>
+        <oboInOwl:inSubset rdf:resource="http://purl.obolibrary.org/obo/valid_for_go_ontology"/>
+        <oboInOwl:inSubset rdf:resource="http://purl.obolibrary.org/obo/valid_for_gocam"/>
+        <oboInOwl:inSubset rdf:resource="http://purl.obolibrary.org/obo/ro/subsets#ro-eco"/>
+        <rdfs:label xml:lang="en">has input</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/RO_0002234 -->
+
+    <owl:ObjectProperty rdf:about="http://purl.obolibrary.org/obo/RO_0002234">
+        <obo:IAO_0000114 rdf:resource="http://purl.obolibrary.org/obo/IAO_0000125"/>
+        <obo:IAO_0000115>p has output c iff c is a participant in p, c is present at the end of p, and c is not present in the same state at the beginning of p.</obo:IAO_0000115>
+        <obo:IAO_0000117 rdf:resource="https://orcid.org/0000-0002-6601-2165"/>
+        <obo:IAO_0000118>produces</obo:IAO_0000118>
+        <oboInOwl:inSubset rdf:resource="http://purl.obolibrary.org/obo/valid_for_go_annotation_extension"/>
+        <oboInOwl:inSubset rdf:resource="http://purl.obolibrary.org/obo/valid_for_go_ontology"/>
+        <oboInOwl:inSubset rdf:resource="http://purl.obolibrary.org/obo/valid_for_gocam"/>
+        <oboInOwl:inSubset rdf:resource="http://purl.obolibrary.org/obo/ro/subsets#ro-eco"/>
+        <rdfs:label xml:lang="en">has output</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.ebi.ac.uk/swo/SWO_0000086 -->
+
+    <owl:ObjectProperty rdf:about="http://www.ebi.ac.uk/swo/SWO_0000086">
+        <rdfs:range rdf:resource="http://purl.obolibrary.org/obo/IAO_0000027"/>
+        <obo:IAO_0000115>The relationship between input data which is permitted to a piece of software.</obo:IAO_0000115>
+        <terms:creator>James Malone</terms:creator>
+        <rdfs:comment>AL 2.9.22: This cannot be a child of &apos;has specified input&apos; because the restrictions on domain and range for that hierarchy would create issues for us, as both software and data item (our domain and range, respectively) are continuants. For now, the solution is to take it out of that hierarchy completely.</rdfs:comment>
+        <rdfs:comment>See also http://softwareontology.wordpress.com/2011/04/15/ins-and-outs-of-software/</rdfs:comment>
+        <rdfs:label>has specified data input</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.ebi.ac.uk/swo/SWO_0000087 -->
+
+    <owl:ObjectProperty rdf:about="http://www.ebi.ac.uk/swo/SWO_0000087">
+        <rdfs:range rdf:resource="http://purl.obolibrary.org/obo/IAO_0000027"/>
+        <obo:IAO_0000115 xml:lang="en">The relationship between a piece of software and the data that it is possible to output.</obo:IAO_0000115>
+        <terms:creator>James Malone</terms:creator>
+        <rdfs:comment>AL 2.9.22: This cannot be a child of &apos;has specified output&apos; because the restrictions on domain and range for that hierarchy would create issues for us, as both software and data item (our domain and range, respectively) are continuants. For now, the solution is to take it out of that hierarchy completely.</rdfs:comment>
+        <rdfs:comment>See also http://softwareontology.wordpress.com/2011/04/15/ins-and-outs-of-software/</rdfs:comment>
+        <rdfs:label xml:lang="en">has specified data output</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+    <!-- http://www.ebi.ac.uk/swo/SWO_0000082 -->
+
+    <owl:ObjectProperty rdf:about="http://www.ebi.ac.uk/swo/SWO_0000082">
+        <owl:inverseOf rdf:resource="http://www.ebi.ac.uk/swo/SWO_0000157"/>
+        <rdfs:domain rdf:resource="http://www.ebi.ac.uk/swo/SWO_0000001"/>
+        <rdfs:range rdf:resource="http://www.ebi.ac.uk/swo/SWO_0000001"/>
+        <obo:IAO_0000112>Cytoscape plugins would be linked to the Cytoscape application via uses software, while Microsoft Excel is linked to Microsoft Office via has_part.</obo:IAO_0000112>
+        <obo:IAO_0000115>This property allows the linkage of two different pieces of software such that one directly executes or uses the other. The has_part relationship should instead be used to describe related but independent members of a larger software package, and &apos;uses platform&apos; relationship should be used to describe which operating system(s) a particular piece of software can use.</obo:IAO_0000115>
+        <obo:IAO_0000119>Allyson Lister</obo:IAO_0000119>
+        <rdfs:label xml:lang="en">uses software</rdfs:label>
+    </owl:ObjectProperty>
+
+
+
+    <!-- http://www.ebi.ac.uk/swo/SWO_0000150 -->
+
+    <owl:ObjectProperty rdf:about="http://www.ebi.ac.uk/swo/SWO_0000150">
+        <obo:IAO_0000115>&apos;uses platform&apos; should be used to link a particular piece of software to one or more operating systems which that software can run on. This is in contrast to both &apos;uses software&apos; (which describes one piece of software directly executing another), and has_part, which can be used to describe related but independent software in a package, for example.</obo:IAO_0000115>
+        <terms:creator>Allyson Lister</terms:creator>
+        <rdfs:comment>This property, together with &apos;uses software&apos;, is probably best modelled as a child of has_part. Its current position in the property hierarchy is based on simplicity of use. &apos;uses platform&apos; was deemed an appropriate addition (rather than making use of already extant has_part or &apos;uses software&apos;) due to the already present definitions of those classes which restrict their use to particular situations.</rdfs:comment>
+        <rdfs:label xml:lang="en">uses platform</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.ebi.ac.uk/swo/SWO_0000157 -->
+
+    <owl:ObjectProperty rdf:about="http://www.ebi.ac.uk/swo/SWO_0000157">
+        <rdfs:label xml:lang="en">is software for</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.ebi.ac.uk/swo/SWO_0000394 -->
+
+    <owl:ObjectProperty rdf:about="http://www.ebi.ac.uk/swo/SWO_0000394">
+        <obo:IAO_0000115>The relationship between a software and software developer.</obo:IAO_0000115>
+        <rdfs:label>is developed by</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.ebi.ac.uk/swo/SWO_0000740 -->
+
+    <owl:ObjectProperty rdf:about="http://www.ebi.ac.uk/swo/SWO_0000740">
+        <rdfs:range rdf:resource="http://purl.obolibrary.org/obo/IAO_0000064"/>
+        <obo:IAO_0000115>implements is the relationship between software and an algorithm that is defined for use within that software when executed.</obo:IAO_0000115>
+        <terms:creator>James Malone</terms:creator>
+        <rdfs:label>implements</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.ebi.ac.uk/swo/SWO_0000741 -->
+
+    <owl:ObjectProperty rdf:about="http://www.ebi.ac.uk/swo/SWO_0000741">
+        <obo:IAO_0000112>Linking a type of software to its particular programming language.</obo:IAO_0000112>
+        <obo:IAO_0000115>Is encoded in is an &quot;is about&quot; relationship which describes the type of encoding used for the referenced class.</obo:IAO_0000115>
+        <obo:IAO_0000119>Allyson Lister</obo:IAO_0000119>
+        <rdfs:label>is encoded in</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.ebi.ac.uk/swo/SWO_0004000 -->
+
+    <owl:ObjectProperty rdf:about="http://www.ebi.ac.uk/swo/SWO_0004000">
+        <rdfs:range rdf:resource="http://purl.obolibrary.org/obo/IAO_0000129"/>
+        <obo:IAO_0000115>relationship between an entity and a version name or number</obo:IAO_0000115>
+        <rdfs:comment>For further information, please see http://softwareontology.wordpress.com/2012/06/20/versioning-in-swo/</rdfs:comment>
+        <rdfs:label>has version</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.ebi.ac.uk/swo/SWO_0004001 -->
+
+    <owl:ObjectProperty rdf:about="http://www.ebi.ac.uk/swo/SWO_0004001">
+        <rdfs:range rdf:resource="http://www.ebi.ac.uk/swo/SWO_9000050"/>
+        <obo:IAO_0000115>Provides a method of asserting what type of interactions are possible for the class in question. The interface must be from the &apos;software interface&apos; hierarchy.</obo:IAO_0000115>
+        <obo:IAO_0000119>Allyson Lister</obo:IAO_0000119>
+        <obo:IAO_0000119>Andy Brown</obo:IAO_0000119>
+        <terms:creator>Andy Brown</terms:creator>
+        <rdfs:label>has interface</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.ebi.ac.uk/swo/SWO_0004002 -->
+
+    <owl:ObjectProperty rdf:about="http://www.ebi.ac.uk/swo/SWO_0004002">
+        <rdfs:subPropertyOf rdf:resource="http://www.ebi.ac.uk/swo/SWO_0000741"/>
+        <rdfs:domain rdf:resource="http://purl.obolibrary.org/obo/IAO_0000027"/>
+        <rdfs:range rdf:resource="http://purl.obolibrary.org/obo/IAO_0000098"/>
+        <obo:IAO_0000115>Has format specification is a type of &quot;is encoded in&quot; relationship which specifically describes the relationship between data and a data format specification.</obo:IAO_0000115>
+        <obo:IAO_0000119>Allyson Lister</obo:IAO_0000119>
+        <rdfs:label>has format specification</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.ebi.ac.uk/swo/SWO_9001002 -->
+
+    <owl:ObjectProperty rdf:about="http://www.ebi.ac.uk/swo/SWO_9001002">
+        <obo:IAO_0000115>Axioms using the &apos;has clause&apos; property, e.g. C &apos;has clause&apos; C1, provide links from the left hand class to the instances within the &apos;license clause&apos; hierarchy. This provides a way to more precisely assert the constraints of the licensing applied.</obo:IAO_0000115>
+        <obo:IAO_0000119>Allyson Lister</obo:IAO_0000119>
+        <rdfs:label>has clause</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.ebi.ac.uk/swo/has_license -->
+
+    <owl:ObjectProperty rdf:about="http://www.ebi.ac.uk/swo/has_license">
+        <obo:IAO_0000115>The relationship between an entity and the set of legal restrictions, i.e. license, which are applied in using or otherwise interacting with that entity. Eg. relationship between software and a software license.</obo:IAO_0000115>
+        <rdfs:label>has license</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.ebi.ac.uk/swo/data/SWO_3000054 -->
+
+    <owl:ObjectProperty rdf:about="http://www.ebi.ac.uk/swo/data/SWO_3000054">
+        <rdf:type rdf:resource="http://www.w3.org/2002/07/owl#SymmetricProperty"/>
+        <rdfs:domain rdf:resource="http://purl.obolibrary.org/obo/IAO_0000098"/>
+        <rdfs:range rdf:resource="http://purl.obolibrary.org/obo/IAO_0000098"/>
+        <obo:IAO_0000112>The format for BioPAX Manchester OWL syntax is an alternative format of the BioPAX RDF/XML format.</obo:IAO_0000112>
+        <obo:IAO_0000115>With both a domain and range of &apos;data format specification&apos;, this property provides a means of stating that two different data format specifications are valid specifications for the same type of data.</obo:IAO_0000115>
+        <obo:IAO_0000119>Allyson Lister</obo:IAO_0000119>
+        <rdfs:label xml:lang="en">is alternative format of</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.ebi.ac.uk/swo/maturity/SWO_9000067 -->
+
+    <owl:ObjectProperty rdf:about="http://www.ebi.ac.uk/swo/maturity/SWO_9000067">
+        <rdfs:range rdf:resource="http://www.ebi.ac.uk/swo/maturity/SWO_9000061"/>
+        <obo:IAO_0000115>&apos;has declared status&apos; provides a way to assert the developmental status of a class, such as whether it is stable or under development. Is especially useful for software that might not be complete or stable yet, and when combined with version information.</obo:IAO_0000115>
+        <obo:IAO_0000119>Allyson Lister</obo:IAO_0000119>
+        <rdfs:label>has declared status</rdfs:label>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.ebi.ac.uk/swo/SWO_0000043 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.ebi.ac.uk/swo/SWO_0000043">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <obo:IAO_0000115>Should be used to link a particular class (e.g. a piece of software or an algorithm) with a publication(s) which act as the primary reference(s) for that class.</obo:IAO_0000115>
+        <terms:creator>Allyson Lister</terms:creator>
+        <rdfs:label xml:lang="en">has documentation</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.ebi.ac.uk/swo/SWO_0000046 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.ebi.ac.uk/swo/SWO_0000046">
+        <rdfs:subPropertyOf rdf:resource="http://www.ebi.ac.uk/swo/SWO_0004006"/>
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <obo:IAO_0000115>The location from where the software can be downloaded.</obo:IAO_0000115>
+        <obo:IAO_0000119>Allyson Lister</obo:IAO_0000119>
+        <terms:creator>Allyson Lister</terms:creator>
+        <rdfs:label xml:lang="en">has download location</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.ebi.ac.uk/swo/SWO_0004006 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.ebi.ac.uk/swo/SWO_0004006">
+        <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+        <obo:IAO_0000115>The URL of the homepage for the resource this property is associated with.</obo:IAO_0000115>
+        <obo:IAO_0000119>Allyson Lister</obo:IAO_0000119>
+        <rdfs:label>has website homepage</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.ebi.ac.uk/swo/maturity/SWO_9000068 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.ebi.ac.uk/swo/maturity/SWO_9000068">
+        <rdfs:range rdf:resource="http://www.w3.org/2001/XMLSchema#string"/>
+        <terms:creator>Andy Brown</terms:creator>
+        <rdfs:comment>The official date of release of software</rdfs:comment>
+        <rdfs:label>has release date</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- http://www.ebi.ac.uk/swo/maturity/SWO_9000070 -->
+
+    <owl:DatatypeProperty rdf:about="http://www.ebi.ac.uk/swo/maturity/SWO_9000070">
+        <rdfs:range rdf:resource="http://www.w3.org/2000/01/rdf-schema#Literal"/>
+        <terms:creator>Andy Brown</terms:creator>
+        <rdfs:comment>A URL for a source of support information about software</rdfs:comment>
+        <rdfs:label>has support URL</rdfs:label>
+    </owl:DatatypeProperty>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://edamontology.org/format_2332 -->
+
+    <owl:Class rdf:about="http://edamontology.org/format_2332">
+        <rdfs:subClassOf rdf:resource="http://purl.obolibrary.org/obo/IAO_0000098"/>
+        <obo:IAO_0000115>Extensible Markup Language (XML) is a standard set of rules for encoding documents in a machine-readable form defined by the W3C.</obo:IAO_0000115>
+        <terms:creator>James Malone</terms:creator>
+        <rdfs:label>XML</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/BFO_0000034 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/BFO_0000034">
+        <obo:BFO_0000179>function</obo:BFO_0000179>
+        <obo:BFO_0000180>Function</obo:BFO_0000180>
+        <obo:IAO_0000112 xml:lang="en">the function of a hammer to drive in nails</obo:IAO_0000112>
+        <obo:IAO_0000112 xml:lang="en">the function of a heart pacemaker to regulate the beating of a heart through electricity</obo:IAO_0000112>
+        <obo:IAO_0000112 xml:lang="en">the function of amylase in saliva to break down starch into sugar</obo:IAO_0000112>
+        <obo:IAO_0000116 xml:lang="en">BFO 2 Reference: In the past, we have distinguished two varieties of function, artifactual function and biological function. These are not asserted subtypes of BFO:function however, since the same function – for example: to pump, to transport – can exist both in artifacts and in biological entities. The asserted subtypes of function that would be needed in order to yield a separate monoheirarchy are not artifactual function, biological function, etc., but rather transporting function, pumping function, etc.</obo:IAO_0000116>
+        <obo:IAO_0000600 xml:lang="en">A function is a disposition that exists in virtue of the bearer’s physical make-up and this physical make-up is something the bearer possesses because it came into being, either through evolution (in the case of natural biological entities) or through intentional design (in the case of artifacts), in order to realize processes of a certain sort. (axiom label in BFO2 Reference: [064-001])</obo:IAO_0000600>
+        <obo:IAO_0000602>(forall (x) (if (Function x) (Disposition x))) // axiom label in BFO2 CLIF: [064-001]</obo:IAO_0000602>
+        <rdfs:isDefinedBy rdf:resource="http://purl.obolibrary.org/obo/bfo.owl"/>
+        <rdfs:label xml:lang="en">function</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IAO_0000010 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/IAO_0000010">
+        <obo:IAO_0000111 xml:lang="en">software</obo:IAO_0000111>
+        <obo:IAO_0000114 rdf:resource="http://purl.obolibrary.org/obo/IAO_0000120"/>
+        <obo:IAO_0000115 xml:lang="en">Software is a plan specification composed of a series of instructions that can be 
+interpreted by or directly executed by a processing unit.</obo:IAO_0000115>
+        <obo:IAO_0000116 xml:lang="en">see sourceforge tracker discussion at http://sourceforge.net/tracker/index.php?func=detail&amp;aid=1958818&amp;group_id=177891&amp;atid=886178</obo:IAO_0000116>
+        <obo:IAO_0000117 xml:lang="en">PERSON: Alan Ruttenberg</obo:IAO_0000117>
+        <obo:IAO_0000117 xml:lang="en">PERSON: Bjoern Peters</obo:IAO_0000117>
+        <obo:IAO_0000117 xml:lang="en">PERSON: Chris Stoeckert</obo:IAO_0000117>
+        <obo:IAO_0000117 xml:lang="en">PERSON: Melanie Courtot</obo:IAO_0000117>
+        <obo:IAO_0000119 xml:lang="en">GROUP: OBI</obo:IAO_0000119>
+        <rdfs:label xml:lang="en">software</rdfs:label>
+        <skos:exactMatch>http://www.ebi.ac.uk/swo/SWO_0000001</skos:exactMatch>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IAO_0000025 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/IAO_0000025">
+        <obo:IAO_0000111 xml:lang="en">programming language</obo:IAO_0000111>
+        <obo:IAO_0000112 xml:lang="en">R, Perl, Java</obo:IAO_0000112>
+        <obo:IAO_0000114 rdf:resource="http://purl.obolibrary.org/obo/IAO_0000120"/>
+        <obo:IAO_0000115 xml:lang="en">A language in which source code is written that is intended to be executed/run by a software interpreter. Programming languages are ways to write instructions that specify what to do, and sometimes, how to do it.</obo:IAO_0000115>
+        <obo:IAO_0000115>A language in which source code is written, intended to executed/run by a software interpreter. Programming languages are ways to write instructions that specify what to do, and sometimes, how to do it.</obo:IAO_0000115>
+        <obo:IAO_0000117 xml:lang="en">person:Alan Ruttenberg</obo:IAO_0000117>
+        <obo:IAO_0000117 xml:lang="en">person:Chris Stoeckert</obo:IAO_0000117>
+        <obo:IAO_0000119>IAO</obo:IAO_0000119>
+        <obo:IAO_0000119 xml:lang="en">OBI_0000058</obo:IAO_0000119>
+        <obo:IAO_0000119 xml:lang="en">group:OBI</obo:IAO_0000119>
+        <rdfs:label>programming language</rdfs:label>
+        <rdfs:label xml:lang="en">programming language</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IAO_0000027 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/IAO_0000027">
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.ebi.ac.uk/swo/SWO_0000741"/>
+                <owl:someValuesFrom rdf:resource="http://purl.obolibrary.org/obo/IAO_0000098"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <obo:IAO_0000111 xml:lang="en">data item</obo:IAO_0000111>
+        <obo:IAO_0000112 xml:lang="en">Data items include counts of things, analyte concentrations, and statistical summaries.</obo:IAO_0000112>
+        <obo:IAO_0000114 rdf:resource="http://purl.obolibrary.org/obo/IAO_0000125"/>
+        <obo:IAO_0000115 xml:lang="en">An information content entity that is intended to be a truthful statement about something (modulo, e.g., measurement precision or other systematic errors) and is constructed/acquired by a method which reliably tends to produce (approximately) truthful statements.</obo:IAO_0000115>
+        <obo:IAO_0000116 xml:lang="en">2/2/2009 Alan and Bjoern discussing FACS run output data. This is a data item because it is about the cell population. Each element records an event and is typically further composed a set of measurment data items that record the fluorescent intensity stimulated by one of the lasers.</obo:IAO_0000116>
+        <obo:IAO_0000116 xml:lang="en">2009-03-16: data item deliberatly ambiguous: we merged data set and datum to be one entity, not knowing how to define singular versus plural. So data item is more general than datum.</obo:IAO_0000116>
+        <obo:IAO_0000116 xml:lang="en">2009-03-16: removed datum as alternative term as datum specifically refers to singular form, and is thus not an exact synonym.</obo:IAO_0000116>
+        <obo:IAO_0000116>2014-03-31: See discussion at http://odontomachus.wordpress.com/2014/03/30/aboutness-objects-propositions/</obo:IAO_0000116>
+        <obo:IAO_0000116 xml:lang="en">JAR: datum     -- well, this will be very tricky to define, but maybe some 
+information-like stuff that might be put into a computer and that is 
+meant, by someone, to denote and/or to be interpreted by some 
+process... I would include lists, tables, sentences... I think I might 
+defer to Barry, or to Brian Cantwell Smith
+
+JAR: A data item is an approximately justified approximately true approximate belief</obo:IAO_0000116>
+        <obo:IAO_0000117 xml:lang="en">PERSON: Alan Ruttenberg</obo:IAO_0000117>
+        <obo:IAO_0000117 xml:lang="en">PERSON: Chris Stoeckert</obo:IAO_0000117>
+        <obo:IAO_0000117 xml:lang="en">PERSON: Jonathan Rees</obo:IAO_0000117>
+        <obo:IAO_0000118 xml:lang="en">data</obo:IAO_0000118>
+        <rdfs:label xml:lang="en">data item</rdfs:label>
+        <rdfs:seeAlso>http://www.ontobee.org/browser/rdf.php?o=IAO&amp;iri=http://purl.obolibrary.org/obo/IAO_0000027</rdfs:seeAlso>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IAO_0000064 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/IAO_0000064">
+        <obo:IAO_0000111 xml:lang="en">algorithm</obo:IAO_0000111>
+        <obo:IAO_0000112 xml:lang="en">PMID: 18378114.Genomics. 2008 Mar 28. LINKGEN: A new algorithm to process data in genetic linkage studies.</obo:IAO_0000112>
+        <obo:IAO_0000114 rdf:resource="http://purl.obolibrary.org/obo/IAO_0000120"/>
+        <obo:IAO_0000115>A plan specification which describes inputs, output of mathematical functions as well as workflow of execution for achieving an predefined objective. Algorithms are realized usually by means of implementation as computer programs for execution by automata.</obo:IAO_0000115>
+        <obo:IAO_0000115 xml:lang="en">A plan specification which describes the inputs and output of mathematical functions as well as workflow of execution for achieving an predefined objective. Algorithms are realized usually by means of implementation as computer programs for execution by automata.</obo:IAO_0000115>
+        <obo:IAO_0000117 xml:lang="en">Philippe Rocca-Serra</obo:IAO_0000117>
+        <obo:IAO_0000117 xml:lang="en">PlanAndPlannedProcess Branch</obo:IAO_0000117>
+        <obo:IAO_0000119>IAO</obo:IAO_0000119>
+        <obo:IAO_0000119 xml:lang="en">OBI_0000270</obo:IAO_0000119>
+        <obo:IAO_0000119 xml:lang="en">adapted from discussion on OBI list (Matthew Pocock, Christian Cocos, Alan Ruttenberg)</obo:IAO_0000119>
+        <rdfs:label>algorithm</rdfs:label>
+        <rdfs:label xml:lang="en">algorithm</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IAO_0000098 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/IAO_0000098">
+        <obo:IAO_0000111 xml:lang="en">data format specification</obo:IAO_0000111>
+        <obo:IAO_0000114 rdf:resource="http://purl.obolibrary.org/obo/IAO_0000123"/>
+        <obo:IAO_0000115 xml:lang="en">A data format specification is the information content borne by the document published defining the specification.
+Example: The ISO document specifying what encompasses an XML document; The instructions in a XSD file</obo:IAO_0000115>
+        <obo:IAO_0000116 xml:lang="en">2009-03-16: provenance: term imported from OBI_0000187, which had original definition &quot;A data format specification is a plan which organizes
+information. Example: The ISO document specifying what encompasses an
+XML document; The instructions in a XSD file&quot;</obo:IAO_0000116>
+        <obo:IAO_0000117 xml:lang="en">PERSON: Alan Ruttenberg</obo:IAO_0000117>
+        <obo:IAO_0000117 xml:lang="en">PlanAndPlannedProcess Branch</obo:IAO_0000117>
+        <obo:IAO_0000119 xml:lang="en">OBI branch derived</obo:IAO_0000119>
+        <obo:IAO_0000119 xml:lang="en">OBI_0000187</obo:IAO_0000119>
+        <rdfs:label xml:lang="en">data format specification</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://purl.obolibrary.org/obo/IAO_0000129 -->
+
+    <owl:Class rdf:about="http://purl.obolibrary.org/obo/IAO_0000129">
+        <obo:IAO_0000111 xml:lang="en">version number</obo:IAO_0000111>
+        <obo:IAO_0000114 rdf:resource="http://purl.obolibrary.org/obo/IAO_0000123"/>
+        <obo:IAO_0000115 xml:lang="en">A version number is an information content entity which is a sequence of characters borne by part of each of a class of manufactured products or its packaging and indicates its order within a set of other products having the same name.</obo:IAO_0000115>
+        <obo:IAO_0000116 xml:lang="en">Note: we feel that at the moment we are happy with a general version number, and that we will subclass as needed in the future. For example, see 7. genome sequence version</obo:IAO_0000116>
+        <obo:IAO_0000117 xml:lang="en">GROUP: IAO</obo:IAO_0000117>
+        <rdfs:label>version name</rdfs:label>
+        <rdfs:label xml:lang="en">version number</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ebi.ac.uk/swo/SWO_0000002 -->
+
+    <owl:Class rdf:about="http://www.ebi.ac.uk/swo/SWO_0000002">
+        <obo:IAO_0000115>A licence is a legal instrument (usually by way of contract law, with or without printed material) governing the use or redistribution of the resource containing the licence.</obo:IAO_0000115>
+        <obo:IAO_0000119>Modified from http://en.wikipedia.org/wiki/Software_license</obo:IAO_0000119>
+        <terms:creator>James Malone</terms:creator>
+        <rdfs:label xml:lang="en">licence</rdfs:label>
+        <rdfs:label>software license</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ebi.ac.uk/swo/SWO_0000084 -->
+
+    <owl:Class rdf:about="http://www.ebi.ac.uk/swo/SWO_0000084">
+        <obo:IAO_0000115>CEL binary format is a binary data format specification created by Affymetrix where values are stored in little-endian format. The CEL format stores the results of the intensity calculations on the pixel values of the DAT file. This includes an intensity value, standard deviation of the intensity, the number of pixels used to calculate the intensity value, a flag to indicate an outlier as calculated by the algorithm and a user defined flag indicating the feature should be excluded from future analysis. The file stores the previously stated data for each feature on the probe array.</obo:IAO_0000115>
+        <obo:IAO_0000119>http://www.affymetrix.com/support/developer/powertools/changelog/gcos-agcc/cel.html, accessed 22 May 2013.</obo:IAO_0000119>
+        <terms:creator>Allyson Lister</terms:creator>
+        <rdfs:comment>It is unclear whether, originally, this format was intended to be the ASCII or binary version of the CEL format. As such, this class has been renamed as the binary format, and a new class created (CEL ASCII format) to make both options available. (22/05/2013)</rdfs:comment>
+        <rdfs:label>CEL binary format</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ebi.ac.uk/swo/SWO_0000322 -->
+
+    <owl:Class rdf:about="http://www.ebi.ac.uk/swo/SWO_0000322">
+        <obo:IAO_0000115>A package for processing protein mass spectrometry data.</obo:IAO_0000115>
+        <obo:IAO_0000119>http://bioconductor.org/packages/2.4/bioc/html/PROcess.html</obo:IAO_0000119>
+        <terms:creator>Nandini Badarinarayan</terms:creator>
+        <rdfs:label>PROcess</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ebi.ac.uk/swo/SWO_0000392 -->
+
+    <owl:Class rdf:about="http://www.ebi.ac.uk/swo/SWO_0000392">
+        <obo:IAO_0000115>Software developer role is a role borne by an organization or individual in which they are responsible for authoring software.</obo:IAO_0000115>
+        <obo:IAO_0000119>James Malone</obo:IAO_0000119>
+        <rdfs:label>software developer role</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ebi.ac.uk/swo/SWO_0000396 -->
+
+    <owl:Class rdf:about="http://www.ebi.ac.uk/swo/SWO_0000396">
+        <obo:IAO_0000115>An organization or legal entity (including single person) that is responsible for developing software. Developing includes aspects of design, coding and testing.</obo:IAO_0000115>
+        <rdfs:label>software developer organization</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ebi.ac.uk/swo/SWO_9000020 -->
+
+    <owl:Class rdf:about="http://www.ebi.ac.uk/swo/SWO_9000020">
+        <obo:IAO_0000115>A source code available clause is a source code clause which states that the source code for the licensed software is available to the licensee. However, usage of the source code may or may not be restricted in a variety of ways.</obo:IAO_0000115>
+        <obo:IAO_0000119>Allyson Lister</obo:IAO_0000119>
+        <rdfs:label>Source code available</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ebi.ac.uk/swo/SWO_9000050 -->
+
+    <owl:Class rdf:about="http://www.ebi.ac.uk/swo/SWO_9000050">
+        <obo:IAO_0000115>The mode of interaction with a piece of software.</obo:IAO_0000115>
+        <rdfs:label>software interface</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ebi.ac.uk/swo/data/SWO_3000019 -->
+
+    <owl:Class rdf:about="http://www.ebi.ac.uk/swo/data/SWO_3000019">
+        <obo:IAO_0000115>The Graphics Interchange Format (GIF) is a bitmap image format. The format supports up to 8 bits per pixel thus allowing a single image to reference a palette of up to 256 distinct colors. The colors are chosen from the 24-bit RGB color space. It also supports animations and allows a separate palette of 256 colors for each frame. The color limitation makes the GIF format unsuitable for reproducing color photographs and other images with continuous color, but it is well-suited for simpler images such as graphics or logos with solid areas of color. [wikipedia]</obo:IAO_0000115>
+        <obo:IAO_0000118>Graphics Interchange Format</obo:IAO_0000118>
+        <rdfs:label>GIF</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ebi.ac.uk/swo/data/SWO_3000043 -->
+
+    <owl:Class rdf:about="http://www.ebi.ac.uk/swo/data/SWO_3000043">
+        <rdfs:label>plain text file format</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ebi.ac.uk/swo/data/SWO_3000059 -->
+
+    <owl:Class rdf:about="http://www.ebi.ac.uk/swo/data/SWO_3000059">
+        <obo:IAO_0000115>CEL ASCII format is ASCII data format specification created by Affymetrix similar to the Windows INI format. The CEL format stores the results of the intensity calculations on the pixel values of the DAT file. This includes an intensity value, standard deviation of the intensity, the number of pixels used to calculate the intensity value, a flag to indicate an outlier as calculated by the algorithm and a user defined flag indicating the feature should be excluded from future analysis. The file stores the previously stated data for each feature on the probe array.</obo:IAO_0000115>
+        <obo:IAO_0000119>http://www.affymetrix.com/support/developer/powertools/changelog/gcos-agcc/cel.html, accessed 22 May 2013.</obo:IAO_0000119>
+        <terms:creator>Allyson Lister</terms:creator>
+        <rdfs:label xml:lang="en">CEL ASCII format</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ebi.ac.uk/swo/data/SWO_3000082 -->
+
+    <owl:Class rdf:about="http://www.ebi.ac.uk/swo/data/SWO_3000082">
+        <obo:IAO_0000118>Comma-separated value format</obo:IAO_0000118>
+        <rdfs:label xml:lang="en">.csv</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ebi.ac.uk/swo/interface/SWO_5000003 -->
+
+    <owl:Class rdf:about="http://www.ebi.ac.uk/swo/interface/SWO_5000003">
+        <obo:IAO_0000115>A Desktop Graphical User interface is a Graphical User Interface which is loaded and run within the user&apos;s operating system rather than via a Web browser.</obo:IAO_0000115>
+        <obo:IAO_0000118>Desktop GUI</obo:IAO_0000118>
+        <terms:creator>Allyson Lister</terms:creator>
+        <rdfs:label xml:lang="en">desktop graphical user interface</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ebi.ac.uk/swo/interface/SWO_9000051 -->
+
+    <owl:Class rdf:about="http://www.ebi.ac.uk/swo/interface/SWO_9000051">
+        <rdfs:subClassOf rdf:resource="http://www.ebi.ac.uk/swo/SWO_9000050"/>
+        <obo:IAO_0000115>A web service is a software interface which works as a method of communication between two electronic devices over the World Wide Web and which is provided at a particular network address. There are two major classes of Web services: REST-compliant Web services, and arbitrary (or application-specific) Web services.</obo:IAO_0000115>
+        <obo:IAO_0000118>Web Service</obo:IAO_0000118>
+        <obo:IAO_0000119>Modified from http://www.w3.org/TR/ws-arch/, accessed 6 June 2013; Modified from http://en.wikipedia.org/wiki/Web_service, accessed 6 June 2013.</obo:IAO_0000119>
+        <terms:creator>Allyson Lister</terms:creator>
+        <rdfs:label>web service</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ebi.ac.uk/swo/interface/SWO_9000054 -->
+
+    <owl:Class rdf:about="http://www.ebi.ac.uk/swo/interface/SWO_9000054">
+        <rdfs:subClassOf rdf:resource="http://www.ebi.ac.uk/swo/SWO_9000050"/>
+        <obo:IAO_0000115>An application programming interface is a set of routines, protocols, and tools for building software applications. An API expresses a software component in terms of its operations, inputs, outputs, and underlying types. An API defines functionalities that are independent of their respective implementations, which allows definitions and implementations to vary without compromising each other. The API specifies how software components should interact.</obo:IAO_0000115>
+        <obo:IAO_0000118>API</obo:IAO_0000118>
+        <obo:IAO_0000119>http://en.wikipedia.org/wiki/Application_programming_interface, accessed 25 November 2014.</obo:IAO_0000119>
+        <rdfs:label>application programming interface</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ebi.ac.uk/swo/license/SWO_1000008 -->
+
+    <owl:Class rdf:about="http://www.ebi.ac.uk/swo/license/SWO_1000008">
+        <owl:equivalentClass>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.ebi.ac.uk/swo/SWO_9001002"/>
+                <owl:someValuesFrom rdf:resource="http://www.ebi.ac.uk/swo/SWO_9000020"/>
+            </owl:Restriction>
+        </owl:equivalentClass>
+        <rdfs:subClassOf rdf:resource="http://www.ebi.ac.uk/swo/SWO_0000002"/>
+        <rdfs:subClassOf>
+            <owl:Restriction>
+                <owl:onProperty rdf:resource="http://www.ebi.ac.uk/swo/SWO_9001002"/>
+                <owl:someValuesFrom rdf:resource="http://www.ebi.ac.uk/swo/SWO_9000020"/>
+            </owl:Restriction>
+        </rdfs:subClassOf>
+        <rdfs:label>Open source software license</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ebi.ac.uk/swo/license/SWO_1000058 -->
+
+    <owl:Class rdf:about="http://www.ebi.ac.uk/swo/license/SWO_1000058">
+        <obo:IAO_0000115>Purchase cost is a license clause which states whether there is a cost involved with a particular usage or licensing of a resource.</obo:IAO_0000115>
+        <obo:IAO_0000119>Allyson Lister</obo:IAO_0000119>
+        <rdfs:comment>Allyson Lister</rdfs:comment>
+        <rdfs:comment>In some ways, purchase cost is similar to the already-extant usage clause hierarchy, which includes restricted and unrestricted usage. However, a usage limitation is not necessarily due to whether or not something costs money: even if the usage is academic only, it could still be either free or non-free. A license could have multiple usage clauses, e.g. academic only when free, and unrestricted if a fee is paid. Purchase cost was created which, together with a usage clause, defines both limitations and cost.</rdfs:comment>
+        <rdfs:label>Purchase cost</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ebi.ac.uk/swo/license/SWO_1000059 -->
+
+    <owl:Class rdf:about="http://www.ebi.ac.uk/swo/license/SWO_1000059">
+        <rdfs:subClassOf rdf:resource="http://www.ebi.ac.uk/swo/license/SWO_1000058"/>
+        <obo:IAO_0000115>Free is a type of purchase cost clause which, when applied, means that there is no cost for the users of the resource to which the license is attached. This clause can be combined with other clauses (such as usage clauses) to specify that only certain usages are free.</obo:IAO_0000115>
+        <obo:IAO_0000119>Allyson Lister</obo:IAO_0000119>
+        <terms:creator>Allyson Lister</terms:creator>
+        <rdfs:comment>This class refers only to the cost of the resource, not to the definition of &quot;free software&quot; as provided by the GNU Project and which is commonly used to describe software that respects users&apos; freedom and community (http://www.gnu.org/philosophy/free-sw.html).</rdfs:comment>
+        <rdfs:label>Free</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ebi.ac.uk/swo/license/SWO_1000060 -->
+
+    <owl:Class rdf:about="http://www.ebi.ac.uk/swo/license/SWO_1000060">
+        <rdfs:subClassOf rdf:resource="http://www.ebi.ac.uk/swo/license/SWO_1000058"/>
+        <obo:IAO_0000115>Not Free is a type of purchase cost clause which, when applied, means that there is a cost for the users of the resource to which the license is attached. This clause can be combined with other clauses (such as usage clauses) to specify that only certain usages incur a purchase cost.</obo:IAO_0000115>
+        <obo:IAO_0000119>Allyson Lister</obo:IAO_0000119>
+        <terms:creator>Allyson Lister</terms:creator>
+        <rdfs:comment>This class refers only to the cost of the resource, not to the definition of &quot;free software&quot; as provided by the GNU Project and which is commonly used to describe software that respects users&apos; freedom and community (http://www.gnu.org/philosophy/free-sw.html).</rdfs:comment>
+        <rdfs:label>Not Free</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ebi.ac.uk/swo/maturity/SWO_9000061 -->
+
+    <owl:Class rdf:about="http://www.ebi.ac.uk/swo/maturity/SWO_9000061">
+        <obo:IAO_0000115>Development status is an information content entity which indicates the maturity of a software entity within the context of the software life cycle.</obo:IAO_0000115>
+        <obo:IAO_0000119>Allyson Lister</obo:IAO_0000119>
+        <terms:creator>Andy Brown</terms:creator>
+        <rdfs:label>Development status</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ebi.ac.uk/swo/maturity/SWO_9000073 -->
+
+    <owl:Class rdf:about="http://www.ebi.ac.uk/swo/maturity/SWO_9000073">
+        <rdfs:subClassOf rdf:resource="http://www.ebi.ac.uk/swo/maturity/SWO_9000061"/>
+        <obo:IAO_0000115>Software has developers actively maintaining it (fixing bugs)</obo:IAO_0000115>
+        <terms:creator>Andy Brown</terms:creator>
+        <rdfs:label>Maintained</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ebi.ac.uk/swo/objective/SWO_4000011 -->
+
+    <owl:Class rdf:about="http://www.ebi.ac.uk/swo/objective/SWO_4000011">
+        <obo:IAO_0000115>Text editing is the objective of editing plain text files.</obo:IAO_0000115>
+        <rdfs:label>text editing</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- http://www.ebi.ac.uk/swo/objective/SWO_4000012 -->
+
+    <owl:Class rdf:about="http://www.ebi.ac.uk/swo/objective/SWO_4000012">
+        <rdfs:comment>Renders a file in such a way that its contents can be understood by users.</rdfs:comment>
+        <rdfs:label>file rendering</rdfs:label>
+    </owl:Class>
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Individuals
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+    
+
+
+    <!-- http://www.ebi.ac.uk/swo/SWO_1200000 -->
+
+    <owl:NamedIndividual rdf:about="http://www.ebi.ac.uk/swo/SWO_1200000"/>
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.13) https://github.com/owlcs/owlapi -->
+

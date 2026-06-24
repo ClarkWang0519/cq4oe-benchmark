@@ -1,0 +1,750 @@
+{
+  "cq_definitions": [],
+  "name_to_label": {
+    "CarnivorousPlant": "CarnivorousPlant",
+    "Omnivore": "Omnivore",
+    "PlantParts": "PlantParts",
+    "animal": "animal",
+    "carnivore": "carnivore",
+    "herbivore": "herbivore",
+    "lion": "lion",
+    "plant": "plant",
+    "Thing": "Thing",
+    "eaten-by": "eaten-by",
+    "eats": "eats",
+    "has-part": "has-part",
+    "is-part-of": "is-part-of",
+    "is-proper-part-of": "is-proper-part-of"
+  },
+  "gold_axioms": [
+    {
+      "id": "AX1",
+      "term": "CarnivorousPlant",
+      "term_label": "CarnivorousPlant",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "CarnivorousPlant",
+      "subject_label": "CarnivorousPlant",
+      "object": "plant",
+      "dl": "CarnivorousPlant ⊑ plant",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "CarnivorousPlant"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "plant"
+      },
+      "cq_numbers": [
+        "CQ6"
+      ],
+      "missing_elements": "CQ6 asks 'which plants eat animals'; CarnivorousPlant subClassOf plant"
+    },
+    {
+      "id": "AX2",
+      "term": "CarnivorousPlant",
+      "term_label": "CarnivorousPlant",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "CarnivorousPlant",
+      "subject_label": "CarnivorousPlant",
+      "object": "∃eats.animal",
+      "dl": "CarnivorousPlant ⊑ ∃eats.animal",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "CarnivorousPlant"
+      },
+      "rhs_struct": {
+        "expr_type": "ObjectSomeValuesFrom",
+        "property": "eats",
+        "filler": {
+          "expr_type": "Class",
+          "name": "animal"
+        }
+      },
+      "cq_numbers": [
+        "CQ6"
+      ],
+      "missing_elements": "CQ6: CarnivorousPlant eats animal — directly answers the question"
+    },
+    {
+      "id": "AX3",
+      "term": "Omnivore",
+      "term_label": "Omnivore",
+      "term_type": "Class",
+      "axiom_type": "DisjointClasses",
+      "subject": "Omnivore",
+      "subject_label": "Omnivore",
+      "object": "carnivore",
+      "dl": "DisjointClasses(Omnivore, carnivore)",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "Omnivore"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "carnivore"
+      },
+      "cq_numbers": [
+        "CQ3"
+      ],
+      "missing_elements": "CQ3 asks what omnivorous animals eat; Omnivore defined by eating animal+plant+parts"
+    },
+    {
+      "id": "AX4",
+      "term": "Omnivore",
+      "term_label": "Omnivore",
+      "term_type": "Class",
+      "axiom_type": "DisjointClasses",
+      "subject": "Omnivore",
+      "subject_label": "Omnivore",
+      "object": "herbivore",
+      "dl": "DisjointClasses(Omnivore, herbivore)",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "Omnivore"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "herbivore"
+      },
+      "cq_numbers": [
+        "CQ3"
+      ],
+      "missing_elements": "CQ3: Omnivore is an animal"
+    },
+    {
+      "id": "AX5",
+      "term": "Omnivore",
+      "term_label": "Omnivore",
+      "term_type": "Class",
+      "axiom_type": "EquivalentClasses",
+      "subject": "Omnivore",
+      "subject_label": "Omnivore",
+      "object": "(∃eats.animal ⊓ ∃eats.plant ⊓ ∃eats.(∃is-part-of.animal ⊔ ∃is-part-of.plant))",
+      "dl": "Omnivore ≡ (∃eats.animal ⊓ ∃eats.plant ⊓ ∃eats.(∃is-part-of.animal ⊔ ∃is-part-of.plant))",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "Omnivore"
+      },
+      "rhs_struct": {
+        "expr_type": "ObjectIntersectionOf",
+        "operands": [
+          {
+            "expr_type": "ObjectSomeValuesFrom",
+            "property": "eats",
+            "filler": {
+              "expr_type": "Class",
+              "name": "animal"
+            }
+          },
+          {
+            "expr_type": "ObjectSomeValuesFrom",
+            "property": "eats",
+            "filler": {
+              "expr_type": "Class",
+              "name": "plant"
+            }
+          },
+          {
+            "expr_type": "ObjectSomeValuesFrom",
+            "property": "eats",
+            "filler": {
+              "expr_type": "ObjectUnionOf",
+              "operands": [
+                {
+                  "expr_type": "ObjectSomeValuesFrom",
+                  "property": "is-part-of",
+                  "filler": {
+                    "expr_type": "Class",
+                    "name": "animal"
+                  }
+                },
+                {
+                  "expr_type": "ObjectSomeValuesFrom",
+                  "property": "is-part-of",
+                  "filler": {
+                    "expr_type": "Class",
+                    "name": "plant"
+                  }
+                }
+              ]
+            }
+          }
+        ]
+      },
+      "cq_numbers": [
+        "CQ3",
+        "CQ14"
+      ],
+      "missing_elements": "CQ3 uses Omnivore; CQ14 uses carnivore; they are disjoint — an animal can't be both"
+    },
+    {
+      "id": "AX6",
+      "term": "Omnivore",
+      "term_label": "Omnivore",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "Omnivore",
+      "subject_label": "Omnivore",
+      "object": "animal",
+      "dl": "Omnivore ⊑ animal",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "Omnivore"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "animal"
+      },
+      "cq_numbers": [
+        "CQ2",
+        "CQ3"
+      ],
+      "missing_elements": "CQ3 uses Omnivore; CQ2 uses herbivore; they are disjoint"
+    },
+    {
+      "id": "AX7",
+      "term": "PlantParts",
+      "term_label": "PlantParts",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "PlantParts",
+      "subject_label": "PlantParts",
+      "object": "∃is-proper-part-of.plant",
+      "dl": "PlantParts ⊑ ∃is-proper-part-of.plant",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "PlantParts"
+      },
+      "rhs_struct": {
+        "expr_type": "ObjectSomeValuesFrom",
+        "property": "is-proper-part-of",
+        "filler": {
+          "expr_type": "Class",
+          "name": "plant"
+        }
+      },
+      "cq_numbers": [
+        "CQ3",
+        "CQ4",
+        "CQ14"
+      ],
+      "missing_elements": "CQ3/4/14 all use PlantParts; PlantParts is-proper-part-of plant"
+    },
+    {
+      "id": "AX8",
+      "term": "animal",
+      "term_label": "animal",
+      "term_type": "Class",
+      "axiom_type": "DisjointClasses",
+      "subject": "animal",
+      "subject_label": "animal",
+      "object": "plant",
+      "dl": "DisjointClasses(animal, plant)",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "animal"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "plant"
+      },
+      "cq_numbers": [
+        "CQ1",
+        "CQ4",
+        "CQ6",
+        "CQ7",
+        "CQ14"
+      ],
+      "missing_elements": "Fundamental axiom: animal and plant are disjoint; all CQs involving animal/plant depend on this"
+    },
+    {
+      "id": "AX9",
+      "term": "carnivore",
+      "term_label": "carnivore",
+      "term_type": "Class",
+      "axiom_type": "DisjointClasses",
+      "subject": "carnivore",
+      "subject_label": "carnivore",
+      "object": "herbivore",
+      "dl": "DisjointClasses(carnivore, herbivore)",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "carnivore"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "herbivore"
+      },
+      "cq_numbers": [
+        "CQ14"
+      ],
+      "missing_elements": "CQ14 asks if carnivore can eat plants; carnivore defined as only eating animal/animal-parts"
+    },
+    {
+      "id": "AX10",
+      "term": "carnivore",
+      "term_label": "carnivore",
+      "term_type": "Class",
+      "axiom_type": "EquivalentClasses",
+      "subject": "carnivore",
+      "subject_label": "carnivore",
+      "object": "(∀eats.animal ⊔ ∀eats.∃is-part-of.animal)",
+      "dl": "carnivore ≡ (∀eats.animal ⊔ ∀eats.∃is-part-of.animal)",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "carnivore"
+      },
+      "rhs_struct": {
+        "expr_type": "ObjectUnionOf",
+        "operands": [
+          {
+            "expr_type": "ObjectAllValuesFrom",
+            "property": "eats",
+            "filler": {
+              "expr_type": "Class",
+              "name": "animal"
+            }
+          },
+          {
+            "expr_type": "ObjectAllValuesFrom",
+            "property": "eats",
+            "filler": {
+              "expr_type": "ObjectSomeValuesFrom",
+              "property": "is-part-of",
+              "filler": {
+                "expr_type": "Class",
+                "name": "animal"
+              }
+            }
+          }
+        ]
+      },
+      "cq_numbers": [
+        "CQ14"
+      ],
+      "missing_elements": "CQ14: carnivore is an animal"
+    },
+    {
+      "id": "AX11",
+      "term": "carnivore",
+      "term_label": "carnivore",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "carnivore",
+      "subject_label": "carnivore",
+      "object": "animal",
+      "dl": "carnivore ⊑ animal",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "carnivore"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "animal"
+      },
+      "cq_numbers": [
+        "CQ2",
+        "CQ14"
+      ],
+      "missing_elements": "CQ2 uses herbivore; CQ14 uses carnivore; they are disjoint"
+    },
+    {
+      "id": "AX12",
+      "term": "herbivore",
+      "term_label": "herbivore",
+      "term_type": "Class",
+      "axiom_type": "EquivalentClasses",
+      "subject": "herbivore",
+      "subject_label": "herbivore",
+      "object": "(∀eats.plant ⊔ ∀eats.∃is-part-of.plant)",
+      "dl": "herbivore ≡ (∀eats.plant ⊔ ∀eats.∃is-part-of.plant)",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "herbivore"
+      },
+      "rhs_struct": {
+        "expr_type": "ObjectUnionOf",
+        "operands": [
+          {
+            "expr_type": "ObjectAllValuesFrom",
+            "property": "eats",
+            "filler": {
+              "expr_type": "Class",
+              "name": "plant"
+            }
+          },
+          {
+            "expr_type": "ObjectAllValuesFrom",
+            "property": "eats",
+            "filler": {
+              "expr_type": "ObjectSomeValuesFrom",
+              "property": "is-part-of",
+              "filler": {
+                "expr_type": "Class",
+                "name": "plant"
+              }
+            }
+          }
+        ]
+      },
+      "cq_numbers": [
+        "CQ1",
+        "CQ3",
+        "CQ4",
+        "CQ6",
+        "CQ7",
+        "CQ14"
+      ],
+      "missing_elements": "All CQs using eaten-by/eats; eaten-by is inverse of eats"
+    },
+    {
+      "id": "AX13",
+      "term": "herbivore",
+      "term_label": "herbivore",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "herbivore",
+      "subject_label": "herbivore",
+      "object": "animal",
+      "dl": "herbivore ⊑ animal",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "herbivore"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "animal"
+      },
+      "cq_numbers": [
+        "CQ1",
+        "CQ3",
+        "CQ4",
+        "CQ6",
+        "CQ7",
+        "CQ14"
+      ],
+      "missing_elements": "All CQs using eats; eats is inverse of eaten-by"
+    },
+    {
+      "id": "AX14",
+      "term": "lion",
+      "term_label": "lion",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "lion",
+      "subject_label": "lion",
+      "object": "animal",
+      "dl": "lion ⊑ animal",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "lion"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "animal"
+      },
+      "cq_numbers": [
+        "CQ1",
+        "CQ3",
+        "CQ4",
+        "CQ6",
+        "CQ7",
+        "CQ14"
+      ],
+      "missing_elements": "Range of eats: can only eat animal, plant, or parts thereof; all eating CQs depend on this"
+    },
+    {
+      "id": "AX15",
+      "term": "lion",
+      "term_label": "lion",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "lion",
+      "subject_label": "lion",
+      "object": "∀eats.herbivore",
+      "dl": "lion ⊑ ∀eats.herbivore",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "lion"
+      },
+      "rhs_struct": {
+        "expr_type": "ObjectAllValuesFrom",
+        "property": "eats",
+        "filler": {
+          "expr_type": "Class",
+          "name": "herbivore"
+        }
+      },
+      "cq_numbers": [
+        "CQ4",
+        "CQ14"
+      ],
+      "missing_elements": "CQ4/14 use has-part; inverse of is-part-of"
+    },
+    {
+      "id": "AX16",
+      "term": "eaten-by",
+      "term_label": "eaten-by",
+      "term_type": "ObjectProperty",
+      "axiom_type": "InverseOf",
+      "subject": "eaten-by",
+      "subject_label": "eaten-by",
+      "object": "eats",
+      "dl": "eaten-by ≡ eats⁻",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "eaten-by"
+      },
+      "rhs_struct": {
+        "expr_type": "InverseObjectProperty",
+        "name": "eats"
+      },
+      "cq_numbers": [
+        "CQ4",
+        "CQ14"
+      ],
+      "missing_elements": "CQ4/14: has-part is transitive — parts of parts are also parts"
+    },
+    {
+      "id": "AX17",
+      "term": "eats",
+      "term_label": "eats",
+      "term_type": "ObjectProperty",
+      "axiom_type": "InverseOf",
+      "subject": "eats",
+      "subject_label": "eats",
+      "object": "eaten-by",
+      "dl": "eats ≡ eaten-by⁻",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "eats"
+      },
+      "rhs_struct": {
+        "expr_type": "InverseObjectProperty",
+        "name": "eaten-by"
+      },
+      "cq_numbers": [
+        "CQ2",
+        "CQ3"
+      ],
+      "missing_elements": "CQ2 asks 'is animal a herbivore'; herbivore defined by only eating plant/plant-parts"
+    },
+    {
+      "id": "AX18",
+      "term": "eats",
+      "term_label": "eats",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Range",
+      "subject": "eats",
+      "subject_label": "eats",
+      "object": "(animal ⊔ plant ⊔ ∃is-part-of.animal ⊔ ∃is-part-of.plant)",
+      "dl": "⊤ ⊑ ∀eats.(animal ⊔ plant ⊔ ∃is-part-of.animal ⊔ ∃is-part-of.plant)",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "eats"
+      },
+      "rhs_struct": {
+        "expr_type": "ObjectUnionOf",
+        "operands": [
+          {
+            "expr_type": "Class",
+            "name": "animal"
+          },
+          {
+            "expr_type": "Class",
+            "name": "plant"
+          },
+          {
+            "expr_type": "ObjectSomeValuesFrom",
+            "property": "is-part-of",
+            "filler": {
+              "expr_type": "Class",
+              "name": "animal"
+            }
+          },
+          {
+            "expr_type": "ObjectSomeValuesFrom",
+            "property": "is-part-of",
+            "filler": {
+              "expr_type": "Class",
+              "name": "plant"
+            }
+          }
+        ]
+      },
+      "cq_numbers": [
+        "CQ2",
+        "CQ3"
+      ],
+      "missing_elements": "CQ2/3: herbivore is an animal"
+    },
+    {
+      "id": "AX19",
+      "term": "has-part",
+      "term_label": "has-part",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Characteristics",
+      "subject": "has-part",
+      "subject_label": "has-part",
+      "object": "Transitive",
+      "dl": "Transitive(has-part)",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "has-part"
+      },
+      "rhs_struct": {
+        "expr_type": "PropertyCharacteristic",
+        "name": "Transitive"
+      },
+      "cq_numbers": [
+        "CQ4",
+        "CQ14"
+      ],
+      "missing_elements": "CQ4/14 use is-part-of; inverse of has-part"
+    },
+    {
+      "id": "AX20",
+      "term": "has-part",
+      "term_label": "has-part",
+      "term_type": "ObjectProperty",
+      "axiom_type": "InverseOf",
+      "subject": "has-part",
+      "subject_label": "has-part",
+      "object": "is-part-of",
+      "dl": "has-part ≡ is-part-of⁻",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "has-part"
+      },
+      "rhs_struct": {
+        "expr_type": "InverseObjectProperty",
+        "name": "is-part-of"
+      },
+      "cq_numbers": [
+        "CQ4",
+        "CQ14"
+      ],
+      "missing_elements": "CQ4/14: is-part-of transitive"
+    },
+    {
+      "id": "AX21",
+      "term": "is-part-of",
+      "term_label": "is-part-of",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Characteristics",
+      "subject": "is-part-of",
+      "subject_label": "is-part-of",
+      "object": "Transitive",
+      "dl": "Transitive(is-part-of)",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "is-part-of"
+      },
+      "rhs_struct": {
+        "expr_type": "PropertyCharacteristic",
+        "name": "Transitive"
+      },
+      "cq_numbers": [
+        "CQ4",
+        "CQ14"
+      ],
+      "missing_elements": "CQ4/14: is-part-of reflexive — everything is part of itself"
+    },
+    {
+      "id": "AX22",
+      "term": "is-part-of",
+      "term_label": "is-part-of",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Characteristics",
+      "subject": "is-part-of",
+      "subject_label": "is-part-of",
+      "object": "Reflexive",
+      "dl": "Reflexive(is-part-of)",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "is-part-of"
+      },
+      "rhs_struct": {
+        "expr_type": "PropertyCharacteristic",
+        "name": "Reflexive"
+      },
+      "cq_numbers": [
+        "CQ4",
+        "CQ14"
+      ],
+      "missing_elements": "CQ4/14 use is-proper-part-of; it's a sub-property of is-part-of"
+    },
+    {
+      "id": "AX23",
+      "term": "is-part-of",
+      "term_label": "is-part-of",
+      "term_type": "ObjectProperty",
+      "axiom_type": "InverseOf",
+      "subject": "is-part-of",
+      "subject_label": "is-part-of",
+      "object": "has-part",
+      "dl": "is-part-of ≡ has-part⁻",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "is-part-of"
+      },
+      "rhs_struct": {
+        "expr_type": "InverseObjectProperty",
+        "name": "has-part"
+      },
+      "cq_numbers": [
+        "CQ4",
+        "CQ14"
+      ],
+      "missing_elements": "CQ4/14: is-proper-part-of irreflexive — nothing is a proper part of itself"
+    },
+    {
+      "id": "AX24",
+      "term": "is-proper-part-of",
+      "term_label": "is-proper-part-of",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Characteristics",
+      "subject": "is-proper-part-of",
+      "subject_label": "is-proper-part-of",
+      "object": "Irreflexive",
+      "dl": "Irreflexive(is-proper-part-of)",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "is-proper-part-of"
+      },
+      "rhs_struct": {
+        "expr_type": "PropertyCharacteristic",
+        "name": "Irreflexive"
+      },
+      "cq_numbers": [
+        "CQ4"
+      ],
+      "missing_elements": "CQ4 asks about lion; lion is an animal"
+    },
+    {
+      "id": "AX25",
+      "term": "is-proper-part-of",
+      "term_label": "is-proper-part-of",
+      "term_type": "ObjectProperty",
+      "axiom_type": "SubPropertyOf",
+      "subject": "is-proper-part-of",
+      "subject_label": "is-proper-part-of",
+      "object": "is-part-of",
+      "dl": "is-proper-part-of ⊑ is-part-of",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "is-proper-part-of"
+      },
+      "rhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "is-part-of"
+      },
+      "cq_numbers": [
+        "CQ4"
+      ],
+      "missing_elements": "CQ4 asks 'does lion eat plants'; lion only eats herbivores — answers the question"
+    }
+  ]
+}

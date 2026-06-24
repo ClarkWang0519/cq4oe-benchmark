@@ -1,0 +1,344 @@
+====================================================================================================
+ATOMIC TBOX AXIOMS
+====================================================================================================
+
+── Class ──
+
+  Term: Collection  [Class]
+    SubClassOf                 Collection ⊑ Achievement
+      Subject: Collection
+      Object : Achievement
+
+  Term: Completion  [Class]
+    SubClassOf                 Completion ⊑ Achievement
+      Subject: Completion
+      Object : Achievement
+
+  Term: Curiosity  [Class]
+    SubClassOf                 Curiosity ⊑ Achievement
+      Subject: Curiosity
+      Object : Achievement
+
+  Term: Fandom  [Class]
+    SubClassOf                 Fandom ⊑ Achievement
+      Subject: Fandom
+      Object : Achievement
+
+  Term: GameProduct  [Class]
+    SubClassOf                 GameProduct ⊑ (Achievement ⊔ Character ⊔ Game ⊔ Item ⊔ PlayingArea)
+      Subject: GameProduct
+      Object : (Achievement ⊔ Character ⊔ Game ⊔ Item ⊔ PlayingArea)
+
+  Term: HardMode  [Class]
+    SubClassOf                 HardMode ⊑ Achievement
+      Subject: HardMode
+      Object : Achievement
+
+  Term: Loyalty  [Class]
+    SubClassOf                 Loyalty ⊑ Achievement
+      Subject: Loyalty
+      Object : Achievement
+
+  Term: Luck  [Class]
+    SubClassOf                 Luck ⊑ Achievement
+      Subject: Luck
+      Object : Achievement
+
+  Term: Paragon  [Class]
+    SubClassOf                 Paragon ⊑ Achievement
+      Subject: Paragon
+      Object : Achievement
+
+  Term: SpecialPlayStyle  [Class]
+    SubClassOf                 SpecialPlayStyle ⊑ Achievement
+      Subject: SpecialPlayStyle
+      Object : Achievement
+
+  Term: Tutorial  [Class]
+    SubClassOf                 Tutorial ⊑ Achievement
+      Subject: Tutorial
+      Object : Achievement
+
+  Term: Veteran  [Class]
+    SubClassOf                 Veteran ⊑ Achievement
+      Subject: Veteran
+      Object : Achievement
+
+  Term: Virtuosity  [Class]
+    SubClassOf                 Virtuosity ⊑ Achievement
+      Subject: Virtuosity
+      Object : Achievement
+
+
+── ObjectProperty ──
+
+  Term: hasAchievement  [ObjectProperty]
+    InverseOf                  hasAchievement ≡ isAchievementInGame⁻
+      Subject: hasAchievement
+      Object : isAchievementInGame
+    Domain                     ∃hasAchievement.⊤ ⊑ Game
+      Subject: hasAchievement
+      Object : Game
+    Range                      ⊤ ⊑ ∀hasAchievement.Achievement
+      Subject: hasAchievement
+      Object : Achievement
+
+  Term: hasCharacter  [ObjectProperty]
+    InverseOf                  hasCharacter ≡ isCharacterInGame⁻
+      Subject: hasCharacter
+      Object : isCharacterInGame
+    Domain                     ∃hasCharacter.⊤ ⊑ Game
+      Subject: hasCharacter
+      Object : Game
+    Range                      ⊤ ⊑ ∀hasCharacter.Character
+      Subject: hasCharacter
+      Object : Character
+
+  Term: hasFeature  [ObjectProperty]
+    Domain                     ∃hasFeature.⊤ ⊑ Item
+      Subject: hasFeature
+      Object : Item
+    Range                      ⊤ ⊑ ∀hasFeature.Feature
+      Subject: hasFeature
+      Object : Feature
+
+  Term: hasGameGenre  [ObjectProperty]
+    Domain                     ∃hasGameGenre.⊤ ⊑ Game
+      Subject: hasGameGenre
+      Object : Game
+    Range                      ⊤ ⊑ ∀hasGameGenre.Genre
+      Subject: hasGameGenre
+      Object : Genre
+
+  Term: hasItem  [ObjectProperty]
+    Domain                     ∃hasItem.⊤ ⊑ Game
+      Subject: hasItem
+      Object : Game
+    Range                      ⊤ ⊑ ∀hasItem.Item
+      Subject: hasItem
+      Object : Item
+
+  Term: hasLeaderboard  [ObjectProperty]
+    InverseOf                  hasLeaderboard ≡ isLeaderboardInGame⁻
+      Subject: hasLeaderboard
+      Object : isLeaderboardInGame
+    Domain                     ∃hasLeaderboard.⊤ ⊑ Game
+      Subject: hasLeaderboard
+      Object : Game
+    Range                      ⊤ ⊑ ∀hasLeaderboard.Leaderboard
+      Subject: hasLeaderboard
+      Object : Leaderboard
+
+  Term: hasPlayingArea  [ObjectProperty]
+    Domain                     ∃hasPlayingArea.⊤ ⊑ Game
+      Subject: hasPlayingArea
+      Object : Game
+    Range                      ⊤ ⊑ ∀hasPlayingArea.PlayingArea
+      Subject: hasPlayingArea
+      Object : PlayingArea
+
+  Term: involvesCharacter  [ObjectProperty]
+    InverseOf                  involvesCharacter ≡ isCharacterInSession⁻
+      Subject: involvesCharacter
+      Object : isCharacterInSession
+    Domain                     ∃involvesCharacter.⊤ ⊑ Session
+      Subject: involvesCharacter
+      Object : Session
+    Range                      ⊤ ⊑ ∀involvesCharacter.Character
+      Subject: involvesCharacter
+      Object : Character
+
+  Term: involvesPlayer  [ObjectProperty]
+    InverseOf                  involvesPlayer ≡ isPlayerInSession⁻
+      Subject: involvesPlayer
+      Object : isPlayerInSession
+    Domain                     ∃involvesPlayer.⊤ ⊑ Session
+      Subject: involvesPlayer
+      Object : Session
+    Range                      ⊤ ⊑ ∀involvesPlayer.Player
+      Subject: involvesPlayer
+      Object : Player
+
+  Term: isAchievementInGame  [ObjectProperty]
+    InverseOf                  isAchievementInGame ≡ hasAchievement⁻
+      Subject: isAchievementInGame
+      Object : hasAchievement
+    Domain                     ∃isAchievementInGame.⊤ ⊑ Achievement
+      Subject: isAchievementInGame
+      Object : Achievement
+    Range                      ⊤ ⊑ ∀isAchievementInGame.Game
+      Subject: isAchievementInGame
+      Object : Game
+
+  Term: isCharacterInGame  [ObjectProperty]
+    InverseOf                  isCharacterInGame ≡ hasCharacter⁻
+      Subject: isCharacterInGame
+      Object : hasCharacter
+    Domain                     ∃isCharacterInGame.⊤ ⊑ Character
+      Subject: isCharacterInGame
+      Object : Character
+    Range                      ⊤ ⊑ ∀isCharacterInGame.Game
+      Subject: isCharacterInGame
+      Object : Game
+
+  Term: isCharacterInSession  [ObjectProperty]
+    InverseOf                  isCharacterInSession ≡ involvesCharacter⁻
+      Subject: isCharacterInSession
+      Object : involvesCharacter
+    Domain                     ∃isCharacterInSession.⊤ ⊑ Character
+      Subject: isCharacterInSession
+      Object : Character
+    Range                      ⊤ ⊑ ∀isCharacterInSession.Session
+      Subject: isCharacterInSession
+      Object : Session
+
+  Term: isEventAssociatedToPlayer  [ObjectProperty]
+    Range                      ⊤ ⊑ ∀isEventAssociatedToPlayer.Player
+      Subject: isEventAssociatedToPlayer
+      Object : Player
+
+  Term: isFriendWithPlayer  [ObjectProperty]
+    Domain                     ∃isFriendWithPlayer.⊤ ⊑ Player
+      Subject: isFriendWithPlayer
+      Object : Player
+    Range                      ⊤ ⊑ ∀isFriendWithPlayer.Player
+      Subject: isFriendWithPlayer
+      Object : Player
+    Characteristics            Symmetric(isFriendWithPlayer)
+      Subject: isFriendWithPlayer
+      Object : Symmetric
+
+  Term: isLeaderboardInGame  [ObjectProperty]
+    InverseOf                  isLeaderboardInGame ≡ hasLeaderboard⁻
+      Subject: isLeaderboardInGame
+      Object : hasLeaderboard
+    Domain                     ∃isLeaderboardInGame.⊤ ⊑ Leaderboard
+      Subject: isLeaderboardInGame
+      Object : Leaderboard
+    Range                      ⊤ ⊑ ∀isLeaderboardInGame.Game
+      Subject: isLeaderboardInGame
+      Object : Game
+
+  Term: isPlayerInSession  [ObjectProperty]
+    InverseOf                  isPlayerInSession ≡ involvesPlayer⁻
+      Subject: isPlayerInSession
+      Object : involvesPlayer
+    Domain                     ∃isPlayerInSession.⊤ ⊑ Player
+      Subject: isPlayerInSession
+      Object : Player
+    Range                      ⊤ ⊑ ∀isPlayerInSession.Session
+      Subject: isPlayerInSession
+      Object : Session
+
+  Term: isSessionInGame  [ObjectProperty]
+    Domain                     ∃isSessionInGame.⊤ ⊑ Session
+      Subject: isSessionInGame
+      Object : Session
+    Range                      ⊤ ⊑ ∀isSessionInGame.Game
+      Subject: isSessionInGame
+      Object : Game
+
+  Term: livesIn  [ObjectProperty]
+    Domain                     ∃livesIn.⊤ ⊑ Player
+      Subject: livesIn
+      Object : Player
+
+  Term: ownsAchievement  [ObjectProperty]
+    Domain                     ∃ownsAchievement.⊤ ⊑ Player
+      Subject: ownsAchievement
+      Object : Player
+    Range                      ⊤ ⊑ ∀ownsAchievement.Achievement
+      Subject: ownsAchievement
+      Object : Achievement
+
+  Term: ownsCharacter  [ObjectProperty]
+    Domain                     ∃ownsCharacter.⊤ ⊑ Player
+      Subject: ownsCharacter
+      Object : Player
+    Range                      ⊤ ⊑ ∀ownsCharacter.Character
+      Subject: ownsCharacter
+      Object : Character
+
+  Term: ownsItem  [ObjectProperty]
+    Domain                     ∃ownsItem.⊤ ⊑ Character
+      Subject: ownsItem
+      Object : Character
+    Range                      ⊤ ⊑ ∀ownsItem.Item
+      Subject: ownsItem
+      Object : Item
+
+  Term: playsGame  [ObjectProperty]
+    Domain                     ∃playsGame.⊤ ⊑ Player
+      Subject: playsGame
+      Object : Player
+    Range                      ⊤ ⊑ ∀playsGame.Game
+      Subject: playsGame
+      Object : Game
+
+  Term: purchasesGameOffering  [ObjectProperty]
+    Domain                     ∃purchasesGameOffering.⊤ ⊑ InAppPurchaseEvent
+      Subject: purchasesGameOffering
+      Object : InAppPurchaseEvent
+    Range                      ⊤ ⊑ ∀purchasesGameOffering.GameProduct
+      Subject: purchasesGameOffering
+      Object : GameProduct
+
+
+── DatatypeProperty ──
+
+  Term: endTime  [DatatypeProperty]
+    Domain                     ∃endTime.⊤ ⊑ Session
+      Subject: endTime
+      Object : Session
+    Range                      endTime maps-to datetime'>
+      Subject: endTime
+      Object : datetime'>
+
+  Term: eventTime  [DatatypeProperty]
+    Range                      eventTime maps-to datetime'>
+      Subject: eventTime
+      Object : datetime'>
+
+  Term: releaseDate  [DatatypeProperty]
+    Domain                     ∃releaseDate.⊤ ⊑ Game
+      Subject: releaseDate
+      Object : Game
+    Range                      releaseDate maps-to datetime'>
+      Subject: releaseDate
+      Object : datetime'>
+
+  Term: startTime  [DatatypeProperty]
+    Domain                     ∃startTime.⊤ ⊑ Session
+      Subject: startTime
+      Object : Session
+    Range                      startTime maps-to datetime'>
+      Subject: startTime
+      Object : datetime'>
+
+  Term: username  [DatatypeProperty]
+    Domain                     ∃username.⊤ ⊑ Player
+      Subject: username
+      Object : Player
+    Range                      username maps-to xsd:string
+      Subject: username
+      Object : xsd:string
+
+
+====================================================================================================
+STATISTICS
+====================================================================================================
+
+  Classes:               25  (defined: 0, primitive: 25)
+  ObjectProperties:      23
+  DatatypeProperties:    5
+
+  Axiom Breakdown:
+    Characteristics           1
+    Domain                    26
+    InverseOf                 10
+    Range                     27
+    SubClassOf                13
+    ------------------------------
+    Total TBox Axioms         77
+
+====================================================================================================

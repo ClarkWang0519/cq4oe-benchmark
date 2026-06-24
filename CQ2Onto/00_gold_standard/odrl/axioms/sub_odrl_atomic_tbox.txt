@@ -1,0 +1,270 @@
+====================================================================================================
+ATOMIC TBOX AXIOMS
+====================================================================================================
+
+── Class ──
+
+  Term: AssetCollection  [Class]
+    SubClassOf                 AssetCollection ⊑ Asset
+      Subject: AssetCollection
+      Object : Asset
+
+  Term: Duty  [Class]
+    SubClassOf                 Duty ⊑ Rule
+      Subject: Duty
+      Object : Rule
+    DisjointClasses            DisjointClasses(Duty, Permission)
+      Subject: Duty
+      Object : Permission
+    DisjointClasses            DisjointClasses(Duty, Prohibition)
+      Subject: Duty
+      Object : Prohibition
+
+  Term: Permission  [Class]
+    SubClassOf                 Permission ⊑ Rule
+      Subject: Permission
+      Object : Rule
+    DisjointClasses            DisjointClasses(Permission, Prohibition)
+      Subject: Permission
+      Object : Prohibition
+
+  Term: Prohibition  [Class]
+    SubClassOf                 Prohibition ⊑ Rule
+      Subject: Prohibition
+      Object : Rule
+
+
+── ObjectProperty ──
+
+  Term: action  [ObjectProperty]
+    Domain                     ∃action.⊤ ⊑ (Policy ⊔ Rule)
+      Subject: action
+      Object : (Policy ⊔ Rule)
+    Range                      ⊤ ⊑ ∀action.Action
+      Subject: action
+      Object : Action
+
+  Term: and  [ObjectProperty]
+    SubPropertyOf              and ⊑ operand
+      Subject: and
+      Object : operand
+
+  Term: andSequence  [ObjectProperty]
+    SubPropertyOf              andSequence ⊑ operand
+      Subject: andSequence
+      Object : operand
+
+  Term: assignee  [ObjectProperty]
+    SubPropertyOf              assignee ⊑ function
+      Subject: assignee
+      Object : function
+    Domain                     ∃assignee.⊤ ⊑ (Policy ⊔ Rule)
+      Subject: assignee
+      Object : (Policy ⊔ Rule)
+    Range                      ⊤ ⊑ ∀assignee.Party
+      Subject: assignee
+      Object : Party
+
+  Term: assigner  [ObjectProperty]
+    SubPropertyOf              assigner ⊑ function
+      Subject: assigner
+      Object : function
+    Domain                     ∃assigner.⊤ ⊑ (Policy ⊔ Rule)
+      Subject: assigner
+      Object : (Policy ⊔ Rule)
+    Range                      ⊤ ⊑ ∀assigner.Party
+      Subject: assigner
+      Object : Party
+
+  Term: conflict  [ObjectProperty]
+    Domain                     ∃conflict.⊤ ⊑ Policy
+      Subject: conflict
+      Object : Policy
+    Range                      ⊤ ⊑ ∀conflict.ConflictTerm
+      Subject: conflict
+      Object : ConflictTerm
+
+  Term: consequence  [ObjectProperty]
+    SubPropertyOf              consequence ⊑ failure
+      Subject: consequence
+      Object : failure
+    Domain                     ∃consequence.⊤ ⊑ Duty
+      Subject: consequence
+      Object : Duty
+    Range                      ⊤ ⊑ ∀consequence.Duty
+      Subject: consequence
+      Object : Duty
+
+  Term: constraint  [ObjectProperty]
+    Domain                     ∃constraint.⊤ ⊑ (Policy ⊔ Rule)
+      Subject: constraint
+      Object : (Policy ⊔ Rule)
+    Range                      ⊤ ⊑ ∀constraint.(Constraint ⊔ LogicalConstraint)
+      Subject: constraint
+      Object : (Constraint ⊔ LogicalConstraint)
+
+  Term: contractedParty  [ObjectProperty]
+    SubPropertyOf              contractedParty ⊑ function
+      Subject: contractedParty
+      Object : function
+
+  Term: duty  [ObjectProperty]
+    Domain                     ∃duty.⊤ ⊑ Permission
+      Subject: duty
+      Object : Permission
+    Range                      ⊤ ⊑ ∀duty.Duty
+      Subject: duty
+      Object : Duty
+
+  Term: failure  [ObjectProperty]
+    Domain                     ∃failure.⊤ ⊑ Rule
+      Subject: failure
+      Object : Rule
+    Range                      ⊤ ⊑ ∀failure.Rule
+      Subject: failure
+      Object : Rule
+
+  Term: function  [ObjectProperty]
+    Domain                     ∃function.⊤ ⊑ (Policy ⊔ Rule)
+      Subject: function
+      Object : (Policy ⊔ Rule)
+    Range                      ⊤ ⊑ ∀function.Party
+      Subject: function
+      Object : Party
+
+  Term: hasPolicy  [ObjectProperty]
+    Domain                     ∃hasPolicy.⊤ ⊑ Asset
+      Subject: hasPolicy
+      Object : Asset
+    Range                      ⊤ ⊑ ∀hasPolicy.Policy
+      Subject: hasPolicy
+      Object : Policy
+
+  Term: implies  [ObjectProperty]
+    Domain                     ∃implies.⊤ ⊑ Action
+      Subject: implies
+      Object : Action
+    Range                      ⊤ ⊑ ∀implies.Action
+      Subject: implies
+      Object : Action
+
+  Term: inheritFrom  [ObjectProperty]
+    Domain                     ∃inheritFrom.⊤ ⊑ Policy
+      Subject: inheritFrom
+      Object : Policy
+    Range                      ⊤ ⊑ ∀inheritFrom.Policy
+      Subject: inheritFrom
+      Object : Policy
+
+  Term: leftOperand  [ObjectProperty]
+    Domain                     ∃leftOperand.⊤ ⊑ Constraint
+      Subject: leftOperand
+      Object : Constraint
+    Range                      ⊤ ⊑ ∀leftOperand.LeftOperand
+      Subject: leftOperand
+      Object : LeftOperand
+
+  Term: obligation  [ObjectProperty]
+    Domain                     ∃obligation.⊤ ⊑ Policy
+      Subject: obligation
+      Object : Policy
+    Range                      ⊤ ⊑ ∀obligation.Duty
+      Subject: obligation
+      Object : Duty
+
+  Term: operand  [ObjectProperty]
+    Domain                     ∃operand.⊤ ⊑ LogicalConstraint
+      Subject: operand
+      Object : LogicalConstraint
+
+  Term: operator  [ObjectProperty]
+    Domain                     ∃operator.⊤ ⊑ Constraint
+      Subject: operator
+      Object : Constraint
+    Range                      ⊤ ⊑ ∀operator.Operator
+      Subject: operator
+      Object : Operator
+
+  Term: or  [ObjectProperty]
+    SubPropertyOf              or ⊑ operand
+      Subject: or
+      Object : operand
+
+  Term: partOf  [ObjectProperty]
+    Domain                     ∃partOf.⊤ ⊑ (Asset ⊔ Party)
+      Subject: partOf
+      Object : (Asset ⊔ Party)
+    Range                      ⊤ ⊑ ∀partOf.(AssetCollection)
+      Subject: partOf
+      Object : (AssetCollection)
+
+  Term: permission  [ObjectProperty]
+    Domain                     ∃permission.⊤ ⊑ Policy
+      Subject: permission
+      Object : Policy
+    Range                      ⊤ ⊑ ∀permission.Permission
+      Subject: permission
+      Object : Permission
+
+  Term: prohibition  [ObjectProperty]
+    Domain                     ∃prohibition.⊤ ⊑ Policy
+      Subject: prohibition
+      Object : Policy
+    Range                      ⊤ ⊑ ∀prohibition.Prohibition
+      Subject: prohibition
+      Object : Prohibition
+
+  Term: relation  [ObjectProperty]
+    Domain                     ∃relation.⊤ ⊑ (Policy ⊔ Rule)
+      Subject: relation
+      Object : (Policy ⊔ Rule)
+    Range                      ⊤ ⊑ ∀relation.Asset
+      Subject: relation
+      Object : Asset
+
+  Term: remedy  [ObjectProperty]
+    SubPropertyOf              remedy ⊑ failure
+      Subject: remedy
+      Object : failure
+    Domain                     ∃remedy.⊤ ⊑ Prohibition
+      Subject: remedy
+      Object : Prohibition
+    Range                      ⊤ ⊑ ∀remedy.Duty
+      Subject: remedy
+      Object : Duty
+
+  Term: target  [ObjectProperty]
+    SubPropertyOf              target ⊑ relation
+      Subject: target
+      Object : relation
+    Domain                     ∃target.⊤ ⊑ (Policy ⊔ Rule)
+      Subject: target
+      Object : (Policy ⊔ Rule)
+    Range                      ⊤ ⊑ ∀target.Asset
+      Subject: target
+      Object : Asset
+
+  Term: xone  [ObjectProperty]
+    SubPropertyOf              xone ⊑ operand
+      Subject: xone
+      Object : operand
+
+
+====================================================================================================
+STATISTICS
+====================================================================================================
+
+  Classes:               15  (defined: 0, primitive: 15)
+  ObjectProperties:      29
+  DatatypeProperties:    0
+
+  Axiom Breakdown:
+    DisjointClasses           3
+    Domain                    22
+    Range                     21
+    SubClassOf                4
+    SubPropertyOf             10
+    ------------------------------
+    Total TBox Axioms         60
+
+====================================================================================================

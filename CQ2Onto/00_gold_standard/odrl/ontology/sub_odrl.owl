@@ -1,0 +1,571 @@
+<?xml version="1.0"?>
+<rdf:RDF xmlns="http://www.w3.org/ns/odrl/2/"
+     xml:base="http://www.w3.org/ns/odrl/2/"
+     xmlns:owl="http://www.w3.org/2002/07/owl#"
+     xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+     xmlns:xml="http://www.w3.org/XML/1998/namespace"
+     xmlns:xsd="http://www.w3.org/2001/XMLSchema#"
+     xmlns:odrl="http://www.w3.org/ns/odrl/2/"
+     xmlns:rdfs="http://www.w3.org/2000/01/rdf-schema#"
+     xmlns:skos="http://www.w3.org/2004/02/skos/core#"
+     xmlns:terms="http://purl.org/dc/terms/">
+    <owl:Ontology rdf:about="http://www.w3.org/ns/odrl/2/">
+        <terms:contributor>W3C Permissions &amp; Obligations Expression Working Group</terms:contributor>
+        <terms:creator>Michael Steidl</terms:creator>
+        <terms:creator>Renato Iannella</terms:creator>
+        <terms:creator>Stuart Myles</terms:creator>
+        <terms:creator>Víctor Rodríguez-Doncel</terms:creator>
+        <terms:description xml:lang="en">The ODRL Vocabulary and Expression defines a set of concepts and terms (the vocabulary) and encoding mechanism (the expression) for permissions and obligations statements describing digital content usage based on the ODRL Information Model.</terms:description>
+        <terms:license rdf:resource="https://www.w3.org/Consortium/Legal/2002/ipr-notice-20021231#Copyright/"/>
+        <rdfs:comment xml:lang="en">This is the RDF ontology for ODRL Version 2.2.</rdfs:comment>
+        <rdfs:label xml:lang="en">ODRL Version 2.2</rdfs:label>
+        <owl:versionInfo>2.2</owl:versionInfo>
+    </owl:Ontology>
+    
+
+
+  
+   
+
+    
+
+
+    <!-- http://www.w3.org/ns/odrl/2/action -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/ns/odrl/2/action">
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.w3.org/ns/odrl/2/Policy"/>
+                    <rdf:Description rdf:about="http://www.w3.org/ns/odrl/2/Rule"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+        <rdfs:range rdf:resource="http://www.w3.org/ns/odrl/2/Action"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/ns/odrl/2/and -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/ns/odrl/2/and">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/odrl/2/operand"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/ns/odrl/2/andSequence -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/ns/odrl/2/andSequence">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/odrl/2/operand"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/ns/odrl/2/assignee -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/ns/odrl/2/assignee">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/odrl/2/function"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.w3.org/ns/odrl/2/Policy"/>
+                    <rdf:Description rdf:about="http://www.w3.org/ns/odrl/2/Rule"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+        <rdfs:range rdf:resource="http://www.w3.org/ns/odrl/2/Party"/>
+    </owl:ObjectProperty>
+    
+
+
+
+    <!-- http://www.w3.org/ns/odrl/2/assigner -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/ns/odrl/2/assigner">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/odrl/2/function"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.w3.org/ns/odrl/2/Policy"/>
+                    <rdf:Description rdf:about="http://www.w3.org/ns/odrl/2/Rule"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+        <rdfs:range rdf:resource="http://www.w3.org/ns/odrl/2/Party"/>
+    </owl:ObjectProperty>
+    
+
+
+
+    
+
+
+    
+
+    
+
+
+    
+
+
+    <!-- http://www.w3.org/ns/odrl/2/conflict -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/ns/odrl/2/conflict">
+        <rdfs:domain rdf:resource="http://www.w3.org/ns/odrl/2/Policy"/>
+        <rdfs:range rdf:resource="http://www.w3.org/ns/odrl/2/ConflictTerm"/>
+    </owl:ObjectProperty>
+    
+
+
+  
+
+
+    <!-- http://www.w3.org/ns/odrl/2/consequence -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/ns/odrl/2/consequence">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/odrl/2/failure"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/ns/odrl/2/Duty"/>
+        <rdfs:range rdf:resource="http://www.w3.org/ns/odrl/2/Duty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/ns/odrl/2/constraint -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/ns/odrl/2/constraint">
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.w3.org/ns/odrl/2/Policy"/>
+                    <rdf:Description rdf:about="http://www.w3.org/ns/odrl/2/Rule"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+        <rdfs:range>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.w3.org/ns/odrl/2/Constraint"/>
+                    <rdf:Description rdf:about="http://www.w3.org/ns/odrl/2/LogicalConstraint"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:range>
+    </owl:ObjectProperty>
+    
+
+
+    
+
+
+    
+
+
+    <!-- http://www.w3.org/ns/odrl/2/duty -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/ns/odrl/2/duty">
+        <rdfs:domain rdf:resource="http://www.w3.org/ns/odrl/2/Permission"/>
+        <rdfs:range rdf:resource="http://www.w3.org/ns/odrl/2/Duty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/ns/odrl/2/failure -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/ns/odrl/2/failure">
+        <rdfs:domain rdf:resource="http://www.w3.org/ns/odrl/2/Rule"/>
+        <rdfs:range rdf:resource="http://www.w3.org/ns/odrl/2/Rule"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/ns/odrl/2/function -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/ns/odrl/2/function">
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.w3.org/ns/odrl/2/Policy"/>
+                    <rdf:Description rdf:about="http://www.w3.org/ns/odrl/2/Rule"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+        <rdfs:range rdf:resource="http://www.w3.org/ns/odrl/2/Party"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/ns/odrl/2/hasPolicy -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/ns/odrl/2/hasPolicy">
+        <rdfs:domain rdf:resource="http://www.w3.org/ns/odrl/2/Asset"/>
+        <rdfs:range rdf:resource="http://www.w3.org/ns/odrl/2/Policy"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/ns/odrl/2/implies -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/ns/odrl/2/implies">
+        <rdfs:domain rdf:resource="http://www.w3.org/ns/odrl/2/Action"/>
+        <rdfs:range rdf:resource="http://www.w3.org/ns/odrl/2/Action"/>
+    </owl:ObjectProperty>
+    
+
+
+
+
+    
+
+
+   
+    
+
+
+    <!-- http://www.w3.org/ns/odrl/2/inheritFrom -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/ns/odrl/2/inheritFrom">
+        <rdfs:domain rdf:resource="http://www.w3.org/ns/odrl/2/Policy"/>
+        <rdfs:range rdf:resource="http://www.w3.org/ns/odrl/2/Policy"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/ns/odrl/2/inheritRelation -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/ns/odrl/2/inheritRelation"/>
+    
+
+
+    <!-- http://www.w3.org/ns/odrl/2/leftOperand -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/ns/odrl/2/leftOperand">
+        <rdfs:domain rdf:resource="http://www.w3.org/ns/odrl/2/Constraint"/>
+        <rdfs:range rdf:resource="http://www.w3.org/ns/odrl/2/LeftOperand"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/ns/odrl/2/obligation -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/ns/odrl/2/obligation">
+        <rdfs:domain rdf:resource="http://www.w3.org/ns/odrl/2/Policy"/>
+        <rdfs:range rdf:resource="http://www.w3.org/ns/odrl/2/Duty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/ns/odrl/2/operand -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/ns/odrl/2/operand">
+        <rdfs:domain rdf:resource="http://www.w3.org/ns/odrl/2/LogicalConstraint"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/ns/odrl/2/operator -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/ns/odrl/2/operator">
+        <rdfs:domain rdf:resource="http://www.w3.org/ns/odrl/2/Constraint"/>
+        <rdfs:range rdf:resource="http://www.w3.org/ns/odrl/2/Operator"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/ns/odrl/2/or -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/ns/odrl/2/or">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/odrl/2/operand"/>
+    </owl:ObjectProperty>
+    
+
+
+
+
+
+    <!-- http://www.w3.org/ns/odrl/2/partOf -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/ns/odrl/2/partOf">
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.w3.org/ns/odrl/2/Asset"/>
+                    <rdf:Description rdf:about="http://www.w3.org/ns/odrl/2/Party"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+        <rdfs:range>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.w3.org/ns/odrl/2/AssetCollection"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:range>
+    </owl:ObjectProperty>
+
+    
+
+    <!-- http://www.w3.org/ns/odrl/2/AssetCollection -->
+
+    <owl:Class rdf:about="http://www.w3.org/ns/odrl/2/AssetCollection">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/odrl/2/Asset"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.w3.org/ns/odrl/2/permission -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/ns/odrl/2/permission">
+        <rdfs:domain rdf:resource="http://www.w3.org/ns/odrl/2/Policy"/>
+        <rdfs:range rdf:resource="http://www.w3.org/ns/odrl/2/Permission"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/ns/odrl/2/prohibition -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/ns/odrl/2/prohibition">
+        <rdfs:domain rdf:resource="http://www.w3.org/ns/odrl/2/Policy"/>
+        <rdfs:range rdf:resource="http://www.w3.org/ns/odrl/2/Prohibition"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/ns/odrl/2/relation -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/ns/odrl/2/relation">
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.w3.org/ns/odrl/2/Policy"/>
+                    <rdf:Description rdf:about="http://www.w3.org/ns/odrl/2/Rule"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+        <rdfs:range rdf:resource="http://www.w3.org/ns/odrl/2/Asset"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/ns/odrl/2/remedy -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/ns/odrl/2/remedy">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/odrl/2/failure"/>
+        <rdfs:domain rdf:resource="http://www.w3.org/ns/odrl/2/Prohibition"/>
+        <rdfs:range rdf:resource="http://www.w3.org/ns/odrl/2/Duty"/>
+    </owl:ObjectProperty>
+    
+
+
+    <!-- http://www.w3.org/ns/odrl/2/scope -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/ns/odrl/2/scope"/>
+    
+
+
+    <!-- http://www.w3.org/ns/odrl/2/xone -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/ns/odrl/2/xone">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/odrl/2/operand"/>
+    </owl:ObjectProperty>
+
+
+    <rdf:Description rdf:about="http://www.w3.org/ns/odrl/2/xone">
+        <rdfs:isDefinedBy rdf:resource="http://www.w3.org/ns/odrl/2/"/>
+        <skos:definition xml:lang="en">The relation is satisfied when only one, and not more, of the Constaints is satisfied</skos:definition>
+        <skos:note xml:lang="en">This property MUST only be used for Logical Constraints, and the list of operand values MUST be Constraint instances.</skos:note>
+        <rdfs:label xml:lang="en">Only One</rdfs:label>
+    </rdf:Description>
+
+
+    <!-- http://www.w3.org/ns/odrl/2/target -->
+
+    <owl:ObjectProperty rdf:about="http://www.w3.org/ns/odrl/2/target">
+        <rdfs:subPropertyOf rdf:resource="http://www.w3.org/ns/odrl/2/relation"/>
+        <rdfs:domain>
+            <owl:Class>
+                <owl:unionOf rdf:parseType="Collection">
+                    <rdf:Description rdf:about="http://www.w3.org/ns/odrl/2/Policy"/>
+                    <rdf:Description rdf:about="http://www.w3.org/ns/odrl/2/Rule"/>
+                </owl:unionOf>
+            </owl:Class>
+        </rdfs:domain>
+        <rdfs:range rdf:resource="http://www.w3.org/ns/odrl/2/Asset"/>
+    </owl:ObjectProperty>
+    
+
+
+
+    
+
+
+    
+
+
+
+    
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Data properties
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+
+    <!-- 
+    ///////////////////////////////////////////////////////////////////////////////////////
+    //
+    // Classes
+    //
+    ///////////////////////////////////////////////////////////////////////////////////////
+     -->
+
+
+    
+
+
+
+    <!-- http://www.w3.org/ns/odrl/2/Action -->
+
+    <owl:Class rdf:about="http://www.w3.org/ns/odrl/2/Action">
+    </owl:Class>
+    
+
+
+
+    
+
+
+
+
+
+    <!-- http://www.w3.org/ns/odrl/2/Asset -->
+
+    <owl:Class rdf:about="http://www.w3.org/ns/odrl/2/Asset"/>
+    
+
+
+    
+
+
+    <!-- http://www.w3.org/ns/odrl/2/AssetScope -->
+
+    <owl:Class rdf:about="http://www.w3.org/ns/odrl/2/AssetScope"/>
+    
+
+
+    <!-- http://www.w3.org/ns/odrl/2/ConflictTerm -->
+
+    <owl:Class rdf:about="http://www.w3.org/ns/odrl/2/ConflictTerm"/>
+    
+
+
+    <!-- http://www.w3.org/ns/odrl/2/Constraint -->
+
+    <owl:Class rdf:about="http://www.w3.org/ns/odrl/2/Constraint"/>
+    
+
+
+    <!-- http://www.w3.org/ns/odrl/2/Duty -->
+
+    <owl:Class rdf:about="http://www.w3.org/ns/odrl/2/Duty">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/odrl/2/Rule"/>
+        <owl:disjointWith rdf:resource="http://www.w3.org/ns/odrl/2/Permission"/>
+        <owl:disjointWith rdf:resource="http://www.w3.org/ns/odrl/2/Prohibition"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.w3.org/ns/odrl/2/LeftOperand -->
+
+    <owl:Class rdf:about="http://www.w3.org/ns/odrl/2/LeftOperand"/>
+    
+
+
+    <!-- http://www.w3.org/ns/odrl/2/LogicalConstraint -->
+
+    <owl:Class rdf:about="http://www.w3.org/ns/odrl/2/LogicalConstraint"/>
+    
+
+
+
+
+    <!-- http://www.w3.org/ns/odrl/2/Operator -->
+
+    <owl:Class rdf:about="http://www.w3.org/ns/odrl/2/Operator"/>
+    
+
+    
+
+
+    <!-- http://www.w3.org/ns/odrl/2/Permission -->
+
+    <owl:Class rdf:about="http://www.w3.org/ns/odrl/2/Permission">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/odrl/2/Rule"/>
+        <owl:disjointWith rdf:resource="http://www.w3.org/ns/odrl/2/Prohibition"/>
+    </owl:Class>
+    
+
+
+    <!-- http://www.w3.org/ns/odrl/2/Policy -->
+
+    <owl:Class rdf:about="http://www.w3.org/ns/odrl/2/Policy"/>
+    
+    
+
+
+    <!-- http://www.w3.org/ns/odrl/2/Prohibition -->
+
+    <owl:Class rdf:about="http://www.w3.org/ns/odrl/2/Prohibition">
+        <rdfs:subClassOf rdf:resource="http://www.w3.org/ns/odrl/2/Rule"/>
+    </owl:Class>
+    
+
+
+
+
+    <!-- http://www.w3.org/ns/odrl/2/Rule -->
+
+    <owl:Class rdf:about="http://www.w3.org/ns/odrl/2/Rule"/>
+
+    
+
+    
+
+    
+
+
+    
+
+
+
+
+
+
+
+
+
+
+ 
+     <!-- http://www.w3.org/ns/odrl/2/Party -->
+
+    <owl:Class rdf:about="http://www.w3.org/ns/odrl/2/Party">
+    </owl:Class>
+
+
+
+
+
+
+
+
+    
+
+</rdf:RDF>
+
+
+
+<!-- Generated by the OWL API (version 4.5.13) https://github.com/owlcs/owlapi -->
+

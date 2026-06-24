@@ -1,0 +1,908 @@
+{
+  "stats": {
+    "total_classes": 20,
+    "primitive_classes": 20,
+    "total_axioms": 43,
+    "SubClassOf": 18,
+    "DisjointClasses": 1,
+    "total_object_properties": 14,
+    "InverseOf": 4,
+    "Domain": 8,
+    "Range": 12,
+    "total_datatype_properties": 11
+  },
+  "axioms": [
+    {
+      "id": "AX1",
+      "term": "AcceptabilityProperty",
+      "term_label": "Acceptability property",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "AcceptabilityProperty",
+      "subject_label": "Acceptability property",
+      "object": "WaterProperty",
+      "dl": "AcceptabilityProperty ⊑ WaterProperty",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "AcceptabilityProperty"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "WaterProperty"
+      }
+    },
+    {
+      "id": "AX2",
+      "term": "Actuator",
+      "term_label": "Actuator",
+      "term_type": "Class",
+      "axiom_type": "DisjointClasses",
+      "subject": "Actuator",
+      "subject_label": "Actuator",
+      "object": "Sensor",
+      "dl": "DisjointClasses(Actuator, Sensor)",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "Actuator"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Sensor"
+      }
+    },
+    {
+      "id": "AX3",
+      "term": "Actuator",
+      "term_label": "Actuator",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "Actuator",
+      "subject_label": "Actuator",
+      "object": "Device",
+      "dl": "Actuator ⊑ Device",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "Actuator"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Device"
+      }
+    },
+    {
+      "id": "AX4",
+      "term": "ChemicalProperty",
+      "term_label": "ChemicalProperty",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "ChemicalProperty",
+      "subject_label": "ChemicalProperty",
+      "object": "WaterProperty",
+      "dl": "ChemicalProperty ⊑ WaterProperty",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "ChemicalProperty"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "WaterProperty"
+      }
+    },
+    {
+      "id": "AX5",
+      "term": "Device",
+      "term_label": "Device",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "Device",
+      "subject_label": "Device",
+      "object": "∀makesMeasurement.Measurement",
+      "dl": "Device ⊑ ∀makesMeasurement.Measurement",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "Device"
+      },
+      "rhs_struct": {
+        "expr_type": "ObjectAllValuesFrom",
+        "property": "makesMeasurement",
+        "filler": {
+          "expr_type": "Class",
+          "name": "Measurement"
+        }
+      }
+    },
+    {
+      "id": "AX6",
+      "term": "FeatureOfInterest",
+      "term_label": "FeatureOfInterest",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "FeatureOfInterest",
+      "subject_label": "FeatureOfInterest",
+      "object": "∀hasMeasurement.Measurement",
+      "dl": "FeatureOfInterest ⊑ ∀hasMeasurement.Measurement",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "FeatureOfInterest"
+      },
+      "rhs_struct": {
+        "expr_type": "ObjectAllValuesFrom",
+        "property": "hasMeasurement",
+        "filler": {
+          "expr_type": "Class",
+          "name": "Measurement"
+        }
+      }
+    },
+    {
+      "id": "AX7",
+      "term": "Measurement",
+      "term_label": "Measurement",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "Measurement",
+      "subject_label": "Measurement",
+      "object": "∀hasTimestamp.datetime'>",
+      "dl": "Measurement ⊑ ∀hasTimestamp.datetime'>",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "Measurement"
+      },
+      "rhs_struct": {
+        "expr_type": "DataAllValuesFrom",
+        "property": "hasTimestamp",
+        "filler": {
+          "expr_type": "Datatype",
+          "name": "datetime'>"
+        }
+      }
+    },
+    {
+      "id": "AX8",
+      "term": "Meter",
+      "term_label": "Meter",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "Meter",
+      "subject_label": "Meter",
+      "object": "Sensor",
+      "dl": "Meter ⊑ Sensor",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "Meter"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Sensor"
+      }
+    },
+    {
+      "id": "AX9",
+      "term": "Point",
+      "term_label": "Point",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "Point",
+      "subject_label": "Point",
+      "object": "Geometry",
+      "dl": "Point ⊑ Geometry",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "Point"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Geometry"
+      }
+    },
+    {
+      "id": "AX10",
+      "term": "Sensor",
+      "term_label": "Sensor",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "Sensor",
+      "subject_label": "Sensor",
+      "object": "Device",
+      "dl": "Sensor ⊑ Device",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "Sensor"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Device"
+      }
+    },
+    {
+      "id": "AX11",
+      "term": "TimeBasedTariff",
+      "term_label": "Time-based tariff",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "TimeBasedTariff",
+      "subject_label": "Time-based tariff",
+      "object": "Tariff",
+      "dl": "TimeBasedTariff ⊑ Tariff",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "TimeBasedTariff"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Tariff"
+      }
+    },
+    {
+      "id": "AX12",
+      "term": "Water",
+      "term_label": "Water",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "Water",
+      "subject_label": "Water",
+      "object": "FeatureOfInterest",
+      "dl": "Water ⊑ FeatureOfInterest",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "Water"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "FeatureOfInterest"
+      }
+    },
+    {
+      "id": "AX13",
+      "term": "Water",
+      "term_label": "Water",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "Water",
+      "subject_label": "Water",
+      "object": "∀hasProperty.WaterProperty",
+      "dl": "Water ⊑ ∀hasProperty.WaterProperty",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "Water"
+      },
+      "rhs_struct": {
+        "expr_type": "ObjectAllValuesFrom",
+        "property": "hasProperty",
+        "filler": {
+          "expr_type": "Class",
+          "name": "WaterProperty"
+        }
+      }
+    },
+    {
+      "id": "AX14",
+      "term": "WaterAsset",
+      "term_label": "Water asset",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "WaterAsset",
+      "subject_label": "Water asset",
+      "object": "FeatureOfInterest",
+      "dl": "WaterAsset ⊑ FeatureOfInterest",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "WaterAsset"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "FeatureOfInterest"
+      }
+    },
+    {
+      "id": "AX15",
+      "term": "WaterMeter",
+      "term_label": "Water meter",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "WaterMeter",
+      "subject_label": "Water meter",
+      "object": "Meter",
+      "dl": "WaterMeter ⊑ Meter",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "WaterMeter"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Meter"
+      }
+    },
+    {
+      "id": "AX16",
+      "term": "WaterMeter",
+      "term_label": "Water meter",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "WaterMeter",
+      "subject_label": "Water meter",
+      "object": "≤1 hasFabricationNumber.⊤",
+      "dl": "WaterMeter ⊑ ≤1 hasFabricationNumber.⊤",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "WaterMeter"
+      },
+      "rhs_struct": {
+        "expr_type": "ObjectMaxCardinality",
+        "property": "hasFabricationNumber",
+        "cardinality": 1,
+        "filler": {
+          "expr_type": "Top"
+        }
+      }
+    },
+    {
+      "id": "AX17",
+      "term": "WaterMeter",
+      "term_label": "Water meter",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "WaterMeter",
+      "subject_label": "Water meter",
+      "object": "≤1 hasFirmwareVersion.⊤",
+      "dl": "WaterMeter ⊑ ≤1 hasFirmwareVersion.⊤",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "WaterMeter"
+      },
+      "rhs_struct": {
+        "expr_type": "ObjectMaxCardinality",
+        "property": "hasFirmwareVersion",
+        "cardinality": 1,
+        "filler": {
+          "expr_type": "Top"
+        }
+      }
+    },
+    {
+      "id": "AX18",
+      "term": "WaterMeter",
+      "term_label": "Water meter",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "WaterMeter",
+      "subject_label": "Water meter",
+      "object": "≤1 hasHardwareVersion.⊤",
+      "dl": "WaterMeter ⊑ ≤1 hasHardwareVersion.⊤",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "WaterMeter"
+      },
+      "rhs_struct": {
+        "expr_type": "ObjectMaxCardinality",
+        "property": "hasHardwareVersion",
+        "cardinality": 1,
+        "filler": {
+          "expr_type": "Top"
+        }
+      }
+    },
+    {
+      "id": "AX19",
+      "term": "WaterMeter",
+      "term_label": "Water meter",
+      "term_type": "Class",
+      "axiom_type": "SubClassOf",
+      "subject": "WaterMeter",
+      "subject_label": "Water meter",
+      "object": "≤1 hasVersion.⊤",
+      "dl": "WaterMeter ⊑ ≤1 hasVersion.⊤",
+      "lhs_struct": {
+        "expr_type": "Class",
+        "name": "WaterMeter"
+      },
+      "rhs_struct": {
+        "expr_type": "ObjectMaxCardinality",
+        "property": "hasVersion",
+        "cardinality": 1,
+        "filler": {
+          "expr_type": "Top"
+        }
+      }
+    },
+    {
+      "id": "AX20",
+      "term": "appliesTo",
+      "term_label": "applies to",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Domain",
+      "subject": "appliesTo",
+      "subject_label": "applies to",
+      "object": "Tariff",
+      "dl": "∃appliesTo.⊤ ⊑ Tariff",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "appliesTo"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Tariff"
+      }
+    },
+    {
+      "id": "AX21",
+      "term": "appliesTo",
+      "term_label": "applies to",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Range",
+      "subject": "appliesTo",
+      "subject_label": "applies to",
+      "object": "WaterMeter",
+      "dl": "⊤ ⊑ ∀appliesTo.WaterMeter",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "appliesTo"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "WaterMeter"
+      }
+    },
+    {
+      "id": "AX22",
+      "term": "featureIsMeasuredByDevice",
+      "term_label": "feature is measured by device",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Domain",
+      "subject": "featureIsMeasuredByDevice",
+      "subject_label": "feature is measured by device",
+      "object": "FeatureOfInterest",
+      "dl": "∃featureIsMeasuredByDevice.⊤ ⊑ FeatureOfInterest",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "featureIsMeasuredByDevice"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "FeatureOfInterest"
+      }
+    },
+    {
+      "id": "AX23",
+      "term": "featureIsMeasuredByDevice",
+      "term_label": "feature is measured by device",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Range",
+      "subject": "featureIsMeasuredByDevice",
+      "subject_label": "feature is measured by device",
+      "object": "Device",
+      "dl": "⊤ ⊑ ∀featureIsMeasuredByDevice.Device",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "featureIsMeasuredByDevice"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Device"
+      }
+    },
+    {
+      "id": "AX24",
+      "term": "hasBillingPeriod",
+      "term_label": "has billing period",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Domain",
+      "subject": "hasBillingPeriod",
+      "subject_label": "has billing period",
+      "object": "Tariff",
+      "dl": "∃hasBillingPeriod.⊤ ⊑ Tariff",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasBillingPeriod"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Tariff"
+      }
+    },
+    {
+      "id": "AX25",
+      "term": "hasBillingPeriod",
+      "term_label": "has billing period",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Range",
+      "subject": "hasBillingPeriod",
+      "subject_label": "has billing period",
+      "object": "TemporalDuration",
+      "dl": "⊤ ⊑ ∀hasBillingPeriod.TemporalDuration",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasBillingPeriod"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "TemporalDuration"
+      }
+    },
+    {
+      "id": "AX26",
+      "term": "hasDuration",
+      "term_label": "has duration",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Domain",
+      "subject": "hasDuration",
+      "subject_label": "has duration",
+      "object": "Tariff",
+      "dl": "∃hasDuration.⊤ ⊑ Tariff",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasDuration"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Tariff"
+      }
+    },
+    {
+      "id": "AX27",
+      "term": "hasDuration",
+      "term_label": "has duration",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Range",
+      "subject": "hasDuration",
+      "subject_label": "has duration",
+      "object": "TemporalDuration",
+      "dl": "⊤ ⊑ ∀hasDuration.TemporalDuration",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasDuration"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "TemporalDuration"
+      }
+    },
+    {
+      "id": "AX28",
+      "term": "hasKPI",
+      "term_label": "has key performance indicator",
+      "term_type": "ObjectProperty",
+      "axiom_type": "InverseOf",
+      "subject": "hasKPI",
+      "subject_label": "has key performance indicator",
+      "object": "isKPIOf",
+      "dl": "hasKPI ≡ isKPIOf⁻",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasKPI"
+      },
+      "rhs_struct": {
+        "expr_type": "InverseObjectProperty",
+        "name": "isKPIOf"
+      }
+    },
+    {
+      "id": "AX29",
+      "term": "hasPeriod",
+      "term_label": "has period",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Domain",
+      "subject": "hasPeriod",
+      "subject_label": "has period",
+      "object": "Tariff",
+      "dl": "∃hasPeriod.⊤ ⊑ Tariff",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasPeriod"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Tariff"
+      }
+    },
+    {
+      "id": "AX30",
+      "term": "hasPeriod",
+      "term_label": "has period",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Range",
+      "subject": "hasPeriod",
+      "subject_label": "has period",
+      "object": "TemporalDuration",
+      "dl": "⊤ ⊑ ∀hasPeriod.TemporalDuration",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasPeriod"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "TemporalDuration"
+      }
+    },
+    {
+      "id": "AX31",
+      "term": "hasPhenomenonTime",
+      "term_label": "has phenomenon time",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Domain",
+      "subject": "hasPhenomenonTime",
+      "subject_label": "has phenomenon time",
+      "object": "Measurement",
+      "dl": "∃hasPhenomenonTime.⊤ ⊑ Measurement",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasPhenomenonTime"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Measurement"
+      }
+    },
+    {
+      "id": "AX32",
+      "term": "hasPhenomenonTime",
+      "term_label": "has phenomenon time",
+      "term_type": "ObjectProperty",
+      "axiom_type": "Range",
+      "subject": "hasPhenomenonTime",
+      "subject_label": "has phenomenon time",
+      "object": "TemporalEntity",
+      "dl": "⊤ ⊑ ∀hasPhenomenonTime.TemporalEntity",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "hasPhenomenonTime"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "TemporalEntity"
+      }
+    },
+    {
+      "id": "AX33",
+      "term": "isKPIOf",
+      "term_label": "isKPIOf",
+      "term_type": "ObjectProperty",
+      "axiom_type": "InverseOf",
+      "subject": "isKPIOf",
+      "subject_label": "isKPIOf",
+      "object": "hasKPI",
+      "dl": "isKPIOf ≡ hasKPI⁻",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "isKPIOf"
+      },
+      "rhs_struct": {
+        "expr_type": "InverseObjectProperty",
+        "name": "hasKPI"
+      }
+    },
+    {
+      "id": "AX34",
+      "term": "makesMeasurement",
+      "term_label": "makes measurement",
+      "term_type": "ObjectProperty",
+      "axiom_type": "InverseOf",
+      "subject": "makesMeasurement",
+      "subject_label": "makes measurement",
+      "object": "measurementMadeBy",
+      "dl": "makesMeasurement ≡ measurementMadeBy⁻",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "makesMeasurement"
+      },
+      "rhs_struct": {
+        "expr_type": "InverseObjectProperty",
+        "name": "measurementMadeBy"
+      }
+    },
+    {
+      "id": "AX35",
+      "term": "measurementMadeBy",
+      "term_label": "measurement made by",
+      "term_type": "ObjectProperty",
+      "axiom_type": "InverseOf",
+      "subject": "measurementMadeBy",
+      "subject_label": "measurement made by",
+      "object": "makesMeasurement",
+      "dl": "measurementMadeBy ≡ makesMeasurement⁻",
+      "lhs_struct": {
+        "expr_type": "ObjectProperty",
+        "name": "measurementMadeBy"
+      },
+      "rhs_struct": {
+        "expr_type": "InverseObjectProperty",
+        "name": "makesMeasurement"
+      }
+    },
+    {
+      "id": "AX36",
+      "term": "hasBillingDate",
+      "term_label": "has billing date",
+      "term_type": "DatatypeProperty",
+      "axiom_type": "Domain",
+      "subject": "hasBillingDate",
+      "subject_label": "has billing date",
+      "object": "Tariff",
+      "dl": "∃hasBillingDate.⊤ ⊑ Tariff",
+      "lhs_struct": {
+        "expr_type": "DatatypeProperty",
+        "name": "hasBillingDate"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Tariff"
+      }
+    },
+    {
+      "id": "AX37",
+      "term": "hasBillingDate",
+      "term_label": "has billing date",
+      "term_type": "DatatypeProperty",
+      "axiom_type": "Range",
+      "subject": "hasBillingDate",
+      "subject_label": "has billing date",
+      "object": "datetime'>",
+      "dl": "hasBillingDate maps-to datetime'>",
+      "lhs_struct": {
+        "expr_type": "DatatypeProperty",
+        "name": "hasBillingDate"
+      },
+      "rhs_struct": {
+        "expr_type": "Datatype",
+        "name": "datetime'>"
+      }
+    },
+    {
+      "id": "AX38",
+      "term": "hasFabricationNumber",
+      "term_label": "has fabrication number",
+      "term_type": "DatatypeProperty",
+      "axiom_type": "Range",
+      "subject": "hasFabricationNumber",
+      "subject_label": "has fabrication number",
+      "object": "⊤",
+      "dl": "hasFabricationNumber maps-to ⊤",
+      "lhs_struct": {
+        "expr_type": "DatatypeProperty",
+        "name": "hasFabricationNumber"
+      },
+      "rhs_struct": {
+        "expr_type": "Top"
+      }
+    },
+    {
+      "id": "AX39",
+      "term": "hasFirmwareVersion",
+      "term_label": "has firmware version",
+      "term_type": "DatatypeProperty",
+      "axiom_type": "Range",
+      "subject": "hasFirmwareVersion",
+      "subject_label": "has firmware version",
+      "object": "⊤",
+      "dl": "hasFirmwareVersion maps-to ⊤",
+      "lhs_struct": {
+        "expr_type": "DatatypeProperty",
+        "name": "hasFirmwareVersion"
+      },
+      "rhs_struct": {
+        "expr_type": "Top"
+      }
+    },
+    {
+      "id": "AX40",
+      "term": "hasHardwareVersion",
+      "term_label": "has hardware version",
+      "term_type": "DatatypeProperty",
+      "axiom_type": "Range",
+      "subject": "hasHardwareVersion",
+      "subject_label": "has hardware version",
+      "object": "⊤",
+      "dl": "hasHardwareVersion maps-to ⊤",
+      "lhs_struct": {
+        "expr_type": "DatatypeProperty",
+        "name": "hasHardwareVersion"
+      },
+      "rhs_struct": {
+        "expr_type": "Top"
+      }
+    },
+    {
+      "id": "AX41",
+      "term": "hasStartTimestamp",
+      "term_label": "has start timestamp",
+      "term_type": "DatatypeProperty",
+      "axiom_type": "Domain",
+      "subject": "hasStartTimestamp",
+      "subject_label": "has start timestamp",
+      "object": "Tariff",
+      "dl": "∃hasStartTimestamp.⊤ ⊑ Tariff",
+      "lhs_struct": {
+        "expr_type": "DatatypeProperty",
+        "name": "hasStartTimestamp"
+      },
+      "rhs_struct": {
+        "expr_type": "Class",
+        "name": "Tariff"
+      }
+    },
+    {
+      "id": "AX42",
+      "term": "hasStartTimestamp",
+      "term_label": "has start timestamp",
+      "term_type": "DatatypeProperty",
+      "axiom_type": "Range",
+      "subject": "hasStartTimestamp",
+      "subject_label": "has start timestamp",
+      "object": "datetime'>",
+      "dl": "hasStartTimestamp maps-to datetime'>",
+      "lhs_struct": {
+        "expr_type": "DatatypeProperty",
+        "name": "hasStartTimestamp"
+      },
+      "rhs_struct": {
+        "expr_type": "Datatype",
+        "name": "datetime'>"
+      }
+    },
+    {
+      "id": "AX43",
+      "term": "hasVersion",
+      "term_label": "has version",
+      "term_type": "DatatypeProperty",
+      "axiom_type": "Range",
+      "subject": "hasVersion",
+      "subject_label": "has version",
+      "object": "⊤",
+      "dl": "hasVersion maps-to ⊤",
+      "lhs_struct": {
+        "expr_type": "DatatypeProperty",
+        "name": "hasVersion"
+      },
+      "rhs_struct": {
+        "expr_type": "Top"
+      }
+    }
+  ],
+  "name_to_label": {
+    "Geometry": "Geometry",
+    "Point": "Point",
+    "TemporalDuration": "Temporal duration",
+    "TemporalEntity": "Temporal entity",
+    "Actuator": "Actuator",
+    "Device": "Device",
+    "FeatureOfInterest": "FeatureOfInterest",
+    "Measurement": "Measurement",
+    "Meter": "Meter",
+    "Sensor": "Sensor",
+    "KeyPerformanceIndicator": "Key Performance Indicator",
+    "AcceptabilityProperty": "Acceptability property",
+    "ChemicalProperty": "ChemicalProperty",
+    "Tariff": "Tariff",
+    "TimeBasedTariff": "Time-based tariff",
+    "Water": "Water",
+    "WaterAsset": "Water asset",
+    "WaterInfrastructure": "Water infrastructure",
+    "WaterMeter": "Water meter",
+    "WaterProperty": "Water property",
+    "hasGeometry": "hasGeometry",
+    "hasMeasurement": "has measurement",
+    "hasProperty": "has property",
+    "isMeasuredByDevice": "is measured by device",
+    "makesMeasurement": "makes measurement",
+    "measurementMadeBy": "measurement made by",
+    "hasKPI": "has key performance indicator",
+    "isKPIOf": "isKPIOf",
+    "appliesTo": "applies to",
+    "featureIsMeasuredByDevice": "feature is measured by device",
+    "hasBillingPeriod": "has billing period",
+    "hasDuration": "has duration",
+    "hasPeriod": "has period",
+    "hasPhenomenonTime": "has phenomenon time",
+    "hasBillingDate": "has billing date",
+    "hasManufacturer": "has manufacturer",
+    "hasModel": "has model",
+    "hasTimestamp": "has timestamp",
+    "hasFabricationNumber": "has fabrication number",
+    "hasFirmwareVersion": "has firmware version",
+    "hasHardwareVersion": "has hardware version",
+    "hasStartTimestamp": "has start timestamp",
+    "hasVersion": "has version",
+    "operatesAtRadioFrequency": "operates at radio frequency",
+    "requiresPower": "requires power"
+  }
+}
