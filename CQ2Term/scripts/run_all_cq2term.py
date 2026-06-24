@@ -24,7 +24,8 @@ import subprocess
 import sys
 from pathlib import Path
 
-PYTHON = "/Users/ljymacbook/opt/anaconda3/envs/tempautocl/bin/python"
+import os
+PYTHON = os.environ.get("CQ4OE_PYTHON", sys.executable)
 
 PRED_ROOT = Path("01_predictions")
 GOLD_ROOT = Path("00_gold_standard")

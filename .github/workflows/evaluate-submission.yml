@@ -1,0 +1,154 @@
+name: Evaluate challenge submission
+
+# Runs on every PR that adds/changes a submissions/ folder. Works for BOTH
+# fork PRs and same-repo PRs.
+#
+#   1. detect which submission changed
+#   2. validate it against the submission guideline (metadata + files + formats)
+#   3. run the evaluation over the submitted results
+#   4. produce submissions/<name>/result/ (+ SUMMARY.md) and:
+#        - upload it as an artifact (always; this is how fork-PR results travel)
+#        - for SAME-REPO PRs only, also commit it back onto the PR branch
+#
+# A fork PR's token is read-only, so it cannot commit back or comment. The
+# companion workflow "Post evaluation results" runs afterwards with write access
+# and posts the SUMMARY onto the PR. That split is what makes fork PRs work.
+
+on:
+  pull_request:
+    paths:
+      - "submissions/**"
+
+permissions:
+  contents: write          # used only by the same-repo commit-back; harmless on forks
+
+concurrency:
+  group: eval-${{ github.event.pull_request.number }}
+  cancel-in-progress: true
+
+jobs:
+  evaluate:
+    runs-on: ubuntu-latest
+    timeout-minutes: 60
+    env:
+      IS_FORK: ${{ github.event.pull_request.head.repo.full_name != github.repository }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+          ref: ${{ github.event.pull_request.head.ref }}
+          fetch-depth: 0
+
+      # ---- STEP 1: which submission changed ----
+      - name: Compute changed files
+        run: |
+          git remote add base https://github.com/${{ github.repository }} 2>/dev/null || true
+          git fetch base "${{ github.base_ref }}"
+          # two-dot diff (no merge-base needed; robust for fork/shallow histories)
+          git diff --name-only "base/${{ github.base_ref }}" HEAD > changed.txt
+          echo "----- changed -----"; cat changed.txt
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.10"
+      - run: pip install pyyaml
+
+      # ---- STEP 2: validate against the submission guideline ----
+      - name: Validate submission
+        id: validate
+        run: |
+          python .github/challenge/validate_submission.py --changed-files changed.txt | tee val.out
+          echo "name=$(grep '^NAME=' val.out | cut -d= -f2)" >> "$GITHUB_OUTPUT"
+
+      - name: Install benchmark deps
+        run: pip install -r requirements.txt
+      - uses: actions/setup-java@v4
+        with:
+          distribution: temurin
+          java-version: "17"
+      - name: Cache Ollama model
+        uses: actions/cache@v4
+        with:
+          path: ~/.ollama
+          key: ollama-embeddinggemma-v1
+      - name: Install Ollama and pull the embedding model
+        run: |
+          curl -fsSL https://ollama.com/install.sh | sh
+          ollama serve & sleep 5
+          ollama pull embeddinggemma
+
+      # ---- STEP 3: run the evaluation ----
+      - name: Stage submission into the pipeline layout
+        id: stage
+        env:
+          NAME: ${{ steps.validate.outputs.name }}
+        run: |
+          python .github/challenge/stage_submission.py --name "$NAME" | tee stage.out
+          echo "run_term=$(grep '^RUN_CQ2TERM=' stage.out | cut -d= -f2)" >> "$GITHUB_OUTPUT"
+          echo "run_onto=$(grep '^RUN_CQ2ONTO=' stage.out | cut -d= -f2)" >> "$GITHUB_OUTPUT"
+
+      - name: Run CQ2Term evaluation
+        if: steps.stage.outputs.run_term == '1'
+        env:
+          CQ4OE_PYTHON: python
+          NAME: ${{ steps.validate.outputs.name }}
+        working-directory: CQ2Term
+        run: python -u scripts/run_all_cq2term.py --models "$NAME" --no_leaderboard
+
+      - name: Run CQ2Onto evaluation
+        if: always() && steps.stage.outputs.run_onto == '1'
+        env:
+          CQ4OE_PYTHON: python
+        working-directory: CQ2Onto
+        run: python -u scripts/run_all_evaluation_agent_datsets.py --modes challenge --no_leaderboard
+
+      # ---- STEP 4: collect results ----
+      - name: Collect results into submissions/<name>/report/ and result/
+        if: always() && steps.validate.outputs.name != ''
+        env:
+          NAME: ${{ steps.validate.outputs.name }}
+        run: |
+          python .github/challenge/collect_into_submission.py \
+            --name "$NAME" --onto-mode challenge --commit "${{ github.sha }}"
+
+      - name: Build result_data.js (per-submission leaderboard)
+        if: always() && steps.validate.outputs.name != ''
+        env:
+          NAME: ${{ steps.validate.outputs.name }}
+        run: |
+          python .github/challenge/make_result_data.py --name "$NAME" --onto-mode challenge
+
+      # Record the PR number + submission name so the privileged companion
+      # workflow knows where to post the comment.
+      - name: Write result metadata
+        if: always() && steps.validate.outputs.name != ''
+        env:
+          NAME: ${{ steps.validate.outputs.name }}
+        run: |
+          mkdir -p result_meta
+          echo "${{ github.event.pull_request.number }}" > result_meta/pr_number.txt
+          echo "$NAME" > result_meta/name.txt
+          cp "submissions/$NAME/report/SUMMARY.md" result_meta/SUMMARY.md || echo "no summary" > result_meta/SUMMARY.md
+
+      - name: Upload results artifact
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: cq4oe-results
+          path: |
+            result_meta/**
+            submissions/${{ steps.validate.outputs.name }}/report/**
+            submissions/${{ steps.validate.outputs.name }}/result/**
+          if-no-files-found: ignore
+
+      # Same-repo PRs only: also commit the folder back onto the branch.
+      - name: Commit results onto the PR branch (same-repo only)
+        if: env.IS_FORK == 'false'
+        env:
+          NAME: ${{ steps.validate.outputs.name }}
+        run: |
+          git config user.name  "cq4oe-bot"
+          git config user.email "actions@users.noreply.github.com"
+          git add "submissions/$NAME/report" "submissions/$NAME/result"
+          git commit -m "Add evaluation results for $NAME [skip ci]" || { echo "no changes"; exit 0; }
+          git push origin HEAD:"${{ github.event.pull_request.head.ref }}"

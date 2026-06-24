@@ -22,9 +22,10 @@ import subprocess
 import sys
 from pathlib import Path
 
-PYTHON = "/Users/ljymacbook/opt/anaconda3/envs/tempautocl/bin/python"
+import os
+PYTHON = os.environ.get("CQ4OE_PYTHON", sys.executable)
 
-MODES = ["agent", "normal", "cqbycq", "mymodel"]
+MODES = ["agent", "normal", "cqbycq", "mymodel", "challenge"]
 
 GOLD_ROOT = Path("00_gold_standard")
 DATASETS = ["wine", "vgo", "swo", "awo", "odrl", "water"]
