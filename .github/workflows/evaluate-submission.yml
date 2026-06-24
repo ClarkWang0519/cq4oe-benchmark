@@ -103,7 +103,7 @@ jobs:
         run: python -u scripts/run_all_evaluation_agent_datsets.py --modes challenge --no_leaderboard
 
       # ---- STEP 4: collect results ----
-      - name: Collect results into submissions/<name>/result/
+      - name: Collect results into submissions/<name>/report/ and result/
         if: always() && steps.validate.outputs.name != ''
         env:
           NAME: ${{ steps.validate.outputs.name }}
@@ -121,7 +121,7 @@ jobs:
           mkdir -p result_meta
           echo "${{ github.event.pull_request.number }}" > result_meta/pr_number.txt
           echo "$NAME" > result_meta/name.txt
-          cp "submissions/$NAME/result/SUMMARY.md" result_meta/SUMMARY.md || echo "no summary" > result_meta/SUMMARY.md
+          cp "submissions/$NAME/report/SUMMARY.md" result_meta/SUMMARY.md || echo "no summary" > result_meta/SUMMARY.md
 
       - name: Upload results artifact
         if: always()
@@ -130,6 +130,7 @@ jobs:
           name: cq4oe-results
           path: |
             result_meta/**
+            submissions/${{ steps.validate.outputs.name }}/report/**
             submissions/${{ steps.validate.outputs.name }}/result/**
           if-no-files-found: ignore
 
@@ -141,6 +142,6 @@ jobs:
         run: |
           git config user.name  "cq4oe-bot"
           git config user.email "actions@users.noreply.github.com"
-          git add "submissions/$NAME/result"
+          git add "submissions/$NAME/report" "submissions/$NAME/result"
           git commit -m "Add evaluation results for $NAME [skip ci]" || { echo "no changes"; exit 0; }
           git push origin HEAD:"${{ github.event.pull_request.head.ref }}"

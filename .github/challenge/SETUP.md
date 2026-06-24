@@ -61,20 +61,20 @@ requirements.txt. First run is slow due to the model pull.
 
 ## Output structure (what the Action writes)
 
-For each task listed in the submission's `metadata.yml`, the Action creates a
-task subfolder under `result/` and saves one markdown report per ontology:
+For each task listed in the submission's `metadata.yml`, the Action writes two
+folders into the submission:
 
 ```
-submissions/<name>/result/
-├── CQ2Onto/                 # only if cq2onto is in metadata tasks
-│   ├── awo_report.md
-│   ├── odrl_report.md
-│   └── ...                  # one *_report.md per evaluated ontology
-├── CQ2Term/                 # only if cq2term is in metadata tasks
-│   ├── awo_report.md
-│   └── ...
-└── SUMMARY.md               # headline F1s, links to each report (used for the PR comment)
+submissions/<name>/
+├── report/                    # markdown reports
+│   ├── CQ2Onto/awo_report.md ...   one *_report.md per ontology (all layers)
+│   ├── CQ2Term/awo_report.md ...
+│   └── SUMMARY.md             # headline F1s + links (used for the PR comment)
+└── result/                    # numeric files, mirroring 03_evaluation_results
+    ├── CQ2Onto/<domain>/{01_class,02_property,03_triple,04_axiom,05_hierarchy}/*.json,*.csv
+    └── CQ2Term/<domain>/06_cq_terms/*.json,*.csv
 ```
 
-Each CQ2Onto `*_report.md` is the consolidated report covering all layers
-(class, property, triple, axiom, hierarchy) for that ontology.
+`report/` is the human-readable markdown; `result/` is the raw numeric tree
+(identical layout to `CQ2Onto/03_evaluation_results/<mode>/<model>/`). A task
+subfolder appears only if that task is declared in `metadata.yml`.
