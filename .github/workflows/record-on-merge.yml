@@ -78,6 +78,7 @@ jobs:
               ( cd CQ2Onto && python -u scripts/run_all_evaluation_agent_datsets.py --modes challenge --no_leaderboard ) || true
             fi
             python .github/challenge/collect_into_submission.py --name "$name" --onto-mode challenge --commit "${{ github.sha }}"
+            python .github/challenge/make_result_data.py --name "$name" --onto-mode challenge
           done < to_eval.txt
 
       - name: Commit evaluation folders into main

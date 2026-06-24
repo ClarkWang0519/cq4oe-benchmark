@@ -72,8 +72,15 @@ submissions/<name>/
 │   └── SUMMARY.md             # headline F1s + links (used for the PR comment)
 └── result/                    # numeric files, mirroring 03_evaluation_results
     ├── CQ2Onto/<domain>/{01_class,02_property,03_triple,04_axiom,05_hierarchy}/*.json,*.csv
-    └── CQ2Term/<domain>/06_cq_terms/*.json,*.csv
+    ├── CQ2Term/<domain>/06_cq_terms/*.json,*.csv
+    └── result_data.js          # build_leaderboard.py output, scoped to THIS submission
 ```
+
+`result_data.js` is produced by running `leaderboard/build_leaderboard.py` over a
+temporary view of this submission's `03_evaluation_results` (the builder needs the
+`<mode>/<model>/<dataset>` depth, which the flattened result/ folder omits). It has
+the same `LEADERBOARD_DATA` format as the global `leaderboard_data.js`. An aggregate
+`report/leaderboard.md` is written alongside it.
 
 `report/` is the human-readable markdown; `result/` is the raw numeric tree
 (identical layout to `CQ2Onto/03_evaluation_results/<mode>/<model>/`). A task

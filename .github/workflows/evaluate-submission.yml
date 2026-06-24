@@ -111,6 +111,13 @@ jobs:
           python .github/challenge/collect_into_submission.py \
             --name "$NAME" --onto-mode challenge --commit "${{ github.sha }}"
 
+      - name: Build result_data.js (per-submission leaderboard)
+        if: always() && steps.validate.outputs.name != ''
+        env:
+          NAME: ${{ steps.validate.outputs.name }}
+        run: |
+          python .github/challenge/make_result_data.py --name "$NAME" --onto-mode challenge
+
       # Record the PR number + submission name so the privileged companion
       # workflow knows where to post the comment.
       - name: Write result metadata
