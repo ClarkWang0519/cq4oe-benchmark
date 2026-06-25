@@ -46,41 +46,41 @@
         "n_pred": 9,
         "tp_pairs": [
           {
-            "gold": "vintage",
-            "pred": "vintage"
+            "gold": "wine",
+            "pred": "wine"
           },
           {
             "gold": "whitewine",
             "pred": "whitewine"
           },
           {
+            "gold": "winegrape",
+            "pred": "grape"
+          },
+          {
             "gold": "redwine",
             "pred": "redwine"
           },
           {
+            "gold": "vintage",
+            "pred": "vintage"
+          },
+          {
             "gold": "vintageyear",
             "pred": "vintageyear"
-          },
-          {
-            "gold": "wine",
-            "pred": "wine"
-          },
-          {
-            "gold": "winegrape",
-            "pred": "grape"
           }
         ],
         "fn_terms": [
-          "zinfandel",
-          "whitebordeaux",
           "bordeaux",
+          "whitebordeaux",
           "redbordeaux",
-          "winedescriptor"
+          "winedescriptor",
+          "zinfandel"
         ],
         "fp_terms": [
-          "characteristic",
           "bouquet",
-          "body"
+          "body",
+          "characteristic"
         ]
       },
       "property_only": {
@@ -98,12 +98,12 @@
             "pred": "hasbody"
           },
           {
-            "gold": "hasvintageyear",
-            "pred": "hasvintageyear"
-          },
-          {
             "gold": "madefromgrape",
             "pred": "madefrom"
+          },
+          {
+            "gold": "hasvintageyear",
+            "pred": "hasvintageyear"
           }
         ],
         "fn_terms": [
@@ -111,10 +111,10 @@
           "yearvalue"
         ],
         "fp_terms": [
+          "isgoodvintage",
           "hascharacteristic",
-          "hasbouquet",
           "hasvintage",
-          "isgoodvintage"
+          "hasbouquet"
         ]
       },
       "combined": {

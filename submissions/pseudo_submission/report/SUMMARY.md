@@ -1,6 +1,6 @@
 # Evaluation results — pseudo_submission
 
-_Generated 2026-06-24 10:22 UTC_ · commit `fbb6a4d`
+_Generated 2026-06-24 12:20 UTC_ · commit `cd04272`
 
 ## CQ2Onto
 

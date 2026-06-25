@@ -114,12 +114,12 @@ Per-CQ accuracy (_does pred mention the right concepts in the right CQ?_) is rep
 **Missed gold terms (FN):**
 
 - Classes (1): `assetcollection`
-- Properties (16): `inheritsfrom`, `targetpolicy`, `function`, `relation`, `failure`, `andsequence`, `assignee`, `handlepolicyconflicts`, `onlyone`, `or`, `target`, `assigner`, `haspermission`, `and`, `operand`, `inheritrelation`
+- Properties (16): `and`, `operand`, `assignee`, `inheritsfrom`, `or`, `assigner`, `relation`, `function`, `onlyone`, `inheritrelation`, `handlepolicyconflicts`, `haspermission`, `failure`, `andsequence`, `target`, `targetpolicy`
 
 **Extra pred terms (FP) — don't translate to any gold term:**
 
-- Classes (17): `requirement`, `rel`, `right`, `xorconstraint`, `andconstraint`, `odrl`, `role`, `datamodel`, `transferright`, `violation`, `contract`, `disaggregation`, `aggregation`, `contractparty`, `sequencing`, `remedy`, `container`
-- Properties (12): `supportsinheritance`, `expressedvia`, `directlylinkedto`, `hasright`, `specifies`, `isactivateduponfailure`, `appliesto`, `playsrole`, `supports`, `hassubconstraint`, `isexclusive`, `nests`
+- Classes (17): `remedy`, `contract`, `datamodel`, `role`, `container`, `violation`, `requirement`, `andconstraint`, `aggregation`, `disaggregation`, `right`, `odrl`, `contractparty`, `rel`, `transferright`, `sequencing`, `xorconstraint`
+- Properties (12): `specifies`, `expressedvia`, `hasright`, `nests`, `isexclusive`, `supports`, `appliesto`, `playsrole`, `isactivateduponfailure`, `hassubconstraint`, `directlylinkedto`, `supportsinheritance`
 
 ### Per-term Coverage Overview
 

@@ -46,44 +46,44 @@
         "n_pred": 19,
         "tp_pairs": [
           {
+            "gold": "measurement",
+            "pred": "measurement"
+          },
+          {
             "gold": "water",
             "pred": "water"
-          },
-          {
-            "gold": "temporal entity",
-            "pred": "temporalsetting"
-          },
-          {
-            "gold": "sensor",
-            "pred": "sensor"
-          },
-          {
-            "gold": "tariff",
-            "pred": "tariff"
-          },
-          {
-            "gold": "water infrastructure",
-            "pred": "waterinfrastructure"
           },
           {
             "gold": "device",
             "pred": "device"
           },
           {
-            "gold": "water meter",
-            "pred": "watermeter"
+            "gold": "sensor",
+            "pred": "sensor"
           },
           {
             "gold": "chemicalproperty",
             "pred": "chemicalproperty"
           },
           {
+            "gold": "temporal entity",
+            "pred": "temporalsetting"
+          },
+          {
+            "gold": "water infrastructure",
+            "pred": "waterinfrastructure"
+          },
+          {
             "gold": "water asset",
             "pred": "waterindicator"
           },
           {
-            "gold": "measurement",
-            "pred": "measurement"
+            "gold": "tariff",
+            "pred": "tariff"
+          },
+          {
+            "gold": "water meter",
+            "pred": "watermeter"
           },
           {
             "gold": "actuator",
@@ -93,17 +93,17 @@
         "fn_terms": [
           "water property",
           "key performance indicator",
-          "meter",
-          "city"
+          "city",
+          "meter"
         ],
         "fp_terms": [
+          "region",
+          "billingdateperiod",
+          "aspect",
           "tariffperiod",
           "geolocation",
-          "billingdateperiod",
-          "region",
-          "asset",
-          "aspect",
           "waterdistributioninfrastructure",
+          "asset",
           "firmware"
         ]
       },
@@ -122,80 +122,80 @@
             "pred": "hasgeolocation"
           },
           {
-            "gold": "has timestamp",
-            "pred": "hasstartdate"
-          },
-          {
-            "gold": "has version",
-            "pred": "hasversion"
-          },
-          {
-            "gold": "has duration",
-            "pred": "hasduration"
-          },
-          {
-            "gold": "has hardware version",
-            "pred": "hashardwareversion"
+            "gold": "has billing date",
+            "pred": "hasbillingdate"
           },
           {
             "gold": "has period",
             "pred": "hastariffperiod"
           },
           {
-            "gold": "operates at radio frequency",
-            "pred": "hasradiofrequencylevel"
-          },
-          {
-            "gold": "has billing date",
-            "pred": "hasbillingdate"
-          },
-          {
-            "gold": "has billing period",
-            "pred": "hasbillingdateperiod"
-          },
-          {
-            "gold": "has property",
-            "pred": "haspower"
-          },
-          {
-            "gold": "has measurement",
-            "pred": "measures"
-          },
-          {
-            "gold": "has manufacturer",
-            "pred": "hasmanufacturer"
+            "gold": "has start timestamp",
+            "pred": "hasstarttime"
           },
           {
             "gold": "has fabrication number",
             "pred": "hasfabricationnumber"
           },
           {
-            "gold": "has start timestamp",
-            "pred": "hasstarttime"
+            "gold": "has version",
+            "pred": "hasversion"
+          },
+          {
+            "gold": "has property",
+            "pred": "haspower"
+          },
+          {
+            "gold": "has duration",
+            "pred": "hasduration"
+          },
+          {
+            "gold": "has timestamp",
+            "pred": "hasstartdate"
+          },
+          {
+            "gold": "operates at radio frequency",
+            "pred": "hasradiofrequencylevel"
+          },
+          {
+            "gold": "has manufacturer",
+            "pred": "hasmanufacturer"
+          },
+          {
+            "gold": "has hardware version",
+            "pred": "hashardwareversion"
           },
           {
             "gold": "has model",
             "pred": "hasmodel"
+          },
+          {
+            "gold": "has measurement",
+            "pred": "measures"
+          },
+          {
+            "gold": "has billing period",
+            "pred": "hasbillingdateperiod"
           }
         ],
         "fn_terms": [
           "has key performance indicator",
-          "has firmware version",
           "makes measurement",
+          "requires power",
           "applies to",
-          "requires power"
+          "has firmware version"
         ],
         "fp_terms": [
-          "uses",
+          "haschemicalproperty",
           "usedin",
-          "composes",
           "usestariff",
-          "hasaspect",
-          "provides",
           "hastariff",
+          "hasaspect",
           "definedfor",
+          "composes",
+          "provides",
           "hastemporalsetting",
-          "haschemicalproperty"
+          "uses"
         ]
       },
       "combined": {

@@ -109,12 +109,12 @@ Per-CQ accuracy (_does pred mention the right concepts in the right CQ?_) is rep
 
 **Missed gold terms (FN):**
 
-- Properties (3): `iseventassociatedtoplayer`, `eventtime`, `ownsitem`
+- Properties (3): `eventtime`, `iseventassociatedtoplayer`, `ownsitem`
 
 **Extra pred terms (FP) — don't translate to any gold term:**
 
-- Classes (4): `friend`, `achievementtype`, `customer`, `location`
-- Properties (9): `existsin`, `hastype`, `canuse`, `makes`, `hastotalpayments`, `makesinapppurchase`, `doneat`, `plays`, `obtains`
+- Classes (4): `customer`, `location`, `friend`, `achievementtype`
+- Properties (9): `makesinapppurchase`, `hastype`, `makes`, `obtains`, `doneat`, `plays`, `hastotalpayments`, `canuse`, `existsin`
 
 ### Per-term Coverage Overview
 
