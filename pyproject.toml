@@ -1,0 +1,47 @@
+[project]
+name = "cq4oe-benchmark"
+version = "0.0.1"
+description = "A benchmark for assessing LLM-assisted ontology generation from competency questions"
+readme = "README.md"
+requires-python = ">=3.10,<3.11"
+license = "Apache-2.0"
+authors = [
+    { name = "Jiayi Li", email = "li.jiayi@upm.es" },
+    { name = "Ziyuan Wang", email = "ziyuan.wang@upm.es" },
+    { name = "Daniel Garijo", email = "daniel.garijo@upm.es" },
+    { name = "María Poveda-Villalón", email = "m.poveda@upm.es" },
+]
+keywords = [
+    "ontology generation",
+    "large language models",
+    "benchmark evaluation",
+    "competency questions",
+    "knowledge graph",
+    "semantic web",
+    "ontology engineering",
+]
+
+# Mirrors the repo root requirements.txt exactly (Tested on Python 3.10).
+# poetry.lock is what pins exact versions; these ranges define the allowed window.
+dependencies = [
+    "requests>=2.31",
+    "rdflib>=7.0,<8.0",
+    "owlready2>=0.46",          # bundles a Java-backed HermiT reasoner (needs `java` on PATH)
+    "python-Levenshtein>=0.23",
+    "textdistance>=4.6",
+    "nltk>=3.8",
+    "sentence-transformers>=2.7",
+    "langchain-ollama>=0.2",
+    "openpyxl>=3.1",
+]
+
+[project.urls]
+Documentation = "https://github.com/oeg-upm/cq4oe-benchmark"
+Repository = "https://github.com/oeg-upm/cq4oe-benchmark"
+
+[tool.poetry]
+# This repo is a benchmark/application, not an installable library — don't try to build a package.
+package-mode = false
+
+[tool.poetry.group.dev.dependencies]
+pytest = "*"

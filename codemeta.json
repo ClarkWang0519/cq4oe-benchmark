@@ -1,0 +1,129 @@
+{
+    "@context": "https://w3id.org/codemeta/3.0",
+    "@type": [
+        "SoftwareSourceCode",
+        "SoftwareApplication"
+    ],
+    "name": "cq4oe-benchmark",
+    "description": "Benchmark for assessing ontology engineering tasks from competency questions",
+    "version": "0.0.1",
+    "identifier": "https://doi.org/10.5281/zenodo.19052003",
+    "license": "https://spdx.org/licenses/Apache-2.0",
+    "codeRepository": "https://github.com/oeg-upm/cq4oe-benchmark",
+    "issueTracker": "https://github.com/oeg-upm/cq4oe-benchmark/issues",
+    "downloadUrl": "https://github.com/oeg-upm/cq4oe-benchmark/releases",
+    "dateCreated": "2024-02-09",
+    "datePublished": "2026-05-08",
+    "dateModified": "2026-06-25",
+    "programmingLanguage": [
+        "Python",
+        "HTML",
+        "Jupyter Notebook"
+    ],
+    "runtimePlatform": "Python 3.10",
+    "author": [
+        {
+            "@type": "Person",
+            "@id": "https://orcid.org/0009-0001-9475-8159",
+            "givenName": "Jiayi",
+            "familyName": "Li",
+            "email": "li.jiayi@upm.es",
+            "affiliation": {
+                "@type": "Organization",
+                "name": "Ontology Engineering Group, Universidad Politécnica de Madrid"
+            }
+        },
+        {
+            "@type": "Person",
+            "@id": "https://orcid.org/0009-0000-6228-4713",
+            "givenName": "Ziyuan",
+            "familyName": "Wang",
+            "email": "ziyuan.wang@upm.es",
+            "affiliation": {
+                "@type": "Organization",
+                "name": "Ontology Engineering Group, Universidad Politécnica de Madrid"
+            }
+        },
+        {
+            "@type": "Person",
+            "@id": "https://orcid.org/0000-0003-0454-7145",
+            "givenName": "Daniel",
+            "familyName": "Garijo",
+            "email": "daniel.garijo@upm.es",
+            "affiliation": {
+                "@type": "Organization",
+                "name": "Ontology Engineering Group, Universidad Politécnica de Madrid"
+            }
+        },
+        {
+            "@type": "Person",
+            "@id": "https://orcid.org/0000-0003-3587-0367",
+            "givenName": "María",
+            "familyName": "Poveda-Villalón",
+            "email": "m.poveda@upm.es",
+            "affiliation": {
+                "@type": "Organization",
+                "name": "Ontology Engineering Group, Universidad Politécnica de Madrid"
+            }
+        }
+    ],
+    "maintainer": {
+        "@id": "https://orcid.org/0009-0000-6228-4713"
+    },
+    "keywords": [
+        "ontology generation",
+        "large language models",
+        "benchmark evaluation",
+        "competency questions",
+        "knowledge graph",
+        "semantic web",
+        "ontology engineering"
+    ],
+    "softwareRequirements": [
+        {
+            "@type": "SoftwareApplication",
+            "name": "requests",
+            "version": ">=2.31"
+        },
+        {
+            "@type": "SoftwareApplication",
+            "name": "rdflib",
+            "version": ">=7.0,<8.0"
+        },
+        {
+            "@type": "SoftwareApplication",
+            "name": "owlready2",
+            "version": ">=0.46"
+        },
+        {
+            "@type": "SoftwareApplication",
+            "name": "python-Levenshtein",
+            "version": ">=0.23"
+        },
+        {
+            "@type": "SoftwareApplication",
+            "name": "textdistance",
+            "version": ">=4.6"
+        },
+        {
+            "@type": "SoftwareApplication",
+            "name": "nltk",
+            "version": ">=3.8"
+        },
+        {
+            "@type": "SoftwareApplication",
+            "name": "sentence-transformers",
+            "version": ">=2.7"
+        },
+        {
+            "@type": "SoftwareApplication",
+            "name": "langchain-ollama",
+            "version": ">=0.2"
+        },
+        {
+            "@type": "SoftwareApplication",
+            "name": "openpyxl",
+            "version": ">=3.1"
+        }
+    ]
+}
